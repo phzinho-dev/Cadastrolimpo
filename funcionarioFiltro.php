@@ -200,10 +200,9 @@ include("inc/scripts.php");
     function listarFiltro() {
         var nome = $('#nome').val();
         var ativo = +$('#ativo').val();
-        var rg = $('#rg').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
-        
+        var rg = $('#rg').val();        
         
         /*if(!nome) {
             smartAlert("Atençao", "Informe o nome","Error");

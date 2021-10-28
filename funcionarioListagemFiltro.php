@@ -10,6 +10,7 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:30px;">cpf</th>
                     <th class="text-left" style="min-width:35px;">Ativo</th>
                     <th class="text-left" style="min-width:35px;">data</th>
+                    <th class="text-left" style="min-width:35px;">rg</th>    
                 </tr>
             </thead>
             <tbody>
@@ -28,9 +29,9 @@ include "js/repositorio.php";
                     $where = $where . " AND dataDeNascimento = '" . $dataDeNascimento . "'" ;
                 }
                 $rg = "";
-                if ($_POST["rg"] != "") {
-                    $cpf = $_POST["rg"];
-                    $where = $where . "AND rg = '". $rg . "'";
+                 if ($_POST["rg"] != "") {
+                    $rg = $_POST["rg"];
+                 $where = $where . "AND rg = '". $rg . "'";
                 }
                 $cpf = "";
                 if ($_POST["cpf"] != "") {
@@ -72,10 +73,10 @@ include "js/repositorio.php";
                     
                     echo '<tr >';
                     echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id. '">' .$nome . '</a></td>';
-                    echo '<td class="text-left">' . $rg  . '</td>';
                     echo '<td class="text-left">' . $cpf  . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
                     echo '<td class="text-left">' . $dataDeNascimento. '</td>';
+                    echo '<td class="text-left">' . $rg. '</td>';
                     echo '</tr >';
                 }
                 ?>

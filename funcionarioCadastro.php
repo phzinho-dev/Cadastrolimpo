@@ -91,6 +91,16 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
+                                                                <label class="label">Sexo</label>
+                                                                <label class="select">
+                                                                    <select id="sexo" name="sexo">
+                                                                        <option></option>
+                                                                        <option value="1">Masculino</option>
+                                                                        <option value="0">Feminino</option>
+                                                                    </select><i></i>
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo">
@@ -130,16 +140,6 @@ include("inc/nav.php");
                                                                     <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <!-- <label class="label" for="ativo">Ativo</label> -->
-                                                                <label class="select">
-                                                                    <select id="ativo" name="ativo" class="hidden" required>
-                                                                        <option value='1'>Sim</option>
-                                                                        <option value='0'>Não</option>
-                                                                    </select>
-                                                                </label>
-                                                            </section>
-
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -293,14 +293,13 @@ include("inc/scripts.php");
         $("#rg").on("focusout", function() {
             var rg = $('#rg').val();
 
-            if (!verificarRG(rg)) {
+            if (verificarRG(rg)) {
                 smartAlert("Atençao", "Informe um Rg valido", "error");
                 $('#rg').val('');
                 return
 
             };
         })
-
 
         $("#cpf").mask("999.999.999-99")
 
@@ -339,7 +338,8 @@ include("inc/scripts.php");
                             var nome = piece[2];
                             var dataDeNascimento = piece[3];
                             var cpf = piece[4];
-                            var rg = piece[5]
+                            var rg = piece[5];
+                            var sexo = piece[6];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -347,7 +347,8 @@ include("inc/scripts.php");
                             $("#nome").val(nome);
                             $("#dataDeNascimento").val(dataDeNascimento);
                             $("#cpf").val(cpf);
-                            $("#rg").val(rg)
+                            $("#rg").val(rg);
+                            $("#sexo").val(sexo)
 
                             calculaIdade()
 
@@ -370,6 +371,7 @@ include("inc/scripts.php");
         var rg = $('#rg').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
+        var sexo = $('sexo').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
@@ -396,7 +398,11 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Informe a Ativo", "error");
             $("#btnGravar").prop('disabled', false);
         }
-        gravarFuncionarioCadastro(id, ativo, nome, cpf, dataDeNascimento, rg,
+        if (sexo === "") {
+            smartAlert("Atenção", "Informe seu sexo", "error");
+            $("#btnGravar").prop('disabled', false);
+        }
+        gravarFuncionarioCadastro(id, ativo, nome, cpf, dataDeNascimento, rg, sexo,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -559,7 +565,7 @@ include("inc/scripts.php");
     }
 
     function verificarRG() {
-        var cpf = $("#rg").val();
+        var rg = $("#rg").val();
 
         verificaRG(rg,
             function(data) {

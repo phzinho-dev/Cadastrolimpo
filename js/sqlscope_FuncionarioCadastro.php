@@ -20,6 +20,7 @@ if ($funcao == 'excluir') {
 if ($funcao =='verificaCPF'){
     call_user_func($funcao);
 }
+
 if ($funcao =='verificaRG'){
     call_user_func($funcao);
 }
@@ -37,6 +38,8 @@ function grava()
     $cpf = "'" . (string) $_POST['cpf'] . "'";
     $dataDeNascimento = $_POST['dataDeNascimento'];
     $ativo = (int)$_POST['ativo'];
+    $rg ="'" . (string)$_POST['rg'] . "'";
+    $sexo= "'" . (string)$_POST['sexo'] . "'";
 
     //Converção de data
     $dataDeNascimento = explode("/", $dataDeNascimento);
@@ -47,7 +50,9 @@ function grava()
             $nome,
             $ativo,
             $dataDeNascimento,
-            $cpf";
+            $cpf,
+            $rg,
+            $sexo";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -64,7 +69,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo, ativo, nomeCompleto, dataDeNascimento, cpf FROM dbo.funcionario WHERE (0 = 0)";
+    $sql = "SELECT codigo, ativo, nomeCompleto, dataDeNascimento, cpf , rg , sexo FROM dbo.funcionario WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -79,15 +84,17 @@ function recupera()
         $ativo = $row['ativo'];
         $nome = (string)$row['nomeCompleto'];
         $dataDeNascimento = $row['dataDeNascimento'];
+        $sexo = $row ['sexo'];
 
         //Converção de data
         $dataDeNascimento = explode(" ", $dataDeNascimento);
         $dataDeNascimento = explode("-", $dataDeNascimento[0]);
         $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
         $cpf = $row['cpf'];
+        $sexo = $row ['sexo'];
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataDeNascimento . "^" . $cpf;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataDeNascimento . "^" . $cpf . "^" . $sexo  ;
 
         if ($out == "") {
             echo "failed#";
