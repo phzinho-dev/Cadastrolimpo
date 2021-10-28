@@ -1,0 +1,486 @@
+js/config.php
+.vscode/launch.json
+logs_exportacao_SCI
+
+
+.vscode/launch.json
+
+/vendor/
+
+
+uploads/pontos-eletronicos/
+
+# #### Windows
+# Arquivos de cache de miniatura do Windows
+Thumbs.db
+Thumbs.db: criptografável
+ehthumbs.db
+ehthumbs_vista.db
+
+# Arquivo de despejo
+* .stackdump
+
+# Arquivo de configuração de pasta
+[ Dd ] esktop.ini
+
+# Lixeira usada em compartilhamentos de arquivos
+$ RECYCLE.BIN /
+
+# Arquivos do Windows Installer
+* .cab
+* .msi
+* .msix
+* .msm
+* .msp
+
+# Atalhos do Windows
+* .lnk
+
+# #### Linux
+* ~
+
+# arquivos temporários que podem ser criados se um processo ainda tiver um identificador aberto de um arquivo excluído
+.fuse_hidden *
+
+# Preferências de diretório do KDE
+.diretório
+
+# Pasta de lixo do Linux que pode aparecer em qualquer partição ou disco
+.Trash- *
+
+# .nfs arquivos são criados quando um arquivo aberto é removido, mas ainda está sendo acessado
+.nfs *
+
+# #### MacOS
+# Geral
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# O ícone deve terminar com dois \ r
+Ícone
+
+# Miniaturas
+._ *
+
+# Arquivos que podem aparecer na raiz de um volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Diretórios potencialmente criados em compartilhamento AFP remoto
+.AppleDB
+.AppleDesktop
+ Pasta de lixo da  rede
+ Itens Temporários
+.apdisk
+
+# #### Backup
+* .bak
+* .gho
+* .ori
+* .orig
+* .tmp
+
+# #### GPG
+secring. *
+
+# #### Dropbox
+# Configurações e caches do Dropbox
+.Dropbox
+.dropbox.attr
+.dropbox.cache
+
+# #### SynopsysVCS
+# Formatos de forma de onda
+* .vcd
+* .vpd
+* .evcd
+* .fsdb
+
+# Nome padrão do executável de simulação. Um nome diferente pode ser
+# especificado com esta opção (o nome do banco de dados daidir associado é
+# também tirado daqui): -o <caminho> / <nome_do_arquivo>
+simv
+
+# Gerado para configurações principais Verilog e VHDL
+simv.daidir /
+simv.db.dir /
+
+# Infraestrutura necessária para co-simular modelos SystemC com
+# Modelos Verilog / VHDL. Um diretório alternativo pode ser especificado com este
+# switch: -Mdir = <directory_path>
+csrc /
+
+# Arquivo de log - a seguinte opção permite especificar o arquivo que será
+# usado para escrever todas as mensagens da simulação: -l <filename>
+* .log
+
+# Resultados de cobertura (gerados com urg) e localização do banco de dados. o
+# a seguinte opção também pode ser usada: urg -dir <coverage_directory> .vdb
+simv.vdb /
+urgReport /
+
+# Arquivos relacionados a DVE e UCLI.
+DVEfiles /
+ucli.key
+
+# Quando o design é elaborado para DirectC, o seguinte arquivo é criado
+# com declarações para funções C / C ++.
+vc_hdrs.h
+
+# #### SVN
+.svn /
+
+# #### Mercurial
+.hg /
+.hgignore
+.hgsigs
+.hgsub
+.hgsubstate
+.hgtags
+
+# #### Bazar
+.bzr /
+.bzrignore
+
+# #### CVS
+/ CVS / *
+** / CVS / *
+.cvsignore
+* / .cvsignore
+
+# #### TortoiseGit
+# Configurações de nível de projeto
+/ .tgitconfig
+
+# #### PuTTY
+# Chave privada
+* .ppk
+
+# #### Vim
+# Troca
+[ ._ ] * .s [ av ] [ az ]
+! * .svg   # comente se não precisar de arquivos vetoriais
+[ ._ ] * .sw [ ap ]
+[ ._ ] s [ a-rt-v ] [ az ]
+[ ._ ] ss [ a-gi-z ]
+[ ._ ] sw [ ap ]
+
+# Sessão
+Session.vim
+Sessionx.vim
+
+# Temporário
+.netrwhist
+* ~
+# Arquivos de tag gerados automaticamente
+Tag
+# Desfazer persistente
+[ ._ ] * .un ~
+
+# #### Emacs
+# - * - modo: gitignore; - * -
+* ~
+\ # * \ #
+/ .emacs.desktop
+/ .emacs.desktop.lock
+* .elc
+lista de salvamento automático
+vagabundo
+. \ # *
+
+# Org-mode
+.org-id-locations
+* _archive
+
+# flymake-mode
+* _flymake. *
+
+# arquivos eshell
+/ eshell / history
+/ eshell / lastdir
+
+# pacotes elpa
+/ elpa /
+
+# arquivos reftex
+* .rel
+
+# Pasta automática AUCTeX
+/ auto /
+
+# pacotes de barril
+.cask /
+dist /
+
+# Flycheck
+flycheck_ * .El
+
+# diretório de autenticação do servidor
+/ server /
+
+# arquivo de projéteis
+.projétil
+
+# configuração de diretório
+.dir-locals.el
+
+# segurança de rede
+/ network-security.data
+
+# #### SublimeText
+# Arquivos de cache para texto sublime
+* .tmlanguage.cache
+* .tmPreferences.cache
+* .stTheme.cache
+
+# Os arquivos do espaço de trabalho são específicos do usuário
+* .sublime-workspace
+
+# Os arquivos do projeto devem ser verificados no repositório, a menos que uma
+# proporção de contribuidores provavelmente não usará Sublime Text
+# * .sublime-project
+
+# Arquivo de configuração SFTP
+sftp-config.json
+sftp-config-alt * .json
+
+# Arquivos específicos de controle de pacote
+Pacote  Control.last-run
+Package  Control.ca-list
+Pacote  Control.ca-bundle
+Package  Control.system-ca-bundle
+Pacote  Control.cache /
+Package  Control.ca-certs /
+Package  Control.merged-ca-bundle
+Pacote  Control.user-ca-bundle
+oscrypto-ca-bundle.crt
+bh_unicode_properties.cache
+
+# O pacote Sublime-github armazena um token github neste arquivo
+# https://packagecontrol.io/packages/sublime-github
+GitHub.sublime-settings
+
+# #### Notepad ++
+# Backups do Notepad ++ #
+* .bak
+
+# #### TextMate
+* .tmproj
+* .tmproject
+tmtags
+
+# #### VisualStudioCode
+.vscode / *
+! .vscode / settings.json
+! .vscode / tasks.json
+! .vscode / launch.json
+! .vscode / extensions.json
+* .code-workspace
+
+# História local para código do Visual Studio
+.history /
+
+# #### NetBeans
+** / nbproject / private /
+** / nbproject / Makefile- * .mk
+** / nbproject / Pacote * .bash
+construir /
+nbbuild /
+dist /
+nbdist /
+.nb-gradle /
+
+# #### JetBrains
+# Cobre IDEs JetBrains: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm e Rider
+# Referência: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# Coisas específicas do usuário
+.idea / ** / workspace.xml
+.idea / ** / tasks.xml
+.idea / ** / usage.statistics.xml
+.idea / ** / dicionários
+.idea / ** / prateleira
+
+# Arquivos gerados
+.idea / ** / contentModel.xml
+
+# Arquivos sensíveis ou de alta rotatividade
+.idea / ** / dataSources /
+.idea / ** / dataSources.ids
+.idea / ** / dataSources.local.xml
+.idea / ** / sqlDataSources.xml
+.idea / ** / dynamic.xml
+.idea / ** / uiDesigner.xml
+.idea / ** / dbnavigator.xml
+
+# Gradle
+.idea / ** / gradle.xml
+.idea / ** / libraries
+
+# Gradle e Maven com importação automática
+# Ao usar Gradle ou Maven com importação automática, você deve excluir arquivos de módulo,
+# uma vez que serão recriados e podem causar rotatividade. Remova o comentário se estiver usando
+# importação automática.
+# .idea / artifacts
+# .idea / compiler.xml
+# .idea / jarRepositories.xml
+# .idea / modules.xml
+# .idea / *. iml
+# .idea / modules
+# * .iml
+# * .ipr
+
+# CMake
+cmake-build- * /
+
+# Plugin do Mongo Explorer
+.idea / ** / mongoSettings.xml
+
+# Formato de projeto baseado em arquivo
+* .iws
+
+# IntelliJ
+fora /
+
+# mpeltonen / plugin sbt-idea
+.idea_modules /
+
+# Plugin JIRA
+atlassian-ide-plugin.xml
+
+# Plugin Cursive Clojure
+.idea / replstate.xml
+
+# Plug-in Crashlytics (para Android Studio e IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Cliente de descanso baseado em editor
+.idea / httpRequests
+
+# Android studio 3.1+ arquivo de cache serializado
+.idea / caches / build_file_checksums.ser
+
+# #### Eclipse
+.metadata
+bin /
+tmp /
+* .tmp
+* .bak
+* .swp
+* ~ .nib
+local.properties
+.settings /
+.loadpath
+.recommenders
+
+# Construtores externos de ferramentas
+.externalToolBuilders /
+
+# "Configurações de inicialização do Eclipse" armazenadas localmente
+* .launch
+
+# PyDev específico (Python IDE para Eclipse)
+* .pydevproject
+
+# Específico para CDT (ferramentas de desenvolvimento C / C ++)
+.cproject
+
+# CDT- autotools
+.autotools
+
+# Processador de anotação Java (APT)
+.factorypath
+
+# Específico para PDT (Ferramentas de Desenvolvimento PHP)
+.buildpath
+
+# plugin sbteclipse
+.alvo
+
+# Plugin Tern
+.tern-project
+
+# Plugin TeXlipse
+.texlipse
+
+# STS (Conjunto de ferramentas Spring)
+.springBeans
+
+# Recomendadores de código
+.recommenders /
+
+# Processamento de anotação
+.apt_generated /
+.apt_generated_test /
+
+# Scala IDE específico (desenvolvimento Scala e Java para Eclipse)
+.cache-main
+.scala_dependencies
+.folha de trabalho
+
+# Remova o comentário desta linha se desejar ignorar o arquivo de descrição do projeto.
+# Normalmente, este arquivo seria rastreado se contiver configurações de compilação / dependência:
+# .projeto
+
+# #### Dreamweaver
+# DW Dreamweaver adicionou arquivos
+_notas
+_compareTemp
+configs /
+dwsync.xml
+dw_php_codehinting.config
+* .mno
+
+# #### CodeKit
+# Arquivos CodeKit gerais a serem ignorados
+config.codekit
+config.codekit3
+/ min
+
+# #### Gradle
+.gradle
+** / build /
+! src / ** / build /
+
+# Ignorar a configuração da GUI do Gradle
+gradle-app.setting
+
+# Evite ignorar o arquivo jar do wrapper Gradle (arquivos .jar geralmente são ignorados)
+! gradle-wrapper.jar
+
+# Cache de projeto
+.gradletasknamecache
+
+# # Trabalhe com https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle / wrapper / gradle-wrapper.properties
+
+# #### Compositor
+composer.phar
+/ vendor /
+
+# Confirme o arquivo de bloqueio do seu aplicativo https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
+# Você pode optar por ignorar um arquivo de bloqueio de biblioteca http://getcomposer.org/doc/02-libraries.md#lock-file
+composer.lock
+
+# #### PHP CodeSniffer
+# gitignore para a estrutura PHP Codesniffer
+# website: https://github.com/squizlabs/PHP_CodeSniffer
+#
+# Modelo recomendado: PHP.gitignore
+
+/ wpcs / *
+
+# #### SASS
+.sass-cache /
+* .css.map
+* .sass.map
+* .scss.map

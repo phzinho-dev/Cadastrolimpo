@@ -1,0 +1,16 @@
+{
+    "name": "aprendiz/cadastrolimpo",
+    "autoload": {
+        "psr-4": {
+            "Aprendiz\\Cadastrolimpo\\": "src/"
+        }
+    },
+    "authors": [{
+        "name": "Vinicius Farias",
+        "email": "fsvinicius9@gmail.com"
+    }],
+    "require": {
+        "phpoffice/phpspreadsheet": "1.17",
+        "servo/fluidxml": "^1.21"
+    }
+}
