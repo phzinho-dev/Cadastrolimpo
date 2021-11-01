@@ -39,7 +39,7 @@ function grava()
     $dataDeNascimento = $_POST['dataDeNascimento'];
     $ativo = (int)$_POST['ativo'];
     $rg ="'" . (string)$_POST['rg'] . "'";
-    $sexo= "'" . (string)$_POST['sexo'] . "'";
+   
 
     //Converção de data
     $dataDeNascimento = explode("/", $dataDeNascimento);
@@ -51,8 +51,8 @@ function grava()
             $ativo,
             $dataDeNascimento,
             $cpf,
-            $rg,
-            $sexo";
+            $rg";
+            
 
     $result = $reposit->Execprocedure($sql);
 
@@ -69,7 +69,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo, ativo, nomeCompleto, dataDeNascimento, cpf , rg , sexo FROM dbo.funcionario WHERE (0 = 0)";
+    $sql = "SELECT codigo, ativo, nomeCompleto, dataDeNascimento, cpf , rg , FROM dbo.funcionario WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -84,17 +84,17 @@ function recupera()
         $ativo = $row['ativo'];
         $nome = (string)$row['nomeCompleto'];
         $dataDeNascimento = $row['dataDeNascimento'];
-        $sexo = $row ['sexo'];
+        
 
         //Converção de data
         $dataDeNascimento = explode(" ", $dataDeNascimento);
         $dataDeNascimento = explode("-", $dataDeNascimento[0]);
         $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
         $cpf = $row['cpf'];
-        $sexo = $row ['sexo'];
+        
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataDeNascimento . "^" . $cpf . "^" . $sexo  ;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataDeNascimento . "^" . $cpf ;
 
         if ($out == "") {
             echo "failed#";
@@ -140,7 +140,7 @@ function verificaCPF()
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
-    if ($result[0]['cpf'] === $_POST["cpf"]) {
+    if ($result === 0) {
         echo ('failed#');
         return;
     } 
@@ -156,13 +156,14 @@ function verificaRG()
     WHERE rg = " .  $rg ;
 
     $reposit = new reposit();
+
     $result = $reposit->RunQuery($sql);
 
-    if ($result[0]['rg'] === $_POST["rg"]) {
-        echo ('failed#');
+    if ($result === 0) {
+        echo ('sucess#');
         return;
     } 
-    echo ('sucess#');
+    echo ('failed#');
         return;
 
 }

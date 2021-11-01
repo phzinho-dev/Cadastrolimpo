@@ -10,8 +10,8 @@ $condicaoAcessarOK =  true;
 $condicaoGravarOK =  true;
 
 if ($condicaoAcessarOK == false) {
-    unset($_SESSION['funcionarioCadastro']);
-    header("Location:funcionarioCadatro.php");
+    unset($_SESSION['sexoCadastro']);
+    header("Location:sexoCadatro.php");
 }
 
 $esconderBtnGravar = "";
@@ -81,32 +81,11 @@ include("inc/nav.php");
                                                     <fieldset>
                                                         <div class="row">
                                                             <section class="col col-4">
-                                                                <label class="label">Nome</label>
+                                                                <label class="label">Sexo</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="50" class="required" name="nome" type="text" value="">
+                                                                    <input id="sexo" maxlength="50" class="required" name="sexo" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-3 col-auto">
-                                                                <label class="label" for="rg">RG</label>
-                                                                <label class="input">
-                                                                    <input id="rg" type="text"  maxlength="200" required autocomplete="off">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataDeNascimento">Data De Nascimento</label>
-                                                                <label class="input">
-                                                                    <input id="dataDeNascimento" type="datepick"  maxlength="200" required autocomplete="off">
-                                                                </label>
-                                                            </section>
-
-                                                            <section class="col col-3 col-auto">
-                                                                <label class="label" for="cpf">CPF</label>
-                                                                <label class="input">
-                                                                    <input id="cpf" type="text"  maxlength="200" required autocomplete="off">
-                                                                </label>
-                                                            </section>
-
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
@@ -187,19 +166,11 @@ include("inc/scripts.php");
         $('#btnNovo').on("click", function() {
             novo();
         });
-        $("#cpf").mask("999.999.999-99");
-
-        $("#rg").mask("99.999.999-9")
-
-        $("#dataDeNascimento").mask("99/99/9999");
         
     });
     function listarFiltro() {
-        var nome = $('#nome').val();
         var ativo = +$('#ativo').val();
-        var cpf = $('#cpf').val();
-        var dataDeNascimento = $('#dataDeNascimento').val();
-        var rg = $('#rg').val();        
+        var sexo = $('#sexo').val();  
         
         /*if(!nome) {
             smartAlert("Atençao", "Informe o nome","Error");
@@ -207,15 +178,12 @@ include("inc/scripts.php");
             return;
         }*/
 
-        $('#resultadoBusca').load('funcionarioListagemFiltro.php?', {
-            nome: nome,
+        $('#resultadoBusca').load('sexoListagemFiltro.php?', {
+            sexo: sexo,
             ativo: ativo,
-            dataDeNascimento: dataDeNascimento,
-            cpf: cpf,
-            rg : rg
         });
     }
     function novo() {
-        $(location).attr('href', 'funcionarioCadastro.php');
+        $(location).attr('href', 'sexoCadastro.php');
     } 
 </script>
