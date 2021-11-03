@@ -13,20 +13,20 @@ include "js/repositorio.php";
             <tbody>
                 <?php
 
-                $where = "WHERE (0 = 0)";
+$where = "WHERE (0 = 0)";
 
-                $nome = "";
-                if ($_POST["sexo"] != "") {
-                    $nome = $_POST["sexo"];
-                    $where = $where . " AND ( sexo like '%' + " . "replace('" . $sexo . "',' ','%') + " . "'%')";
-                }
                 $ativo = "";
                 if ($_POST["ativo"] != "") {
-                    $ativo= (Int)$_POST["ativo"];
-                    $where = $where . "AND ativo = '". $ativo . "'";
+                $ativo= (Int)$_POST["ativo"];
+                $where = $where . "AND ativo = '". $ativo . "'";
+                }
+                $nome = "";
+                if ($_POST["sexo"] != "") {
+                $nome = $_POST["sexo"];
+                $where = $where . " AND ( sexo like '%' + " . "replace('" . $sexo . "',' ','%') + " . "'%')";
                 }
 
-                $sql = " SELECT [codigo],[sexo],[ativo] FROM sexo ";
+                $sql = " SELECT [codigo],[ativo] ,[sexo] FROM sexo ";
                 
                 $where = $where ;
 

@@ -35,6 +35,7 @@ function grava()
     session_start();
     $codigo = (int)$_POST['id'];
     $nome = "'" . (string)$_POST['nome'] . "'";
+    $estadoCivil = "'".(string)$_POST['estadoCivil']."'";
     $cpf = "'" . (string) $_POST['cpf'] . "'";
     $dataDeNascimento = $_POST['dataDeNascimento'];
     $ativo = (int)$_POST['ativo'];
@@ -47,8 +48,9 @@ function grava()
 
     $sql = "dbo.funcionario_Atualiza
             $codigo,
-            $nome,
             $ativo,
+            $nome,
+            $estadoCivil,
             $dataDeNascimento,
             $cpf,
             $rg";
@@ -69,7 +71,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo, ativo, nomeCompleto, dataDeNascimento, cpf , rg , FROM dbo.funcionario WHERE (0 = 0)";
+    $sql = "SELECT codigo, ativo, nomeCompleto,estadoCivil, dataDeNascimento, cpf , rg  FROM dbo.funcionario WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -83,6 +85,7 @@ function recupera()
         $id = (int)$row['codigo'];
         $ativo = $row['ativo'];
         $nome = (string)$row['nomeCompleto'];
+        $estadoCivil=(string)$row['estadoCivil'];
         $dataDeNascimento = $row['dataDeNascimento'];
         
 
@@ -91,10 +94,11 @@ function recupera()
         $dataDeNascimento = explode("-", $dataDeNascimento[0]);
         $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
         $cpf = $row['cpf'];
+        $rg = $row['rg'];
         
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $dataDeNascimento . "^" . $cpf ;
+        $out = $id . "^" . $ativo . "^" . $nome ."^".$estadoCivil. "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg  ;
 
         if ($out == "") {
             echo "failed#";
@@ -138,9 +142,10 @@ function verificaCPF()
     WHERE cpf = " .  $cpf ;
 
     $reposit = new reposit();
+
     $result = $reposit->RunQuery($sql);
 
-    if ($result === 0) {
+    if ($result) {
         echo ('failed#');
         return;
     } 
@@ -159,11 +164,11 @@ function verificaRG()
 
     $result = $reposit->RunQuery($sql);
 
-    if ($result === 0) {
-        echo ('sucess#');
+    if ($result[0]["rg"] === $_POST["rg"]) {
+        echo ('failed#');
         return;
     } 
-    echo ('failed#');
+    echo ('sucess#');
         return;
 
 }

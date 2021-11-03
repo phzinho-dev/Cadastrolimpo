@@ -7,6 +7,7 @@ include "js/repositorio.php";
             <thead>
                 <tr role="row">
                     <th class="text-left" style="min-width:30px;">Nome</th>
+                    <th class="text-left" style="min-width:30px;">EstadoCivil</th>
                     <th class="text-left" style="min-width:30px;">cpf</th>
                     <th class="text-left" style="min-width:35px;">Ativo</th>
                     <th class="text-left" style="min-width:35px;">data</th>
@@ -22,6 +23,11 @@ include "js/repositorio.php";
                 if ($_POST["nome"] != "") {
                     $nome = $_POST["nome"];
                     $where = $where . " AND ( nomeCompleto like '%' + " . "replace('" . $nome . "',' ','%') + " . "'%')";
+                }
+                $estadoCivil = "";
+                if ($_POST["estadoCivil"] != "") {
+                    $nome = $_POST["estadoCivil"];
+                    $where = $where . " AND ( estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
                 }
                 $data = "";
                 if ($_POST["dataDeNascimento"] != "") {
@@ -44,7 +50,7 @@ include "js/repositorio.php";
                     $where = $where . "AND ativo = '". $ativo . "'";
                 }
 
-                $sql = " SELECT [codigo], [ativo], [nomeCompleto], [dataDeNascimento], [cpf], [rg] FROM funcionario ";
+                $sql = " SELECT [codigo], [ativo], [nomeCompleto], [estadoCivil], [dataDeNascimento], [cpf], [rg] FROM dbo.funcionario ";
                 
                 $where = $where ;
 
@@ -56,6 +62,7 @@ include "js/repositorio.php";
                     $id= (int) $row['codigo'];
                     $ativo = (int) $row['ativo'];
                     $nome = $row['nomeCompleto'];
+                    $estadoCivil=$row['estadoCivil'];
                     $dataDeNascimento = $row['dataDeNascimento'];
                     $cpf = $row['cpf'];
                     $rg= $row['rg'];
@@ -73,6 +80,7 @@ include "js/repositorio.php";
                     
                     echo '<tr >';
                     echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id. '">' .$nome . '</a></td>';
+                    echo '<td class="text-left">' . $estadoCivil  . '</td>';
                     echo '<td class="text-left">' . $cpf  . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
                     echo '<td class="text-left">' . $dataDeNascimento. '</td>';

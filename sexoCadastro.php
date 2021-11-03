@@ -265,13 +265,13 @@ include("inc/scripts.php");
 
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
-                            var sexo = piece[1];
-                            var ativo = piece[2];
+                            var ativo = piece[1];
+                            var sexo = piece[2];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
-                            $("#sexo").val(sexo);
                             $("#ativo").val(ativo);
+                            $("#sexo").val(sexo);
                             
                             return;
 
@@ -287,21 +287,21 @@ include("inc/scripts.php");
         // $("#btnGravar").prop('disabled', true);
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
-        var sexo = $('#sexo').val();
         var ativo = +$('#ativo').val();
+        var sexo = $('#sexo').val();
         
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
-         if (sexo === "") {
-            smartAlert("Atenção", "Informe seu sexo", "error");
-            $("#btnGravar").prop('disabled', false);
-        }
         if (ativo === "") {
             smartAlert("Atenção", "Informe a Ativo", "error");
             $("#btnGravar").prop('disabled', false);
         }
+        if (sexo === "") {
+           smartAlert("Atenção", "Informe seu sexo", "error");
+           $("#btnGravar").prop('disabled', false);
+       }
     
-        gravarSexoCadastro(id,sexo,ativo, 
+        gravarSexoCadastro(id,ativo,sexo, 
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");

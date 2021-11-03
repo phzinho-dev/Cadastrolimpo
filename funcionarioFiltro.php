@@ -80,13 +80,13 @@ include("inc/nav.php");
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
                                                         <div class="row">
-                                                            <section class="col col-4">
+                                                            <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
                                                                     <input id="nome" maxlength="50" class="required" name="nome" type="text" value="">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-3 col-auto">
+                                                            <section class="col col-2 col-auto">
                                                                 <label class="label" for="rg">RG</label>
                                                                 <label class="input">
                                                                     <input id="rg" type="text"  maxlength="200" required autocomplete="off">
@@ -196,6 +196,7 @@ include("inc/scripts.php");
     });
     function listarFiltro() {
         var nome = $('#nome').val();
+        var estadoCivil =$('#estadoCivil').val();
         var ativo = +$('#ativo').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
@@ -209,6 +210,7 @@ include("inc/scripts.php");
 
         $('#resultadoBusca').load('funcionarioListagemFiltro.php?', {
             nome: nome,
+            estadoCivil:estadoCivil,
             ativo: ativo,
             dataDeNascimento: dataDeNascimento,
             cpf: cpf,

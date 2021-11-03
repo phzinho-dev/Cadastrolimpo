@@ -90,7 +90,6 @@ include("inc/nav.php");
                                                                     <input id="codigo" name="codigo" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
                                                             </section>
-                                                    
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
@@ -105,6 +104,17 @@ include("inc/nav.php");
                                                                 <label class="label" for="nome">Nome</label>
                                                                 <label class="input">
                                                                     <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">Estado Civil</label>
+                                                                <label class="select">
+                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off">
+                                                                        <option></option>
+                                                                        <option value="Solteiro">Solteiro</option>
+                                                                        <option value="Casado">Casado</option>
+                                                                        <option value="Divorciado">Divorciado</opition>
+                                                                    </select><i></i>
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
@@ -129,6 +139,26 @@ include("inc/nav.php");
                                                                 <label class="label">Idade</label>
                                                                 <label class="input">
                                                                     <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">Sexo</label>
+                                                                <label class="select">
+                                                                    <select id="sexo" name="sexo">
+                                                                    <option></option>
+                                                                    <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, sexo 
+                                                                        FROM dbo.sexo
+                                                                        WHERE ativo = 1 ";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach($result as $row) {
+                                                                            $id = $row['codigo'];
+                                                                            $sexo = $row['sexo'];
+                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -327,19 +357,22 @@ include("inc/scripts.php");
                             var codigo = piece[0];
                             var ativo = piece[1];
                             var nome = piece[2];
-                            var dataDeNascimento = piece[3];
-                            var cpf = piece[4];
-                            var rg = piece[5];
+                            var estadoCivil = piece [3]
+                            var dataDeNascimento = piece[4];
+                            var cpf = piece[5];
+                            var rg = piece[6];
+                            var sexo = piece [7];
                             
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
                             $("#nome").val(nome);
+                            $("#estadoCivil").val(estadoCivil);
                             $("#dataDeNascimento").val(dataDeNascimento);
                             $("#cpf").val(cpf);
                             $("#rg").val(rg);
-                            
+                            $("#sexo").val(sexo);
 
                             calculaIdade()
 
@@ -358,15 +391,22 @@ include("inc/scripts.php");
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
         var nome = $('#nome').val();
+        var estadoCivil = $('#estadoCivil').val();
         var ativo = +$('#ativo').val();
         var rg = $('#rg').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
+        var sexo =$('#sexo').val();
         
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
             smartAlert("Atenção", "Informe o nome", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        } 
+        if (!estadoCivil) {
+            smartAlert("Atenção", "Informe o seu Estado Civil", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -389,7 +429,11 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Informe a Ativo", "error");
             $("#btnGravar").prop('disabled', false);
         }
-        gravarFuncionarioCadastro(id, ativo, nome, cpf, dataDeNascimento, rg,
+        if (sexo === "") {
+            smartAlert("Atenção", "Informe a Sexo", "error");
+            $("#btnGravar").prop('disabled', false);
+        }
+        gravarFuncionarioCadastro(id, ativo, nome,estadoCivil, cpf, dataDeNascimento, rg,sexo,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -528,7 +572,7 @@ include("inc/scripts.php");
         if (rev != parseInt(cpf.charAt(10))) {
             return false;
         } else {
-            verificarCPF()
+            verificarCPF();
         }
         return true;
     }
@@ -557,7 +601,7 @@ include("inc/scripts.php");
 
         verificaRG(rg,
             function(data) {
-                if (data.indexOf('failed') > 0) {
+                if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
                     var mensagem = piece[1];
 
@@ -565,6 +609,7 @@ include("inc/scripts.php");
                         smartAlert("Atenção", mensagem, "error");
                     } else {
                         smartAlert("Atenção", "Rg ja cadastrado no sistema", "error");
+                        $("#rg").val('')
                     }
                 }
             });
