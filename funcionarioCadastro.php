@@ -93,7 +93,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
-                                                                    <select id="ativo" name="ativo">
+                                                                    <select id="ativo" name="ativo" class="required" >
                                                                         <option></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
@@ -144,7 +144,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo">
+                                                                    <select id="sexo" name="sexo" class="required" >
                                                                     <option></option>
                                                                     <?php
                                                                         $reposit = new reposit();
@@ -392,11 +392,11 @@ include("inc/scripts.php");
         var id = +$('#codigo').val();
         var nome = $('#nome').val();
         var estadoCivil = $('#estadoCivil').val();
-        var ativo = +$('#ativo').val();
+        var ativo = $('#ativo').val();
         var rg = $('#rg').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
-        var sexo =$('#sexo').val();
+        var sexo = +$('#sexo').val();
         
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
@@ -429,7 +429,7 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Informe a Ativo", "error");
             $("#btnGravar").prop('disabled', false);
         }
-        if (sexo === "") {
+        if (!sexo) {
             smartAlert("Atenção", "Informe a Sexo", "error");
             $("#btnGravar").prop('disabled', false);
         }

@@ -99,14 +99,24 @@ include("inc/nav.php");
                                                                     <input id="dataDeNascimento" type="datepick"  maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
-
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataInicio">Data Inicio</label>
+                                                                <label class="input">
+                                                                <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataFim">Data Fim</label>
+                                                                <label class="input">
+                                                                <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                </label>
+                                                            </section>
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label" for="cpf">CPF</label>
                                                                 <label class="input">
                                                                     <input id="cpf" type="text"  maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
-
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
@@ -200,7 +210,8 @@ include("inc/scripts.php");
         var ativo = +$('#ativo').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
-        var rg = $('#rg').val();        
+        var rg = $('#rg').val();
+        var sexo = $('#sexo').val();
         
         /*if(!nome) {
             smartAlert("Atençao", "Informe o nome","Error");
@@ -214,7 +225,8 @@ include("inc/scripts.php");
             ativo: ativo,
             dataDeNascimento: dataDeNascimento,
             cpf: cpf,
-            rg : rg
+            rg : rg,
+            sexo : sexo
         });
     }
     function novo() {

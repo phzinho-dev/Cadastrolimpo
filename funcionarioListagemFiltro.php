@@ -12,6 +12,8 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:35px;">Ativo</th>
                     <th class="text-left" style="min-width:35px;">data</th>
                     <th class="text-left" style="min-width:35px;">rg</th>    
+                    <th class="text-left" style="min-width:35px;">Sexo</th>    
+                </tr>
                 </tr>
             </thead>
             <tbody>
@@ -22,35 +24,42 @@ include "js/repositorio.php";
                 $nome = "";
                 if ($_POST["nome"] != "") {
                     $nome = $_POST["nome"];
-                    $where = $where . " AND ( nomeCompleto like '%' + " . "replace('" . $nome . "',' ','%') + " . "'%')";
+                    $where = $where . " AND ( USU.nomeCompleto like '%' + " . "replace('" . $nome . "',' ','%') + " . "'%')";
                 }
                 $estadoCivil = "";
                 if ($_POST["estadoCivil"] != "") {
                     $nome = $_POST["estadoCivil"];
-                    $where = $where . " AND ( estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
+                    $where = $where . " AND ( USU.estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
                 }
                 $data = "";
                 if ($_POST["dataDeNascimento"] != "") {
                     $data = $_POST["data"];
-                    $where = $where . " AND dataDeNascimento = '" . $dataDeNascimento . "'" ;
+                    $where = $where . " AND USU.dataDeNascimento = '" . $dataDeNascimento . "'" ;
                 }
                 $rg = "";
                  if ($_POST["rg"] != "") {
                     $rg = $_POST["rg"];
-                 $where = $where . "AND rg = '". $rg . "'";
+                 $where = $where . "AND USU.rg = '". $rg . "'";
                 }
                 $cpf = "";
                 if ($_POST["cpf"] != "") {
                     $cpf = $_POST["cpf"];
-                    $where = $where . "AND cpf = '". $cpf . "'";
+                    $where = $where . "AND USU.cpf = '". $cpf . "'";
                 }
                 $ativo = "";
                 if ($_POST["ativo"] != "") {
                     $ativo= (Int)$_POST["ativo"];
-                    $where = $where . "AND ativo = '". $ativo . "'";
+                    $where = $where . "AND USU.ativo = '". $ativo . "'";
+                } 
+                $sexo = "";
+                if ($_POST["sexo"] != "") {
+                    $nome = $_POST["sexo"];
+                    $where = $where . " AND ( USUG.sexo like '%' + " . "replace('" . $sexo. "',' ','%') + " . "'%')";
                 }
 
-                $sql = " SELECT [codigo], [ativo], [nomeCompleto], [estadoCivil], [dataDeNascimento], [cpf], [rg] FROM dbo.funcionario ";
+                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.sexo
+                         FROM dbo.funcionario USU
+                         LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
                 
                 $where = $where ;
 
@@ -59,6 +68,7 @@ include "js/repositorio.php";
                 $result = $reposit->RunQuery($sql);
 
                 foreach($result as $row) {
+                    
                     $id= (int) $row['codigo'];
                     $ativo = (int) $row['ativo'];
                     $nome = $row['nomeCompleto'];
@@ -72,12 +82,16 @@ include "js/repositorio.php";
                         $descricaoAtivo = "Sim";
                     } else {
                         $descricaoAtivo = "Não";
-                    };
+
+                    }
+                    $sexo = $row['sexo'];
+
                     //Converção de data
                     $dataDeNascimento = explode (" ",$dataDeNascimento);
                     $dataDeNascimento= explode("-" , $dataDeNascimento[0] );
                     $dataDeNascimento= $dataDeNascimento[2] ."/" . $dataDeNascimento[1]. "/" . $dataDeNascimento[0];
                     
+                  
                     echo '<tr >';
                     echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id. '">' .$nome . '</a></td>';
                     echo '<td class="text-left">' . $estadoCivil  . '</td>';
@@ -85,6 +99,7 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
                     echo '<td class="text-left">' . $dataDeNascimento. '</td>';
                     echo '<td class="text-left">' . $rg. '</td>';
+                    echo '<td class="text-left">' . $sexo. '</td>';
                     echo '</tr >';
                 }
                 ?>

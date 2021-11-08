@@ -40,6 +40,8 @@ function grava()
     $dataDeNascimento = $_POST['dataDeNascimento'];
     $ativo = (int)$_POST['ativo'];
     $rg ="'" . (string)$_POST['rg'] . "'";
+    $sexo = (int)$_POST['sexo'];
+
    
 
     //Converção de data
@@ -53,7 +55,8 @@ function grava()
             $estadoCivil,
             $dataDeNascimento,
             $cpf,
-            $rg";
+            $rg,
+            $sexo";
             
 
     $result = $reposit->Execprocedure($sql);
@@ -71,7 +74,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo, ativo, nomeCompleto,estadoCivil, dataDeNascimento, cpf , rg  FROM dbo.funcionario WHERE (0 = 0)";
+    $sql = "SELECT codigo, ativo, nomeCompleto,estadoCivil, dataDeNascimento, cpf , rg , sexo FROM dbo.funcionario WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -95,10 +98,10 @@ function recupera()
         $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
         $cpf = $row['cpf'];
         $rg = $row['rg'];
-        
+        $sexo =$row ['sexo'];
 
 
-        $out = $id . "^" . $ativo . "^" . $nome ."^".$estadoCivil. "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg  ;
+        $out = $id . "^" . $ativo . "^" . $nome ."^".$estadoCivil. "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo ;
 
         if ($out == "") {
             echo "failed#";
