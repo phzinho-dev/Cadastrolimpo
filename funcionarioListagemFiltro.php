@@ -12,15 +12,20 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:35px;">Ativo</th>
                     <th class="text-left" style="min-width:35px;">data</th>
                     <th class="text-left" style="min-width:35px;">rg</th>    
-                    <th class="text-left" style="min-width:35px;">Sexo</th>    
+                    <th class="text-left" style="min-width:35px;">Sexo</th>
                 </tr>
                 </tr>
             </thead>
             <tbody>
                 <?php
 
-                $where = "WHERE (0 = 0)";
+            $where = "where (0 = 0)";
 
+                $ativo = "";
+                if ($_POST["ativo"] != "") {
+                    $ativo= (Int)$_POST["ativo"];
+                    $where = $where . " AND USU.ativo = '". $ativo . "'";
+                }
                 $nome = "";
                 if ($_POST["nome"] != "") {
                     $nome = $_POST["nome"];
@@ -31,39 +36,49 @@ include "js/repositorio.php";
                     $nome = $_POST["estadoCivil"];
                     $where = $where . " AND ( USU.estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
                 }
-                $data = "";
+                $dataDeNascimento = "";
                 if ($_POST["dataDeNascimento"] != "") {
-                    $data = $_POST["data"];
+                    $dataDeNascimento = $_POST["dataDeNascimento"];
                     $where = $where . " AND USU.dataDeNascimento = '" . $dataDeNascimento . "'" ;
                 }
                 $rg = "";
-                 if ($_POST["rg"] != "") {
+                if ($_POST["rg"] != "") {
                     $rg = $_POST["rg"];
-                 $where = $where . "AND USU.rg = '". $rg . "'";
+                    $where = $where . " AND USU.rg = '". $rg . "'";
                 }
                 $cpf = "";
                 if ($_POST["cpf"] != "") {
                     $cpf = $_POST["cpf"];
-                    $where = $where . "AND USU.cpf = '". $cpf . "'";
+                    $where = $where . " AND USU.cpf = '". $cpf . "'";
                 }
-                $ativo = "";
-                if ($_POST["ativo"] != "") {
-                    $ativo= (Int)$_POST["ativo"];
-                    $where = $where . "AND USU.ativo = '". $ativo . "'";
-                } 
                 $sexo = "";
                 if ($_POST["sexo"] != "") {
                     $nome = $_POST["sexo"];
                     $where = $where . " AND ( USUG.sexo like '%' + " . "replace('" . $sexo. "',' ','%') + " . "'%')";
                 }
+                $dataInicio = "";
+                if ($_POST["dataInicio"] != "") {
+                    $dataInicio = $_POST["dataInicio"];
+   
+                    $dataInicio = explode ("/",$dataInicio);
+                    $dataInicio= "'". $dataInicio[2] ."-" . $dataInicio[1]. "-" . $dataInicio[0] . "'";
+                    $where = $where . "AND USU.dataDeNascimento >=" . $dataInicio . "" ;
+                }
+                $dataFim = "";
+                if ($_POST["dataFim"] != "") {
+                    $dataFim = $_POST["dataFim"];
 
-                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.sexo
-                         FROM dbo.funcionario USU
-                         LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
+                    $dataFim = explode ("/",$dataFim);
+                    $dataFim= "'". $dataFim[2] ."-" . $dataFim[1]. "-" . $dataFim[0] . "'";
+                    $where = $where . "AND USU.dataDeNascimento < " . $dataFim . ""; 
                 
-                $where = $where ;
+                }
+                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.sexo
+                FROM dbo.funcionario USU
+                LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
 
                 $sql = $sql . $where;
+                
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
 
@@ -76,7 +91,7 @@ include "js/repositorio.php";
                     $dataDeNascimento = $row['dataDeNascimento'];
                     $cpf = $row['cpf'];
                     $rg= $row['rg'];
-
+                    
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";
@@ -84,8 +99,7 @@ include "js/repositorio.php";
                         $descricaoAtivo = "Não";
 
                     }
-                    $sexo = $row['sexo'];
-
+                    $sexo = $row['sexo']; 
                     //Converção de data
                     $dataDeNascimento = explode (" ",$dataDeNascimento);
                     $dataDeNascimento= explode("-" , $dataDeNascimento[0] );

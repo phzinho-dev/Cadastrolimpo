@@ -90,7 +90,6 @@ function recupera()
         $nome = (string)$row['nomeCompleto'];
         $estadoCivil=(string)$row['estadoCivil'];
         $dataDeNascimento = $row['dataDeNascimento'];
-        
 
         //Converção de data
         $dataDeNascimento = explode(" ", $dataDeNascimento);

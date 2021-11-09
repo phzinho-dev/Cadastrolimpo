@@ -96,19 +96,19 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataDeNascimento">Data De Nascimento</label>
                                                                 <label class="input">
-                                                                    <input id="dataDeNascimento" type="datepick"  maxlength="200" required autocomplete="off">
+                                                                    <input id="dataDeNascimento" type="text"  data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataInicio">Data Inicio</label>
                                                                 <label class="input">
-                                                                <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataFim">Data Fim</label>
                                                                 <label class="input">
-                                                                <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-3 col-auto">
@@ -210,23 +210,22 @@ include("inc/scripts.php");
         var ativo = +$('#ativo').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
+        var dataInicio = $('#dataInicio').val();        
+        var dataFim = $('#dataFim').val();
         var rg = $('#rg').val();
         var sexo = $('#sexo').val();
-        
-        /*if(!nome) {
-            smartAlert("Atençao", "Informe o nome","Error");
-            $("#bntSearch").prop('disable', false);
-            return;
-        }*/
 
         $('#resultadoBusca').load('funcionarioListagemFiltro.php?', {
             nome: nome,
-            estadoCivil:estadoCivil,
+            estadoCivil: estadoCivil,
             ativo: ativo,
             dataDeNascimento: dataDeNascimento,
+            dataInicio: dataInicio,
+            dataFim: dataFim,
             cpf: cpf,
             rg : rg,
             sexo : sexo
+                
         });
     }
     function novo() {
