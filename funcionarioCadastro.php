@@ -167,6 +167,48 @@ include("inc/nav.php");
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="panel-group smart-accordion-default" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordionContato" href="#collapseContato" class="" id="accordionContato">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Contato
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseContato" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-3 col-auto">
+                                                                <label class="label">Telefone</label>
+                                                                <label class="input">
+                                                                    <input id="Telefone" name="Telefone" class="required" value="" autocomplete="off">
+                                                                    </label>
+                                                            </section>
+                                                            <section class="col col-1 col-auto">
+                                                                <div>
+                                                                    <input type="checkbox" id="Principal" name="Principal" checked>
+                                                                    <label for= "Principal">Principal</label>
+                                                                </div>
+                                                            </section>
+                                                            <section class="col col-1 col-auto">
+                                                                <div>
+                                                                    <input type="checkbox" id="Whatsapp" name="Whatsapp">
+                                                                    <label for="Whatsapp">Whatsapp</label>
+                                                                </div>
+                                                            </section>
+                                                            
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                             <span class="fa fa-trash"></span>
