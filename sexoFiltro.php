@@ -81,9 +81,9 @@ include("inc/nav.php");
                                                     <fieldset>
                                                         <div class="row">
                                                             <section class="col col-4">
-                                                                <label class="label">Sexo</label>
+                                                                <label class="label">Descrição</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="sexo" maxlength="50" class="required" name="sexo" type="text" value="">
+                                                                    <input id="sexo" maxlength="50" class=" " name="sexo" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
@@ -171,12 +171,6 @@ include("inc/scripts.php");
     function listarFiltro() {
         var ativo = +$('#ativo').val();
         var sexo = $('#sexo').val();  
-        
-        /*if(!nome) {
-            smartAlert("Atençao", "Informe o nome","Error");
-            $("#bntSearch").prop('disable', false);
-            return;
-        }*/
 
         $('#resultadoBusca').load('sexoListagemFiltro.php?', {
             sexo: sexo,

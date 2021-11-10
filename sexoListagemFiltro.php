@@ -20,9 +20,9 @@ $where = "WHERE (0 = 0)";
                 $ativo= (Int)$_POST["ativo"];
                 $where = $where . "AND ativo = '". $ativo . "'";
                 }
-                $nome = "";
+                $sexo = "";
                 if ($_POST["sexo"] != "") {
-                $nome = $_POST["sexo"];
+                $sexo = $_POST["sexo"];
                 $where = $where . " AND ( sexo like '%' + " . "replace('" . $sexo . "',' ','%') + " . "'%')";
                 }
 

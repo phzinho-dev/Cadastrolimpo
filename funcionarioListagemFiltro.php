@@ -14,7 +14,6 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:35px;">rg</th>    
                     <th class="text-left" style="min-width:35px;">Sexo</th>
                 </tr>
-                </tr>
             </thead>
             <tbody>
                 <?php
@@ -88,7 +87,6 @@ include "js/repositorio.php";
                     $ativo = (int) $row['ativo'];
                     $nome = $row['nomeCompleto'];
                     $estadoCivil=$row['estadoCivil'];
-                    $dataDeNascimento = $row['dataDeNascimento'];
                     $cpf = $row['cpf'];
                     $rg= $row['rg'];
                     
@@ -99,7 +97,8 @@ include "js/repositorio.php";
                         $descricaoAtivo = "Não";
 
                     }
-                    $sexo = $row['sexo']; 
+                    $sexo = $row['sexo'];
+                    $dataDeNascimento = $row['dataDeNascimento']; 
                     //Converção de data
                     $dataDeNascimento = explode (" ",$dataDeNascimento);
                     $dataDeNascimento= explode("-" , $dataDeNascimento[0] );

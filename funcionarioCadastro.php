@@ -82,8 +82,8 @@ include("inc/nav.php");
                                             <div id="collapseCadastro" class="panel-collapse collapse in">
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
-                                                        <div class="row">
 
+                                                        <div class="row">
                                                             <section class="col col-1 col-auto">
                                                                 <label class="label">Código</label>
                                                                 <label class="input">
@@ -93,7 +93,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
-                                                                    <select id="ativo" name="ativo" class="required" >
+                                                                    <select id="ativo" name="ativo" class="required">
                                                                         <option></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
@@ -106,17 +106,7 @@ include("inc/nav.php");
                                                                     <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Estado Civil</label>
-                                                                <label class="select">
-                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off">
-                                                                        <option></option>
-                                                                        <option value="Solteiro">Solteiro</option>
-                                                                        <option value="Casado">Casado</option>
-                                                                        <option value="Divorciado">Divorciado</opition>
-                                                                    </select><i></i>
-                                                                </label>
-                                                            </section>
+
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="rg">RG</label>
                                                                 <label class="input">
@@ -129,36 +119,52 @@ include("inc/nav.php");
                                                                     <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataDeNascimento">Data De Nascimento</label>
-                                                                <label class="input">
-                                                                    <input id="dataDeNascimento" name="dataDeNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Idade</label>
-                                                                <label class="input">
-                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <section class="col col-2 ">
+                                                                <label class="label">Estado Civil</label>
+                                                                <label class="select">
+                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off">
+                                                                        <option></option>
+                                                                        <option value="Solteiro">Solteiro</option>
+                                                                        <option value="Casado">Casado</option>
+                                                                        <option value="Divorciado">Divorciado</opition>
+                                                                    </select><i></i>
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo" class="required" >
-                                                                    <option></option>
-                                                                    <?php
+                                                                    <select id="sexo" name="sexo" class="required">
+                                                                        <option></option>
+                                                                        <?php
                                                                         $reposit = new reposit();
                                                                         $sql = "SELECT codigo, sexo 
                                                                         FROM dbo.sexo
                                                                         WHERE ativo = 1 ";
                                                                         $result = $reposit->RunQuery($sql);
-                                                                        foreach($result as $row) {
+                                                                        foreach ($result as $row) {
                                                                             $id = $row['codigo'];
                                                                             $sexo = $row['sexo'];
                                                                             echo '<option value=' . $id . '>' . $sexo . '</option>';
                                                                         }
                                                                         ?>
                                                                     </select><i></i>
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataDeNascimento">Data De Nascimento</label>
+                                                                <label class="input">
+                                                                    <input id="dataDeNascimento" name="dataDeNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-1 col-auto">
+                                                                <label class="label">Idade</label>
+                                                                <label class="input">
+                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -172,7 +178,7 @@ include("inc/nav.php");
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordionContato" href="#collapseContato" class="" id="accordionContato">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseContato" class="" id="accordionContato">
                                                         <i class="fa fa-lg fa-angle-down pull-right"></i>
                                                         <i class="fa fa-lg fa-angle-up pull-right"></i>
                                                         Contato
@@ -183,16 +189,16 @@ include("inc/nav.php");
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
                                                         <div class="row">
-                                                            <section class="col col-3 col-auto">
+                                                            <section class="col col-2 col-auto">
                                                                 <label class="label">Telefone</label>
                                                                 <label class="input">
-                                                                    <input id="Telefone" name="Telefone" class="required" value="" autocomplete="off">
-                                                                    </label>
+                                                                    <input type="text" id="Telefone" name="Telefone" class="required" data-mask="(99) 9999-99999" data-mask-selectonfocus="true" />
+                                                                </label>
                                                             </section>
                                                             <section class="col col-1 col-auto">
                                                                 <div>
                                                                     <input type="checkbox" id="Principal" name="Principal" checked>
-                                                                    <label for= "Principal">Principal</label>
+                                                                    <label for="Principal">Principal</label>
                                                                 </div>
                                                             </section>
                                                             <section class="col col-1 col-auto">
@@ -201,14 +207,43 @@ include("inc/nav.php");
                                                                     <label for="Whatsapp">Whatsapp</label>
                                                                 </div>
                                                             </section>
-                                                            
+                                                            <Section class="col col-2 col-auto">
+                                                                <label class="label">&nbsp;</label>
+                                                                <button id="btnAddUploadTelefone" type="button" class="btn btn-primary">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                                <button id="btnAddUploadTelefone" type="button" class="btn btn-danger">
+                                                                    <i class="fa fa-minus"></i>
+                                                                </button>
+                                                            </section>
+                                                            <section class="col col-3 col-auto">
+                                                                <label class="label">Email</label>
+                                                                <label class="input">
+                                                                    <input type="email" id="email" name="email" class="required" value="" autocomplete="off">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-1 col-auto">
+                                                                <div>
+                                                                    <input type="checkbox" id="Principal" name="Principal" checked>
+                                                                    <label for="Principal">Principal</label>
+                                                                </div>
+                                                            </section>
+                                                            <Section class="col col-2 col-auto">
+                                                                <label class="label">&nbsp;</label>
+                                                                <button id="btnAddUploadEmail" type="button" class="btn btn-primary">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                                <button id="btnAddUploadEmail" type="button" class="btn btn-danger">
+                                                                    <i class="fa fa-minus"></i>
+                                                                </button>
+                                                            </section>
                                                         </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                             <span class="fa fa-trash"></span>
@@ -361,7 +396,7 @@ include("inc/scripts.php");
                 $('#rg').val('');
                 return
 
-            };  
+            };
         })
 
         $("#cpf").mask("999.999.999-99")
@@ -399,12 +434,12 @@ include("inc/scripts.php");
                             var codigo = piece[0];
                             var ativo = piece[1];
                             var nome = piece[2];
-                            var estadoCivil = piece [3]
+                            var estadoCivil = piece[3]
                             var dataDeNascimento = piece[4];
                             var cpf = piece[5];
                             var rg = piece[6];
-                            var sexo = piece [7];
-                            
+                            var sexo = piece[7];
+
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -439,14 +474,14 @@ include("inc/scripts.php");
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
         var sexo = +$('#sexo').val();
-        
+
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (!nome) {
             smartAlert("Atenção", "Informe o nome", "error");
             $("#btnGravar").prop('disabled', false);
             return;
-        } 
+        }
         if (!estadoCivil) {
             smartAlert("Atenção", "Informe o seu Estado Civil", "error");
             $("#btnGravar").prop('disabled', false);
@@ -475,7 +510,7 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Informe a Sexo", "error");
             $("#btnGravar").prop('disabled', false);
         }
-        gravarFuncionarioCadastro(id, ativo, nome,estadoCivil, cpf, dataDeNascimento, rg,sexo,
+        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, dataDeNascimento, rg, sexo,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");

@@ -80,10 +80,19 @@ include("inc/nav.php");
                                                 <div class="panel-body no-padding">
                                                     <fieldset>
                                                         <div class="row">
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">Ativo</label>
+                                                                <label class="select">
+                                                                    <select id="ativo" name="ativo">
+                                                                        <option></option>
+                                                                        <option value="1" selected>Sim</option>
+                                                                        <option value="0">Não</option>
+                                                                    </select><i></i>
+                                                            </section>
                                                             <section class="col col-3">
                                                                 <label class="label">Nome</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="nome" maxlength="50" class="required" name="nome" type="text" value="">
+                                                                    <input id="nome" maxlength="50" class=" " name="nome" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
@@ -93,43 +102,36 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataDeNascimento">Data De Nascimento</label>
-                                                                <label class="input">
-                                                                    <input id="dataDeNascimento" type="text"  data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataInicio">Data Inicio</label>
-                                                                <label class="input">
-                                                                <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataFim">Data Fim</label>
-                                                                <label class="input">
-                                                                <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                </label>
-                                                            </section>
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label" for="cpf">CPF</label>
                                                                 <label class="input">
                                                                     <input id="cpf" type="text"  maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Ativo</label>
-                                                                <label class="select">
-                                                                    <select id="ativo" name="ativo">
-                                                                        <option></option>
-                                                                        <option value="1" selected>Sim</option>
-                                                                        <option value="0">Não</option>
-                                                                    </select><i></i>
-                                                                </label>
-                                                            </section>
                                                         </div>
+                                                            <div class="row">
+                                                                    <section class="col col-2 col-auto">
+                                                                        <label class="label" for="dataDeNascimento">Data De Nascimento</label>
+                                                                        <label class="input">
+                                                                            <input id="dataDeNascimento" type="text"  data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                        </label>
+                                                                    </section>
+
+                                                                    <section class="col col-2 col-auto">
+                                                                        <label class="label" for="dataInicio">Data Inicio</label>
+                                                                        <label class="input">
+                                                                        <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                        </label>
+                                                                    </section>
+
+                                                                    <section class="col col-2 col-auto">
+                                                                        <label class="label" for="dataFim">Data Fim</label>
+                                                                        <label class="input">
+                                                                        <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                        </label>
+                                                                    </section>
+                                                            </div>
                                                     </fieldset>
-                                                </div>
                                                 <footer>
                                                     <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
                                                         <span class="fa fa-search"></span>
