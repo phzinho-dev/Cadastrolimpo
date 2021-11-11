@@ -187,63 +187,113 @@ include("inc/nav.php");
                                             </div>
                                             <div id="collapseContato" class="panel-collapse collapse">
                                                 <div class="panel-body no-padding">
-                                                    <fieldset>
-                                                        <div class="row">
-                                                            <section class="col col-2 col-auto">
-                                                                <label class="label">Telefone</label>
-                                                                <label class="input">
-                                                                    <input type="text" id="Telefone" name="Telefone" class="required" data-mask="(99) 9999-99999" data-mask-selectonfocus="true" />
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-1 col-auto">
-                                                                <div>
-                                                                    <input type="checkbox" id="Principal" name="Principal" checked>
-                                                                    <label for="Principal">Principal</label>
+                                                    <div class="container">
+                                                        <fieldset>
+                                                            <input id="jsonContato" name="jsonContato" type="hidden" value="[]">
+                                                            <div id="formContato" class="col-sm-6">
+                                                                <input id="sequencialExemplo" name="sequencialExemplo" type="hidden" value="">
+                                                                <input id="descricaoPrincipal" name="descricaoPrincipal" type="hidden" value="">
+                                                                <input id="descricaoWhatsapp" name="descricaoWhatsapp" type="hidden" val>
+                                                                <div class="row">
+                                                                    <section class="col col-4">
+                                                                        <label class="label">Telefone</label>
+                                                                        <label class="input">
+                                                                            <input type="text" id="Telefone" name="Telefone" class="" data-mask="(99) 9999-99999" data-mask-selectonfocus="true" />
+                                                                        </label>
+                                                                    </section>
+                                                                    <section class="col col-md-2">
+                                                                        <label class="label">&nbsp;</label>
+                                                                        <label id="labelexemploPrincipal" class="checkbox ">
+                                                                            <input id="exemploPrincipal" name="exemploPrincipal" type="checkbox" value="true" checked="checked"><i></i>
+                                                                            Principal
+                                                                        </label>
+                                                                    </section>
+                                                                    <section class="col col-md-2">
+                                                                        <label class="label">&nbsp;</label>
+                                                                        <label id="labelexemploWhatsapp" class="checkbox ">
+                                                                            <input id="exemploWhatsapp" name="exemploWhatsapp" type="checkbox" value="true" checked="checked"><i></i>
+                                                                            Whatsapp
+                                                                        </label>
+                                                                    </section>
+                                                                    <Section class="col col-md-3">
+                                                                        <label class="label">&nbsp;</label>
+                                                                        <button id="btnAddUploadTelefone" type="button" class="btn btn-primary">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                        <button id="btnExclUploadTelefone" type="button" class="btn btn-danger">
+                                                                            <i class="fa fa-minus"></i>
+                                                                        </button>
+                                                                    </section>
                                                                 </div>
-                                                            </section>
-                                                            <section class="col col-1 col-auto">
-                                                                <div>
-                                                                    <input type="checkbox" id="Whatsapp" name="Whatsapp">
-                                                                    <label for="Whatsapp">Whatsapp</label>
+                                                                <div class="table-container">
+                                                                    <div class="table-responsive" style="min-height: 115px; width:88%; border: 1px solid #ddd; margin:0 -14px; margin-bottom: 13px; overflow-x: auto;">
+                                                                        <table id="tableExemplo" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                            <thead>
+                                                                                <tr role="row">
+                                                                                    <th style="width: 2px"></th>
+                                                                                    <th class="text-center">Telefone</th>
+                                                                                    <th class="text-center">Principal</th>
+                                                                                    <th class="text-center">Whatsapp</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
-                                                            </section>
-                                                            <Section class="col col-2 col-auto">
-                                                                <label class="label">&nbsp;</label>
-                                                                <button id="btnAddUploadTelefone" type="button" class="btn btn-primary">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </button>
-                                                                <button id="btnAddUploadTelefone" type="button" class="btn btn-danger">
-                                                                    <i class="fa fa-minus"></i>
-                                                                </button>
-                                                            </section>
-                                                            <section class="col col-3 col-auto">
-                                                                <label class="label">Email</label>
-                                                                <label class="input">
-                                                                    <input type="email" id="email" name="email" class="required" value="" autocomplete="off">
-                                                                </label>
-                                                            </section>
-                                                            <section class="col col-1 col-auto">
-                                                                <div>
-                                                                    <input type="checkbox" id="Principal" name="Principal" checked>
-                                                                    <label for="Principal">Principal</label>
+                                                            </div>
+
+                                                            <input id="jsonContato" name="jsonContato" type="hidden" value="[]">
+                                                            <div id="formContato" class="col-sm-6">
+                                                                <input id="sequencialExemplo" name="sequencialExemplo" type="hidden" value="">
+                                                                <input id="descricaoPrincipal" name="descricaoPrincipal" type="hidden" value="">
+                                                                <div class="row" style ="margin:0 -82px;">
+                                                                    <section class="col col-5">
+                                                                        <label class="label">Email</label>
+                                                                        <label class="input" >
+                                                                            <input type="text" id="email" name="email" class="" />
+                                                                        </label>
+                                                                    </section>
+                                                                    <section class="col col-md-2">
+                                                                        <label class="label">&nbsp;</label>
+                                                                        <label id="labelPrincipal" class="checkbox ">
+                                                                            <input id="principal" name="principal" type="checkbox" value="true" checked="checked"><i></i>
+                                                                            Principal
+                                                                        </label>
+                                                                    </section>
+                                                                    <Section class="col col-md-3" style="margin:0 -20px">
+                                                                        <label class="label">&nbsp;</label>
+                                                                        <button id="btnAddUploadEmail" type="button" class="btn btn-primary">
+                                                                            <i class="fa fa-plus"></i>
+                                                                        </button>
+                                                                        <button id="btnExclUploadEmail" type="button" class="btn btn-danger">
+                                                                            <i class="fa fa-minus"></i>
+                                                                        </button>
+                                                                    </section>
                                                                 </div>
-                                                            </section>
-                                                            <Section class="col col-2 col-auto">
-                                                                <label class="label">&nbsp;</label>
-                                                                <button id="btnAddUploadEmail" type="button" class="btn btn-primary">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </button>
-                                                                <button id="btnAddUploadEmail" type="button" class="btn btn-danger">
-                                                                    <i class="fa fa-minus"></i>
-                                                                </button>
-                                                            </section>
-                                                        </div>
-                                                    </fieldset>
+                                                                <div class="table-container">
+                                                                    <div class="table-responsive" style="min-height: 115px; width:90%; border: 1px solid #ddd; margin:0 -80px; margin-bottom: 13px; overflow-x: auto;">
+                                                                        <table id="tableExemplo" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                            <thead>
+                                                                                <tr role="row">
+                                                                                    <th style="width: 2px"></th>
+                                                                                    <th class="text-center" style="min-width:35px">Email</th>
+                                                                                    <th class="text-center" style="min-width:20px">Principal</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
-
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                             <span class="fa fa-trash"></span>
@@ -347,6 +397,12 @@ include("inc/scripts.php");
             }]
         });
 
+        $("#btnAddUploadTelefone").on("click", function() {
+            adicionar()
+        });
+        $("#btnAddUploadEmail").on("click", function() {
+            adicionar()
+        });
         $("#btnExcluir").on("click", function() {
             var id = $("#codigo").val();
 
