@@ -189,45 +189,45 @@ include("inc/nav.php");
                                                 <div class="panel-body no-padding">
                                                     <div class="container">
                                                         <fieldset>
-                                                            <input id="jsonContato" name="jsonContato" type="hidden" value="[]">
+                                                            <input id="jsonTelefone" name="jsonTelefone" type="hidden" value="[]">
                                                             <div id="formContato" class="col-sm-6">
-                                                                <input id="sequencialExemplo" name="sequencialExemplo" type="hidden" value="">
+                                                                <input id="sequencialTelefone" name="sequencialTelefone" type="hidden" value="">
                                                                 <input id="descricaoPrincipal" name="descricaoPrincipal" type="hidden" value="">
                                                                 <input id="descricaoWhatsapp" name="descricaoWhatsapp" type="hidden" val>
                                                                 <div class="row">
                                                                     <section class="col col-4">
                                                                         <label class="label">Telefone</label>
                                                                         <label class="input">
-                                                                            <input type="text" id="Telefone" name="Telefone" class="" data-mask="(99) 9999-99999" data-mask-selectonfocus="true" />
+                                                                            <input type="text" id="telefone" name="telefone" class="" data-mask="(99) 9999-99999" data-mask-selectonfocus="true" />
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-md-2">
                                                                         <label class="label">&nbsp;</label>
-                                                                        <label id="labelexemploPrincipal" class="checkbox ">
-                                                                            <input id="exemploPrincipal" name="exemploPrincipal" type="checkbox" value="true" checked="checked"><i></i>
+                                                                        <label id="labelPrincipal" class="checkbox ">
+                                                                            <input id="Principal" name="Principal" type="checkbox" value="true" checked="checked"><i></i>
                                                                             Principal
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-md-2">
                                                                         <label class="label">&nbsp;</label>
-                                                                        <label id="labelexemploWhatsapp" class="checkbox ">
-                                                                            <input id="exemploWhatsapp" name="exemploWhatsapp" type="checkbox" value="true" checked="checked"><i></i>
+                                                                        <label id="labelWhatsapp" class="checkbox ">
+                                                                            <input id="Whatsapp" name="Whatsapp" type="checkbox" value="true" checked="checked"><i></i>
                                                                             Whatsapp
                                                                         </label>
                                                                     </section>
                                                                     <Section class="col col-md-3">
                                                                         <label class="label">&nbsp;</label>
-                                                                        <button id="btnAddUploadTelefone" type="button" class="btn btn-primary">
+                                                                        <button id="btnAddTelefone" type="button" class="btn btn-primary">
                                                                             <i class="fa fa-plus"></i>
                                                                         </button>
-                                                                        <button id="btnExclUploadTelefone" type="button" class="btn btn-danger">
+                                                                        <button id="btnExclTelefone" type="button" class="btn btn-danger">
                                                                             <i class="fa fa-minus"></i>
                                                                         </button>
                                                                     </section>
                                                                 </div>
                                                                 <div class="table-container">
                                                                     <div class="table-responsive" style="min-height: 115px; width:88%; border: 1px solid #ddd; margin:0 -14px; margin-bottom: 13px; overflow-x: auto;">
-                                                                        <table id="tableExemplo" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                        <table id="tableTelefone" class="table table-bordered table-striped table-condensed table-hover dataTable">
                                                                             <thead>
                                                                                 <tr role="row">
                                                                                     <th style="width: 2px"></th>
@@ -243,14 +243,14 @@ include("inc/nav.php");
                                                                 </div>
                                                             </div>
 
-                                                            <input id="jsonContato" name="jsonContato" type="hidden" value="[]">
-                                                            <div id="formContato" class="col-sm-6">
-                                                                <input id="sequencialExemplo" name="sequencialExemplo" type="hidden" value="">
-                                                                <input id="descricaoPrincipal" name="descricaoPrincipal" type="hidden" value="">
-                                                                <div class="row" style ="margin:0 -82px;">
+                                                            <input id="jsonEmail" name="jsonEmail" type="hidden" value="[]">
+                                                            <div id="formEmail" class="col-sm-6">
+                                                                <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
+                                                                <input id="descricaoEmail" name="descricaoEmail" type="hidden" value="">
+                                                                <div class="row" style="margin:0 -82px;">
                                                                     <section class="col col-5">
                                                                         <label class="label">Email</label>
-                                                                        <label class="input" >
+                                                                        <label class="input">
                                                                             <input type="text" id="email" name="email" class="" />
                                                                         </label>
                                                                     </section>
@@ -263,17 +263,17 @@ include("inc/nav.php");
                                                                     </section>
                                                                     <Section class="col col-md-3" style="margin:0 -20px">
                                                                         <label class="label">&nbsp;</label>
-                                                                        <button id="btnAddUploadEmail" type="button" class="btn btn-primary">
+                                                                        <button id="btnAddEmail" type="button" class="btn btn-primary">
                                                                             <i class="fa fa-plus"></i>
                                                                         </button>
-                                                                        <button id="btnExclUploadEmail" type="button" class="btn btn-danger">
+                                                                        <button id="btnExclEmail" type="button" class="btn btn-danger">
                                                                             <i class="fa fa-minus"></i>
                                                                         </button>
                                                                     </section>
                                                                 </div>
                                                                 <div class="table-container">
                                                                     <div class="table-responsive" style="min-height: 115px; width:90%; border: 1px solid #ddd; margin:0 -80px; margin-bottom: 13px; overflow-x: auto;">
-                                                                        <table id="tableExemplo" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                        <table id="tableEmail" class="table table-bordered table-striped table-condensed table-hover dataTable">
                                                                             <thead>
                                                                                 <tr role="row">
                                                                                     <th style="width: 2px"></th>
@@ -290,7 +290,7 @@ include("inc/nav.php");
                                                         </fieldset>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -397,12 +397,46 @@ include("inc/scripts.php");
             }]
         });
 
-        $("#btnAddUploadTelefone").on("click", function() {
-            adicionar()
+        jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+
+        $("#btnAddTelefone").on("click", function() {
+            var telefone = $("#telefone").val();
+            var existe = true;
+
+            if (!telefone) {
+                smartAlert("Atenção", "Escolha um telefone", "error")
+                return;
+            }
+            if (validaTelefone()) {
+                addTelefone();
+            }
+
         });
-        $("#btnAddUploadEmail").on("click", function() {
-            adicionar()
+
+        $("#btnExclTelefone").on("click", function() {
+            excluirTelefone();
         });
+
+        jsonEmailArray = JSON.parse($("#jsonEmail").val());
+
+        $("#btnAddEmail").on("click", function() {
+            var email = $("#email").val();
+            var existe = true;
+
+            if (!email) {
+                smartAlert("Atenção", "Escolha um Email", "error")
+                return;
+            }
+            if (validaEmail()) {
+                addEmail();
+            }
+
+        });
+
+        $("#btnExclEmail").on("click", function() {
+            excluirEmail();
+        });
+
         $("#btnExcluir").on("click", function() {
             var id = $("#codigo").val();
 
@@ -746,5 +780,359 @@ include("inc/scripts.php");
                     }
                 }
             });
+    }
+
+    function validaTelefone() {
+        var existe = false;
+        var achou = false;
+
+        var telefone = $('#telefone').val();
+        var sequencial = +$('#sequencialTelefone').val();
+        var telefoneValido = false;
+        var telefonePrincipalMarcado = 0;
+
+        if ($("#Principal").is(':checked') === true) {
+            telefonePrincipalMarcado = 1;
+        }
+        if (telefone === '') {
+            smartAlert("Erro", "Informe um telefone.", "error");
+            return false;
+        }
+
+        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+            if (telefonePrincipalMarcado === 1) {
+                if ((jsonTelefoneArray[i].telefonePrincipal === 1) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                    achou = true;
+                    break;
+                }
+            }
+            if ((jsonTelefoneArray[i].telefone === telefone) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                existe = true;
+                break;
+            }
+        }
+        if (existe === true) {
+            smartAlert("Erro", "telefone já cadastrado.", "error");
+            return false;
+        }
+        if ((achou === true) && (telefonePrincipalMarcado === 1)) {
+            smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
+            return false;
+        }
+        return true;
+    }
+
+    function addTelefone() {
+
+        var item = $("#formTelefone").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataTelefone
+        });
+
+        if (item["sequencialTelefone"] === '') {
+            if (jsonTelefoneArray.length === 0) {
+                item["sequencialTelefone"] = 1;
+            } else {
+                item["sequencialTelefone"] = Math.max.apply(Math, jsonTelefoneArray.map(function(o) {
+                    return o.sequencialTelefone;
+                })) + 1;
+            }
+            item["telefoneId"] = 0;
+        } else {
+            item["sequencialTelefone"] = +item["sequencialTelefone"];
+        }
+
+        var index = -1;
+        $.each(jsonTelefoneArray, function(i, obj) {
+            if (+$('#sequencialTelefone').val() === obj.sequencialTelefone) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0) {
+            jsonTelefoneArray.splice(index, 1, item);
+        } else {
+            jsonTelefoneArray.push(item);
+            console.log(jsonTelefoneArray)
+            $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+            fillTableTelefone();
+            clearFormTelefone();
+        }
+    }
+
+    function fillTableTelefone() {
+        $("#tableTelefone tbody").empty();
+
+        for (var i = 0; i < jsonTelefoneArray.length; i++) {
+
+            var row = $('<tr />');
+            $("#tableTelefone tbody").append(row);
+            row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTelefone + '"><i></i></label></td>'));
+            row.append($('<td class="text-center" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTelefone + ');">' + jsonTelefoneArray[i].Telefone + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoPrincipal + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoWhatsapp + '</td>'));
+
+        }
+    }
+
+    function clearFormTelefone() {
+        $("#telefone").val('');
+        $("#sequencialTelefone").val('');
+        $("#Principal").val('');
+        $("#descricaoPrincipal").val('');
+        $("#Whatsapp").val('');
+        $("#descricaoWhatsapp").val('');
+
+    }
+
+    function processDataTelefone(node) {
+        var fieldId = node.getAttribute ? node.getAttribute('id') : '';
+        var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
+
+        if (fieldName !== '' && (fieldId === "Principal")) {
+            var valorPrincipal = 0;
+            if ($("#Principal").is(':checked') === true) {
+                valorPrincipal = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoPrincipal")) {
+            var valorDescricaoPrincipal = "Não";
+            if ($("#Principal").is(':checked') === true) {
+                valorDescricaoPrincipal = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoPrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "Whatsapp")) {
+            var valorWhatsapp = 0;
+            if ($("#Whatsapp").is(':checked') === true) {
+                valorWhatsapp = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorTelefoneWhatsapp
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoWhatsapp")) {
+            var valorDescricaoWhatsapp = "Não";
+            if ($("#Whatsapp").is(':checked') === true) {
+                valorDescricaoWhatsapp = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoWhatsapp
+            };
+        }
+
+        return false;
+    }
+
+    function carregaTelefone(sequencialTelefone) {
+        var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
+            return (item.sequencialTelefone === sequencialTelefone);
+        });
+
+        clearFormTelefone();
+
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#telefone").val(item.telefone);
+
+        }
+    }
+
+    function excluirTelefone() {
+        var arrSequencial = [];
+        $('#tableTelefone input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+                var obj = jsonTelefoneArray[i];
+                if (jQuery.inArray(obj.sequencialTelefone, arrSequencial) > -1) {
+                    jsonTelefoneArray.splice(i, 1);
+                }
+            }
+            $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+            fillTableTelefone();
+        } else {
+            smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
+        }
+    }
+
+    function validaEmail() {
+        var existe = false;
+        var achou = false;
+
+        var telefone = $('#email').val();
+        var sequencial = +$('#sequencialEmail').val();
+        var telefoneValido = false;
+        var telefonePrincipalMarcado = 0;
+
+        if ($("#Principal").is(':checked') === true) {
+            emailPrincipalMarcado = 1;
+        }
+        if (telefone === '') {
+            smartAlert("Erro", "Informe um telefone.", "error");
+            return false;
+        }
+
+        for (i = jsonEmailArray.length - 1; i >= 0; i--) {
+            if (emailPrincipalMarcado === 1) {
+                if ((jsonEmailArray[i].EmailPrincipal === 1) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
+                    achou = true;
+                    break;
+                }
+            }
+            if ((jsonEmailArray[i].email === email) && (jsonemailArray[i].sequencialEmail !== sequencial)) {
+                existe = true;
+                break;
+            }
+        }
+        if (existe === true) {
+            smartAlert("Erro", "Email já cadastrado.", "error");
+            return false;
+        }
+        if ((achou === true) && (telefonePrincipalMarcado === 1)) {
+            smartAlert("Erro", "Já existe um Email principal na lista.", "error");
+            return false;
+        }
+        return true;
+    }
+
+    function addEmail() {
+
+        var item = $("#formEmail").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataEmail
+        });
+
+        if (item["sequencialEmail"] === '') {
+            if (jsonTelefoneArray.length === 0) {
+                item["sequencialEmail"] = 1;
+            } else {
+                item["sequencialEmail"] = Math.max.apply(Math, jsonEmailArray.map(function(o) {
+                    return o.sequencialEmail;
+                })) + 1;
+            }
+            item["emailId"] = 0;
+        } else {
+            item["sequencialEmail"] = +item["sequencialEmail"];
+        }
+
+        var index = -1;
+        $.each(jsonEmailArray, function(i, obj) {
+            if (+$('#sequencialEmail').val() === obj.sequencialEmail) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonEmailArray.splice(index, 1, item);
+        else
+            jsonEmailArray.push(item);
+        console.log(jsonEmailArray)
+        $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
+        fillTableEmail();
+        clearFormEmail();
+
+    }
+
+    function fillTableEmail() {
+        $("#tableEmail tbody").empty();
+
+        for (var i = 0; i < jsonEmailArray.length; i++) {
+
+            var row = $('<tr />');
+            $("#tableEmail tbody").append(row);
+            row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
+            row.append($('<td class="text-center" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].Email + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoPrincipal + '</td>'));
+
+        }
+    }
+
+    function clearFormEmail() {
+        $("#email").val('');
+        $("#sequencialEmail").val('');
+        $("#Principal").val('');
+        $("#descricaoPrincipal").val('');
+
+    }
+
+    function processDataEmail(node) {
+        var fieldId = node.getAttribute ? node.getAttribute('id') : '';
+        var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
+
+        if (fieldName !== '' && (fieldId === "Principal")) {
+            var valorPrincipal = 0;
+            if ($("#Principal").is(':checked') === true) {
+                valorPrincipal = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoPrincipal")) {
+            var valorDescricaoPrincipal = "Não";
+            if ($("#Principal").is(':checked') === true) {
+                valorDescricaoPrincipal = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoPrincipal
+            };
+        }
+
+        return false;
+    }
+
+    function carregaEmail(sequencialEmail) {
+        var arr = jQuery.grep(jsonEmailArray, function(item, i) {
+            return (item.sequencialEmail === sequencialEmail);
+        });
+
+        clearFormEmail();
+
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#email").val(item.email);
+
+        }
+    }
+
+    function excluirEmail() {
+        var arrSequencial = [];
+        $('#tableEmail input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonEmailArray.length - 1; i >= 0; i--) {
+                var obj = jsonEmailArray[i];
+                if (jQuery.inArray(obj.sequencialEmail, arrSequencial) > -1) {
+                    jsonEmailArray.splice(i, 1);
+                }
+            }
+            $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
+            fillTableEmail();
+        } else
+            smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
     }
 </script>
