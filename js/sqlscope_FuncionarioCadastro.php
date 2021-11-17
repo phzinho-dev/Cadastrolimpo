@@ -34,14 +34,81 @@ function grava()
 
     session_start();
     $codigo = (int)$_POST['id'];
+    $ativo = (int)$_POST['ativo'];
     $nome = "'" . (string)$_POST['nome'] . "'";
     $estadoCivil = "'".(string)$_POST['estadoCivil']."'";
     $cpf = "'" . (string) $_POST['cpf'] . "'";
-    $dataDeNascimento = $_POST['dataDeNascimento'];
-    $ativo = (int)$_POST['ativo'];
-    $rg ="'" . (string)$_POST['rg'] . "'";
     $sexo = (int)$_POST['sexo'];
+    $dataDeNascimento = $_POST['dataDeNascimento'];
+    $rg ="'" . (string)$_POST['rg'] . "'";
 
+    $strArrayTelefone = $_POST['jsonTelefoneArray'];
+    $arrayTelefone = json_decode($strArrayTelefone, true);
+
+    $xmlTelefone = "";
+    $nomeXml = "ArrayOfFuncionarioTelefone";
+    $nomeTabela = "funcionario_telefone";
+    
+    if (sizeof($arrayTelefone) > 0) {
+        $xmlTelefone = '<?xml version="1.0"?>';
+        $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+
+        foreach ($arrayTelefone as $chave) {
+            $xmlTelefone = $xmlTelefone . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+                if (($campo === "sequencialTelefone")) {
+                    continue;
+                }
+                $xmlTelefone = $xmlTelefone . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlTelefone = $xmlTelefone . "</" . $nomeTabela . ">";
+        }
+        $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
+    } else {
+        $xmlTelefone = '<?xml version="1.0"?>';
+        $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlTelefone = $xmlTelefone . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlTelefone);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de telefone";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlTelefone = "'" . $xmlTelefone . "'";
+
+    $strArrayEmail = $_POST['jsonEmailArray'];
+    $arrayEmail = json_decode($strArrayEmail, true);
+    $xmlEmail = "";
+    $nomeXml = "ArrayOfFuncionario_email";
+    $nomeTabela = "funcionario_email";
+    if (sizeof($arrayEmail) > 0) {
+        $xmlEmail = '<?xml version="1.0"?>';
+        $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+
+        foreach ($arrayEmail as $chave) {
+            $xmlEmail = $xmlEmail . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+                if (($campo === "sequencialEmail")) {
+                    continue;
+                }
+                $xmlEmail = $xmlEmail . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlEmail = $xmlEmail . "</" . $nomeTabela . ">";
+        }
+        $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
+    } else {
+        $xmlEmail = '<?xml version="1.0"?>';
+        $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlEmail = $xmlEmail . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlEmail);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de telefone";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlEmail = "'" . $xmlEmail . "'";
    
 
     //Converção de data
@@ -53,11 +120,12 @@ function grava()
             $ativo,
             $nome,
             $estadoCivil,
-            $dataDeNascimento,
             $cpf,
+            $sexo,
+            $dataDeNascimento,
             $rg,
-            $sexo";
-            
+            $xmlTelefone,
+            $xmlEmail";      
 
     $result = $reposit->Execprocedure($sql);
 
