@@ -35,10 +35,15 @@ include "js/repositorio.php";
                     $nome = $_POST["estadoCivil"];
                     $where = $where . " AND ( USU.estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
                 }
-                $dataDeNascimento = "";
+                $dataDeNascimento= "";
                 if ($_POST["dataDeNascimento"] != "") {
-                    $dataDeNascimento = $_POST["dataDeNascimento"];
-                    $where = $where . " AND USU.dataDeNascimento = '" . $dataDeNascimento . "'" ;
+                    $dataDeNascimento = $_POST["dataDeNascimento"]; 
+
+
+                    $dataDeNascimento = explode ("/",$dataDeNascimento);
+                    $dataDeNascimento= "'". $dataDeNascimento[2] ."-" . $dataDeNascimento[1]. "-" . $dataDeNascimento [0] . "'";
+                    $where = $where . " AND USU.dataDeNascimento =". $dataDeNascimento . "";
+                   
                 }
                 $rg = "";
                 if ($_POST["rg"] != "") {

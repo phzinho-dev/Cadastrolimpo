@@ -17,11 +17,11 @@ if ($funcao == 'excluir') {
     call_user_func($funcao);
 }
 
-if ($funcao =='verificaCPF'){
+if ($funcao == 'verificaCPF') {
     call_user_func($funcao);
 }
 
-if ($funcao =='verificaRG'){
+if ($funcao == 'verificaRG') {
     call_user_func($funcao);
 }
 
@@ -36,11 +36,11 @@ function grava()
     $codigo = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
     $nome = "'" . (string)$_POST['nome'] . "'";
-    $estadoCivil = "'".(string)$_POST['estadoCivil']."'";
+    $estadoCivil = "'" . (string)$_POST['estadoCivil'] . "'";
     $cpf = "'" . (string) $_POST['cpf'] . "'";
-    $sexo = (int)$_POST['sexo'];
+    $rg = "'" . (string)$_POST['rg'] . "'";
     $dataDeNascimento = $_POST['dataDeNascimento'];
-    $rg ="'" . (string)$_POST['rg'] . "'";
+    $sexo = (int)$_POST['sexo'];
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
@@ -48,7 +48,7 @@ function grava()
     $xmlTelefone = "";
     $nomeXml = "ArrayOfFuncionarioTelefone";
     $nomeTabela = "funcionario_telefone";
-    
+
     if (sizeof($arrayTelefone) > 0) {
         $xmlTelefone = '<?xml version="1.0"?>';
         $xmlTelefone = $xmlTelefone . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
@@ -109,7 +109,7 @@ function grava()
         return;
     }
     $xmlEmail = "'" . $xmlEmail . "'";
-   
+
 
     //Converção de data
     $dataDeNascimento = explode("/", $dataDeNascimento);
@@ -125,7 +125,7 @@ function grava()
             $dataDeNascimento,
             $rg,
             $xmlTelefone,
-            $xmlEmail";      
+            $xmlEmail";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -156,7 +156,7 @@ function recupera()
         $id = (int)$row['codigo'];
         $ativo = $row['ativo'];
         $nome = (string)$row['nomeCompleto'];
-        $estadoCivil=(string)$row['estadoCivil'];
+        $estadoCivil = (string)$row['estadoCivil'];
         $dataDeNascimento = $row['dataDeNascimento'];
 
         //Converção de data
@@ -165,16 +165,81 @@ function recupera()
         $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
         $cpf = $row['cpf'];
         $rg = $row['rg'];
-        $sexo =$row ['sexo'];
+        $sexo = $row['sexo'];
 
+        $sql = "SELECT * FROM dbo.funcionario_telefone WHERE funcionario = $id " ;
+        $reposit = new reposit();
+        $result = $reposit->RunQuery($sql);
 
-        $out = $id . "^" . $ativo . "^" . $nome ."^".$estadoCivil. "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo ;
+        $contadorTelefone = 0;
+        $arrayTelefone = array();
+        foreach ($result as $row) {
+            $telefoneId = $row['codigo'];
+            $telefone = $row['telefone'];
+            $principal = +$row['principal'];
+            $whatsapp = +$row['whatsapp'];
+
+            if ($principal === 1) {
+                $descricaoPrincipal = "Sim";
+            } else {
+                $descricaoPrincipal = "Não";
+            }
+            if ($whatsapp === 1) {
+                $descricaoWhatsapp = "Sim";
+            } else {
+                $descricaoWhatsapp = "Não";
+            }
+
+            $contadorTelefone = $contadorTelefone + 1;
+            $arrayTelefone[] = array(
+                "sequencialTelefone" => $contadorTelefone,
+                "telefoneId" => $telefoneId,
+                "telefone" => $telefone,
+                "principal" => $principal,
+                "descricaoTelefonePrincipal" => $descricaoPrincipal,
+                "whatsapp" => $whatsapp,
+                "descricaoTelefoneWhatsapp" => $descricaoWhatsapp
+            );
+        }
+        $strArrayTelefone = json_encode($arrayTelefone);
+
+        $sql = "SELECT * FROM dbo.funcionario_email WHERE funcionario = $id " ;
+        $reposit = new reposit();
+        $result = $reposit->RunQuery($sql);
+
+        $contadorEmail = 0;
+        $arrayEmail = array();
+        foreach ($result as $row) {
+            $emailId = $row['codigo'];
+            $email = $row['email'];
+            $principal = +$row['principal'];
+
+            if ($principal === 1) {
+                $descricaoPrincipal = "Sim";
+            } else {
+                $descricaoPrincipal = "Não";
+            }
+
+            $contadorEmail = $contadorEmail + 1;
+            $arrayEmail[] = array(
+                "sequencialEmail" => $contadorEmail,
+                "emailId" => $emailId,
+                "email" => $email,
+                "principal" => $principal,
+                "funcionario" => $id,
+                "descricaoEmailPrincipal" => $descricaoPrincipal,
+            );
+        }
+        $strArrayEmail = json_encode($arrayEmail);
+        
+
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo ;
 
         if ($out == "") {
             echo "failed#";
         }
         if ($out != '') {
-            echo "sucess#" . $out;
+            echo "sucess#" . $out . "#" . $strArrayTelefone . "#" . $strArrayEmail  ;
         }
         return;
     }
@@ -209,7 +274,7 @@ function verificaCPF()
     $cpf = "'" . $_POST["cpf"] . "'";
 
     $sql = "SELECT cpf FROM dbo.funcionario 
-    WHERE cpf = " .  $cpf ;
+    WHERE cpf = " .  $cpf;
 
     $reposit = new reposit();
 
@@ -218,17 +283,16 @@ function verificaCPF()
     if ($result) {
         echo ('failed#');
         return;
-    } 
+    }
     echo ('sucess#');
-        return;
-
+    return;
 }
 function verificaRG()
 {
     $rg = "'" . $_POST["rg"] . "'";
 
     $sql = "SELECT rg FROM dbo.funcionario 
-    WHERE rg = " .  $rg ;
+    WHERE rg = " .  $rg;
 
     $reposit = new reposit();
 
@@ -237,8 +301,7 @@ function verificaRG()
     if ($result[0]["rg"] === $_POST["rg"]) {
         echo ('failed#');
         return;
-    } 
+    }
     echo ('sucess#');
-        return;
-
+    return;
 }

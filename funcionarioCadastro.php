@@ -258,7 +258,7 @@ include("inc/nav.php");
                                                                     <section class="col col-md-2">
                                                                         <label class="label">&nbsp;</label>
                                                                         <label id="labelemailPrincipal" class="checkbox ">
-                                                                            <input id="emailPrincipal" name="emailrincipal" type="checkbox" value="true" checked="checked"><i></i>
+                                                                            <input id="emailPrincipal" name="emailprincipal" type="checkbox" value="true" checked="checked"><i></i>
                                                                             Principal
                                                                         </label>
                                                                     </section>
@@ -375,7 +375,6 @@ include("inc/scripts.php");
 <script src="<?php echo ASSETS_URL; ?>/js/plugin/form-to-json/jquery.toObject.js"></script>
 
 <script language="JavaScript" type="text/javascript">
-    
     $(document).ready(function() {
         $('#dlgSimpleExcluir').dialog({
             autoOpen: false,
@@ -400,11 +399,11 @@ include("inc/scripts.php");
         });
 
         jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
-        
+
         $("#btnAddTelefone").on("click", function() {
             var telefone = $("#telefone").val();
             var existe = true;
-            
+
             if (!telefone) {
                 smartAlert("Atenção", "Escolha um telefone", "error")
                 return;
@@ -412,15 +411,15 @@ include("inc/scripts.php");
             if (validaTelefone()) {
                 addTelefone();
             }
-            
+
         });
-        
+
         $("#btnExclTelefone").on("click", function() {
             excluirTelefone();
         });
-        
+
         jsonEmailArray = JSON.parse($("#jsonEmail").val());
-        
+
         $("#btnAddEmail").on("click", function() {
             var email = $("#email").val();
             var existe = true;
@@ -462,14 +461,6 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
-            gravar()
-        });
-
-        $("#btnVoltar").on("click", function() {
-            voltar();
-        });
-
-        $("#cpf").on("focusout", function() {
             var cpf = $('#cpf').val();
 
             if (!validarCPF(cpf)) {
@@ -478,7 +469,11 @@ include("inc/scripts.php");
                 return
 
             };
-        })
+        });
+
+        $("#btnVoltar").on("click", function() {
+            voltar();
+        });
 
         $("#rg").on("focusout", function() {
             var rg = $('#rg').val();
@@ -520,6 +515,8 @@ include("inc/scripts.php");
                             var piece = data.split("#");
                             var mensagem = piece[0];
                             var out = piece[1];
+                            var strArrayTelefone = piece[2];
+                            var strArrayEmail = piece[3];
                             piece = out.split("^");
 
                             // Atributos de vale transporte unitário que serão recuperados: 
@@ -543,6 +540,14 @@ include("inc/scripts.php");
                             $("#rg").val(rg);
                             $("#sexo").val(sexo);
 
+                            $("#jsonTelefone").val(strArrayTelefone);
+                            jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
+
+                            $("#jsonEmail").val(strArrayEmail);
+                            jsonEmailArray = JSON.parse($("#jsonEmail").val());
+
+                            fillTableTelefone();
+                            fillTableEmail();
                             calculaIdade()
 
                             return;
@@ -570,40 +575,48 @@ include("inc/scripts.php");
         var jsonEmailArray = $('#jsonEmail').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
+
+        if (ativo === "") {
+            smartAlert("Atenção", "Informe a Ativo", "error");
+            $("#btnGravar").prop('disabled', false);
+        }
+
         if (!nome) {
             smartAlert("Atenção", "Informe o nome", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (!estadoCivil) {
-            smartAlert("Atenção", "Informe o seu Estado Civil", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
+
         if (!rg) {
             smartAlert("Atenção", "Informe o Rg", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
         if (!cpf) {
             smartAlert("Atenção", "Informe o cpf", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
+        if (!estadoCivil) {
+            smartAlert("Atenção", "Informe o seu Estado Civil", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+
+        if (!sexo) {
+            smartAlert("Atenção", "Informe a Sexo", "error");
+            $("#btnGravar").prop('disabled', false);
+        }
+
         if (!dataDeNascimento) {
             smartAlert("Atenção", "Informe a Data de Nascimento", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        if (ativo === "") {
-            smartAlert("Atenção", "Informe a Ativo", "error");
-            $("#btnGravar").prop('disabled', false);
-        }
-        if (!sexo) {
-            smartAlert("Atenção", "Informe a Sexo", "error");
-            $("#btnGravar").prop('disabled', false);
-        }
-        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, dataDeNascimento, rg, sexo,jsonTelefoneArray, jsonEmailArray,
+
+        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, jsonTelefoneArray, jsonEmailArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -762,6 +775,8 @@ include("inc/scripts.php");
                         smartAlert("Atenção", "Cpf ja cadastrado no sistema", "error");
                         $("#cpf").val('')
                     }
+                } else {
+                    gravar()
                 }
             });
     }
@@ -786,355 +801,354 @@ include("inc/scripts.php");
     }
 
     function validaTelefone() {
-    var existe = false;
-    var achou = false;
-    var telefone = $('#telefone').val();
-    var sequencial = +$('#sequencialTelefone').val();
-    var telefoneValido = false;
-    var telefonePrincipalMarcado = 0;
+        var existe = false;
+        var achou = false;
+        var telefone = $('#telefone').val();
+        var sequencial = +$('#sequencialTelefone').val();
+        var telefoneValido = false;
+        var telefonePrincipalMarcado = 0;
 
-    if ($("#telefonePrincipal").is(':checked') === true) {
-        telefonePrincipalMarcado = 1;
-    }
-    if (telefone === '') {
-        smartAlert("Erro", "Informe um telefone.", "error");
-        return false;
-    }
+        if ($("#telefonePrincipal").is(':checked') === true) {
+            telefonePrincipalMarcado = 1;
+        }
+        if (telefone === '') {
+            smartAlert("Erro", "Informe um telefone.", "error");
+            return false;
+        }
 
-    for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
-        if (telefonePrincipalMarcado === 1) {
-            if ((jsonTelefoneArray[i].telefonePrincipal === 1) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
-                achou = true;
+        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+            if (telefonePrincipalMarcado === 1) {
+                if ((jsonTelefoneArray[i].telefonePrincipal === 1) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                    achou = true;
+                    break;
+                }
+            }
+            if ((jsonTelefoneArray[i].telefone === telefone) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                existe = true;
                 break;
             }
         }
-        if ((jsonTelefoneArray[i].telefone === telefone) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
-            existe = true;
-            break;
-        }
-    }
-    if (existe === true) {
-        smartAlert("Erro", "telefone já cadastrado.", "error");
-        return false;
-    }
-    if ((achou === true) && (telefonePrincipalMarcado === 1)) {
-        smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
-        return false;
-    }
-    return true;
-}
-
-function addTelefone() {
-
-    var item = $("#formTelefone").toObject({
-        mode: 'combine',
-        skipEmpty: false,
-        nodeCallback: processDataTelefone
-    });
-
-    if (item["sequencialTelefone"] === '') {
-        if (jsonTelefoneArray.length === 0) {
-            item["sequencialTelefone"] = 1;
-        } else {
-            item["sequencialTelefone"] = Math.max.apply(Math, jsonTelefoneArray.map(function(o) {
-                return o.sequencialTelefone;
-            })) + 1;
-        }
-        item["telefoneId"] = 0;
-    } else {
-        item["sequencialTelefone"] = +item["sequencialTelefone"];
-    }
-
-    var index = -1;
-    $.each(jsonTelefoneArray, function(i, obj) {
-        if (+$('#sequencialTelefone').val() === obj.sequencialTelefone) {
-            index = i;
+        if (existe === true) {
+            smartAlert("Erro", "telefone já cadastrado.", "error");
             return false;
         }
-    });
-
-    if (index >= 0)
-        jsonTelefoneArray.splice(index, 1, item);
-    else
-        jsonTelefoneArray.push(item);
-    console.log(jsonTelefoneArray)
-    $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
-    fillTableTelefone();
-    clearFormTelefone();
-
-}
-
-function clearFormTelefone() {
-    $("#telefone").val('');
-    $("#sequencialTelefone").val('');
-    $("#telefonePrincipal").val('');
-    $("#descricaoTelefonePrincipal").val('');
-    $("#telefoneWhatsapp").val('');
-    $("#descricaoTelefoneWhatsapp").val('');
-
-}
-
-function fillTableTelefone() {
-    $("#tableTelefone tbody").empty();
-
-    for (var i = 0; i < jsonTelefoneArray.length; i++) {
-
-        var row = $('<tr />');
-        $("#tableTelefone tbody").append(row);
-        row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTelefone + '"><i></i></label></td>'));
-        row.append($('<td class="text-center" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTelefone + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
-        row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
-        row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefoneWhatsapp + '</td>'));
-
-    }
-}
-
-function processDataTelefone(node) {
-    var fieldId = node.getAttribute ? node.getAttribute('id') : '';
-    var fieldName = node.getAttribute ? node.getAttribute('name') : '';
-
-
-    if (fieldName !== '' && (fieldId === "telefonePrincipal")) {
-        var valorTelefonePrincipal = 0;
-        if ($("#telefonePrincipal").is(':checked') === true) {
-            valorTelefonePrincipal = 1;
+        if ((achou === true) && (telefonePrincipalMarcado === 1)) {
+            smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
+            return false;
         }
-        return {
-            name: fieldName,
-            value: valorTelefonePrincipal
-        };
+        return true;
     }
 
-    if (fieldName !== '' && (fieldId === "descricaoTelefonePrincipal")) {
-        var valorDescricaoTelefonePrincipal = "Não";
-        if ($("#telefonePrincipal").is(':checked') === true) {
-            valorDescricaoTelefonePrincipal = "Sim";
-        }
-        return {
-            name: fieldName,
-            value: valorDescricaoTelefonePrincipal
-        };
-    }
+    function addTelefone() {
 
-    if (fieldName !== '' && (fieldId === "telefoneWhatsapp")) {
-        var valorTelefoneWhatsapp = 0;
-        if ($("#telefoneWhatsapp").is(':checked') === true) {
-            valorTelefoneWhatsapp = 1;
-        }
-        return {
-            name: fieldName,
-            value: valorTelefoneWhatsapp
-        };
-    }
+        var item = $("#formTelefone").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataTelefone
+        });
 
-    if (fieldName !== '' && (fieldId === "descricaoTelefoneWhatsapp")) {
-        var valorDescricaoTelefoneWhatsapp = "Não";
-        if ($("#telefoneWhatsapp").is(':checked') === true) {
-            valorDescricaoTelefoneWhatsapp = "Sim";
-        }
-        return {
-            name: fieldName,
-            value: valorDescricaoTelefoneWhatsapp
-        };
-    }
-
-    return false;
-}
-
-function carregaTelefone(sequencialTelefone) {
-    var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
-        return (item.sequencialTelefone === sequencialTelefone);
-    });
-
-    clearFormTelefone();
-
-    if (arr.length > 0) {
-        var item = arr[0];
-        $("#telefone").val(item.telefone);
-
-    }
-}
-
-function excluirTelefone() {
-    var arrSequencial = [];
-    $('#tableTelefone input[type=checkbox]:checked').each(function() {
-        arrSequencial.push(parseInt($(this).val()));
-    });
-    if (arrSequencial.length > 0) {
-        for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
-            var obj = jsonTelefoneArray[i];
-            if (jQuery.inArray(obj.sequencialTelefone, arrSequencial) > -1) {
-                jsonTelefoneArray.splice(i, 1);
+        if (item["sequencialTelefone"] === '') {
+            if (jsonTelefoneArray.length === 0) {
+                item["sequencialTelefone"] = 1;
+            } else {
+                item["sequencialTelefone"] = Math.max.apply(Math, jsonTelefoneArray.map(function(o) {
+                    return o.sequencialTelefone;
+                })) + 1;
             }
+            item["telefoneId"] = 0;
+        } else {
+            item["sequencialTelefone"] = +item["sequencialTelefone"];
         }
+
+        var index = -1;
+        $.each(jsonTelefoneArray, function(i, obj) {
+            if (+$('#sequencialTelefone').val() === obj.sequencialTelefone) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonTelefoneArray.splice(index, 1, item);
+        else
+            jsonTelefoneArray.push(item);
+        console.log(jsonTelefoneArray)
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
         fillTableTelefone();
-    } else
-        smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
-}
+        clearFormTelefone();
 
-
- function validaEmail() {
-    var existe = false;
-    var achou = false;
-    var email = $('#email').val();
-    var sequencial = +$('#sequencialEmail').val();
-    var emailValido = false;
-    var emailPrincipalMarcado = 0;
-
-    if ($("#emailPrincipal").is(':checked') === true) {
-        emailPrincipalMarcado = 1;
     }
-    if (email === '') {
-        smartAlert("Erro", "Informe um email.", "error");
+
+    function clearFormTelefone() {
+        $("#telefone").val('');
+        $("#sequencialTelefone").val('');
+        $("#telefonePrincipal").val('');
+        $("#descricaoTelefonePrincipal").val('');
+        $("#telefoneWhatsapp").val('');
+        $("#descricaoTelefoneWhatsapp").val('');
+
+    }
+
+    function fillTableTelefone() {
+        $("#tableTelefone tbody").empty();
+
+        for (var i = 0; i < jsonTelefoneArray.length; i++) {
+
+            var row = $('<tr />');
+            $("#tableTelefone tbody").append(row);
+            row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTelefone + '"><i></i></label></td>'));
+            row.append($('<td class="text-center" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTelefone + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefoneWhatsapp + '</td>'));
+
+        }
+    }
+
+    function processDataTelefone(node) {
+        var fieldId = node.getAttribute ? node.getAttribute('id') : '';
+        var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
+
+        if (fieldName !== '' && (fieldId === "telefonePrincipal")) {
+            var valorTelefonePrincipal = 0;
+            if ($("#telefonePrincipal").is(':checked') === true) {
+                valorTelefonePrincipal = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorTelefonePrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoTelefonePrincipal")) {
+            var valorDescricaoTelefonePrincipal = "Não";
+            if ($("#telefonePrincipal").is(':checked') === true) {
+                valorDescricaoTelefonePrincipal = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoTelefonePrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "telefoneWhatsapp")) {
+            var valorTelefoneWhatsapp = 0;
+            if ($("#telefoneWhatsapp").is(':checked') === true) {
+                valorTelefoneWhatsapp = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorTelefoneWhatsapp
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoTelefoneWhatsapp")) {
+            var valorDescricaoTelefoneWhatsapp = "Não";
+            if ($("#telefoneWhatsapp").is(':checked') === true) {
+                valorDescricaoTelefoneWhatsapp = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoTelefoneWhatsapp
+            };
+        }
+
         return false;
     }
 
-    for (i = jsonEmailArray.length - 1; i >= 0; i--) {
-        if (emailPrincipalMarcado === 1) {
-            if ((jsonEmailArray[i].emailPrincipal === 1) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
-                achou = true;
+    function carregaTelefone(sequencialTelefone) {
+        var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
+            return (item.sequencialTelefone === sequencialTelefone);
+        });
+
+        clearFormTelefone();
+
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#telefone").val(item.telefone);
+
+        }
+    }
+
+    function excluirTelefone() {
+        var arrSequencial = [];
+        $('#tableTelefone input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
+                var obj = jsonTelefoneArray[i];
+                if (jQuery.inArray(obj.sequencialTelefone, arrSequencial) > -1) {
+                    jsonTelefoneArray.splice(i, 1);
+                }
+            }
+            $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+            fillTableTelefone();
+        } else
+            smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
+    }
+
+
+    function validaEmail() {
+        var existe = false;
+        var achou = false;
+        var email = $('#email').val();
+        var sequencial = +$('#sequencialEmail').val();
+        var emailValido = false;
+        var emailPrincipalMarcado = 0;
+
+        if ($("#emailPrincipal").is(':checked') === true) {
+            emailPrincipalMarcado = 1;
+        }
+        if (email === '') {
+            smartAlert("Erro", "Informe um email.", "error");
+            return false;
+        }
+
+        for (i = jsonEmailArray.length - 1; i >= 0; i--) {
+            if (emailPrincipalMarcado === 1) {
+                if ((jsonEmailArray[i].emailPrincipal === 1) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
+                    achou = true;
+                    break;
+                }
+            }
+            if ((jsonEmailArray[i].email === email) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
+                existe = true;
                 break;
             }
         }
-        if ((jsonEmailArray[i].email === email) && (jsonEmailArray[i].sequencialEmail !== sequencial)) {
-            existe = true;
-            break;
-        }
-    }
-    if (existe === true) {
-        smartAlert("Erro", "email já cadastrado.", "error");
-        return false;
-    }
-    if ((achou === true) && (emailPrincipalMarcado === 1)) {
-        smartAlert("Erro", "Já existe um email principal na lista.", "error");
-        return false;
-    }
-    return true;
-}
-
-function addEmail() {
-
-    var item = $("#formEmail").toObject({
-        mode: 'combine',
-        skipEmpty: false,
-        nodeCallback: processDataEmail
-    });
-
-    if (item["sequencialEmail"] === '') {
-        if (jsonEmailArray.length === 0) {
-            item["sequencialEmail"] = 1;
-        } else {
-            item["sequencialEmail"] = Math.max.apply(Math, jsonEmailArray.map(function(o) {
-                return o.sequencialEmail;
-            })) + 1;
-        }
-        item["emailId"] = 0;
-    } else {
-        item["sequencialEmail"] = +item["sequencialEmail"];
-    }
-
-    var index = -1;
-    $.each(jsonEmailArray, function(i, obj) {
-        if (+$('#sequencialEmail').val() === obj.sequencialEmail) {
-            index = i;
+        if (existe === true) {
+            smartAlert("Erro", "email já cadastrado.", "error");
             return false;
         }
-    });
-
-    if (index >= 0)
-        jsonEmailArray.splice(index, 1, item);
-    else
-        jsonEmailArray.push(item);
-    console.log(jsonEmailArray)
-    $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
-    fillTableEmail();
-    clearFormEmail();
-
-}
-
-function clearFormEmail() {
-    $("#email").val('');
-    $("#sequencialEmail").val('');
-    $("#emailPrincipal").val('');
-    $("#descricaoEmailPrincipal").val('');
-
-}
-
-function fillTableEmail() {
-    $("#tableEmail tbody").empty();
-
-    for (var i = 0; i < jsonEmailArray.length; i++) {
-
-        var row = $('<tr />');
-        $("#tableEmail tbody").append(row);
-        row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
-        row.append($('<td class="text-center" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
-        row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
-
-    }
-}
-
-function processDataEmail(node) {
-    var fieldId = node.getAttribute ? node.getAttribute('id') : '';
-    var fieldName = node.getAttribute ? node.getAttribute('name') : '';
-
-
-    if (fieldName !== '' && (fieldId === "emailPrincipal")) {
-        var valorEmailPrincipal = 0;
-        if ($("#emailPrincipal").is(':checked') === true) {
-            valorEmailPrincipal = 1;
+        if ((achou === true) && (emailPrincipalMarcado === 1)) {
+            smartAlert("Erro", "Já existe um email principal na lista.", "error");
+            return false;
         }
-        return {
-            name: fieldName,
-            value: valorEmailPrincipal
-        };
+        return true;
     }
 
-    if (fieldName !== '' && (fieldId === "descricaoEmailPrincipal")) {
-        var valorDescricaoEmailPrincipal = "Não";
-        if ($("#emailPrincipal").is(':checked') === true) {
-            valorDescricaoEmailPrincipal = "Sim";
-        }
-        return {
-            name: fieldName,
-            value: valorDescricaoEmailPrincipal
-        };
-    }
+    function addEmail() {
 
-    return false;
-}
+        var item = $("#formEmail").toObject({
+            mode: 'combine',
+            skipEmpty: false,
+            nodeCallback: processDataEmail
+        });
 
-function carregaEmail(sequencialEmail) {
-    var arr = jQuery.grep(jsonEmailArray, function(item, i) {
-        return (item.sequencialEmail === sequencialEmail);
-    });
-
-    clearFormEmail();
-
-    if (arr.length > 0) {
-        var item = arr[0];
-        $("#email").val(item.email);
-
-    }
-}
-
-function excluirEmail() {
-    var arrSequencial = [];
-    $('#tableEmail input[type=checkbox]:checked').each(function() {
-        arrSequencial.push(parseInt($(this).val()));
-    });
-    if (arrSequencial.length > 0) {
-        for (i = jsonEmailArray.length - 1; i >= 0; i--) {
-            var obj = jsonEmailArray[i];
-            if (jQuery.inArray(obj.sequencialEmail, arrSequencial) > -1) {
-                jsonEmailArray.splice(i, 1);
+        if (item["sequencialEmail"] === '') {
+            if (jsonEmailArray.length === 0) {
+                item["sequencialEmail"] = 1;
+            } else {
+                item["sequencialEmail"] = Math.max.apply(Math, jsonEmailArray.map(function(o) {
+                    return o.sequencialEmail;
+                })) + 1;
             }
+            item["emailId"] = 0;
+        } else {
+            item["sequencialEmail"] = +item["sequencialEmail"];
         }
+
+        var index = -1;
+        $.each(jsonEmailArray, function(i, obj) {
+            if (+$('#sequencialEmail').val() === obj.sequencialEmail) {
+                index = i;
+                return false;
+            }
+        });
+
+        if (index >= 0)
+            jsonEmailArray.splice(index, 1, item);
+        else
+            jsonEmailArray.push(item);
+        console.log(jsonEmailArray)
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
         fillTableEmail();
-    } else
-        smartAlert("Erro", "Selecione pelo menos 1 Email para excluir.", "error");
-}
+        clearFormEmail();
 
+    }
+
+    function clearFormEmail() {
+        $("#email").val('');
+        $("#sequencialEmail").val('');
+        $("#emailPrincipal").val('');
+        $("#descricaoEmailPrincipal").val('');
+
+    }
+
+    function fillTableEmail() {
+        $("#tableEmail tbody").empty();
+
+        for (var i = 0; i < jsonEmailArray.length; i++) {
+
+            var row = $('<tr />');
+            $("#tableEmail tbody").append(row);
+            row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
+            row.append($('<td class="text-center" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
+
+        }
+    }
+
+    function processDataEmail(node) {
+        var fieldId = node.getAttribute ? node.getAttribute('id') : '';
+        var fieldName = node.getAttribute ? node.getAttribute('name') : '';
+
+
+        if (fieldName !== '' && (fieldId === "emailPrincipal")) {
+            var valorEmailPrincipal = 0;
+            if ($("#emailPrincipal").is(':checked') === true) {
+                valorEmailPrincipal = 1;
+            }
+            return {
+                name: fieldName,
+                value: valorEmailPrincipal
+            };
+        }
+
+        if (fieldName !== '' && (fieldId === "descricaoEmailPrincipal")) {
+            var valorDescricaoEmailPrincipal = "Não";
+            if ($("#emailPrincipal").is(':checked') === true) {
+                valorDescricaoEmailPrincipal = "Sim";
+            }
+            return {
+                name: fieldName,
+                value: valorDescricaoEmailPrincipal
+            };
+        }
+
+        return false;
+    }
+
+    function carregaEmail(sequencialEmail) {
+        var arr = jQuery.grep(jsonEmailArray, function(item, i) {
+            return (item.sequencialEmail === sequencialEmail);
+        });
+
+        clearFormEmail();
+
+        if (arr.length > 0) {
+            var item = arr[0];
+            $("#email").val(item.email);
+
+        }
+    }
+
+    function excluirEmail() {
+        var arrSequencial = [];
+        $('#tableEmail input[type=checkbox]:checked').each(function() {
+            arrSequencial.push(parseInt($(this).val()));
+        });
+        if (arrSequencial.length > 0) {
+            for (i = jsonEmailArray.length - 1; i >= 0; i--) {
+                var obj = jsonEmailArray[i];
+                if (jQuery.inArray(obj.sequencialEmail, arrSequencial) > -1) {
+                    jsonEmailArray.splice(i, 1);
+                }
+            }
+            $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
+            fillTableEmail();
+        } else
+            smartAlert("Erro", "Selecione pelo menos 1 Email para excluir.", "error");
+    }
 </script>
