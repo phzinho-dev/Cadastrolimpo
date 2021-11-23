@@ -28,7 +28,7 @@ if ($condicaoGravarOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Grupo";
+$page_title = "Funcionario";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -40,7 +40,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav['configuracao']['sub']["grupo"]["active"] = true;
+$page_nav['configuracao']['sub']["Funcionario"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -50,7 +50,7 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Tabela Básica"] = "";
+    $breadcrumbs["Cadastro"] = "";
     include("inc/ribbon.php");
     ?>
 
@@ -63,7 +63,7 @@ include("inc/nav.php");
                     <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
-                            <h2>Grupo</h2>
+                            <h2>Funcionario</h2>
                         </header>
                         <div>
                             <div class="widget-body no-padding">
@@ -258,7 +258,7 @@ include("inc/nav.php");
                                                                     <section class="col col-md-2">
                                                                         <label class="label">&nbsp;</label>
                                                                         <label id="labelemailPrincipal" class="checkbox ">
-                                                                            <input id="emailPrincipal" name="emailprincipal" type="checkbox" value="true" checked="checked"><i></i>
+                                                                            <input id="emailPrincipal" name="emailPrincipal" type="checkbox" value="true" checked="checked"><i></i>
                                                                             Principal
                                                                         </label>
                                                                     </section>
@@ -803,6 +803,7 @@ include("inc/scripts.php");
     function validaTelefone() {
         var existe = false;
         var achou = false;
+
         var telefone = $('#telefone').val();
         var sequencial = +$('#sequencialTelefone').val();
         var telefoneValido = false;
@@ -811,6 +812,7 @@ include("inc/scripts.php");
         if ($("#telefonePrincipal").is(':checked') === true) {
             telefonePrincipalMarcado = 1;
         }
+
         if (telefone === '') {
             smartAlert("Erro", "Informe um telefone.", "error");
             return false;
@@ -822,21 +824,21 @@ include("inc/scripts.php");
                     achou = true;
                     break;
                 }
+                if ((jsonTelefoneArray[i].telefone === telefone) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                    existe = true;
+                    break;
+                }
             }
-            if ((jsonTelefoneArray[i].telefone === telefone) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
-                existe = true;
-                break;
+            if (existe === true) {
+                smartAlert("Erro", "telefone já cadastrado.", "error");
+                return false;
             }
+            if ((achou === true) && (telefonePrincipalMarcado === 1)) {
+                smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
+                return false;
+            }
+            return true;
         }
-        if (existe === true) {
-            smartAlert("Erro", "telefone já cadastrado.", "error");
-            return false;
-        }
-        if ((achou === true) && (telefonePrincipalMarcado === 1)) {
-            smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
-            return false;
-        }
-        return true;
     }
 
     function addTelefone() {
@@ -959,6 +961,7 @@ include("inc/scripts.php");
     function carregaTelefone(sequencialTelefone) {
         var arr = jQuery.grep(jsonTelefoneArray, function(item, i) {
             return (item.sequencialTelefone === sequencialTelefone);
+
         });
 
         clearFormTelefone();
@@ -966,7 +969,16 @@ include("inc/scripts.php");
         if (arr.length > 0) {
             var item = arr[0];
             $("#telefone").val(item.telefone);
+            $("#sequencialTelefone").val(item.sequencialTelefone);
 
+            if (item.principal === 0) {
+                $("#telefonePrincipal").prop('checked', false)
+            }
+
+            if (item.whatsapp === 0) {
+                $("#telefoneWhatsapp").prop('checked', false)
+
+            }
         }
     }
 
@@ -992,6 +1004,7 @@ include("inc/scripts.php");
     function validaEmail() {
         var existe = false;
         var achou = false;
+
         var email = $('#email').val();
         var sequencial = +$('#sequencialEmail').val();
         var emailValido = false;
@@ -1017,12 +1030,12 @@ include("inc/scripts.php");
                 break;
             }
         }
-        if (existe === true) {
-            smartAlert("Erro", "email já cadastrado.", "error");
-            return false;
-        }
         if ((achou === true) && (emailPrincipalMarcado === 1)) {
             smartAlert("Erro", "Já existe um email principal na lista.", "error");
+            return false;
+        }
+        if (existe === true) {
+            smartAlert("Erro", "email já cadastrado.", "error");
             return false;
         }
         return true;
@@ -1130,9 +1143,14 @@ include("inc/scripts.php");
         if (arr.length > 0) {
             var item = arr[0];
             $("#email").val(item.email);
+            $("#sequencialEmail").val(item.sequencialEmail);
 
+            if (item.email === 0) {
+                $("#emailPrincipal").prop('checked', false)
+            }
         }
     }
+
 
     function excluirEmail() {
         var arrSequencial = [];

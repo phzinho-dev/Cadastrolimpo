@@ -24,7 +24,7 @@ if ($condicaoGravarOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Usuário";
+$page_title = "Funcionario";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -36,7 +36,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["configuracao"]["sub"]["usuarios"]["active"] = true;
+$page_nav["Cadastro"]["sub"]["Funcionario"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -46,7 +46,7 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Configurações"] = "";
+    $breadcrumbs["Cadastro"] = "";
     include("inc/ribbon.php");
     ?>
 
@@ -60,11 +60,11 @@ include("inc/nav.php");
                     <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
-                            <h2>Usuário</h2>
+                            <h2>Funcionario</h2>
                         </header>
                         <div>
                             <div class="widget-body no-padding">
-                                <form action="javascript:gravar()" class="smart-form client-form" id="formUsuarioFiltro" method="post">
+                                <form action="javascript:gravar()" class="smart-form client-form" id="formFuncionarioFiltro" method="post">
                                     <div class="panel-group smart-accordion-default" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
@@ -199,6 +199,9 @@ include("inc/scripts.php");
         $('#btnNovo').on("click", function() {
             novo();
         });
+        $("#dataDeNascimento").on("change", function() {
+            calculaIdade()
+        });
         $("#cpf").mask("999.999.999-99");
 
         $("#rg").mask("99.999.999-9")
@@ -206,6 +209,46 @@ include("inc/scripts.php");
         $("#dataDeNascimento").mask("99/99/9999");
         
     });
+
+    function calculaIdade() {
+        var dataDeNascimento = $('#dataDeNascimento').val();
+        var y = (parseInt(dataDeNascimento.split('/')[2]));
+        var m = (parseInt(dataDeNascimento.split('/')[1]));
+        var d = (parseInt(dataDeNascimento.split('/')[0]));
+
+        var dataHoje = moment().format('DD/MM/YYYY');
+        var yH = (parseInt(dataHoje.split('/')[2]));
+        var mH = (parseInt(dataHoje.split('/')[1]));
+        var dH = (parseInt(dataHoje.split('/')[0]));
+
+        var dataValida = moment(dataDeNascimento, 'DD/MM/YYYY').isValid();
+        if (!dataValida) {
+            smartAlert("Atenção", "DATA INVALIDA!", "error");
+            $('#idade').val('');
+            $('#dataDeNascimento').val('');
+            return;
+        }
+        if (moment(dataDeNascimento, 'DD/MM/YYYY').diff(moment()) > 0) {
+            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
+            $('#idade').val('');
+            $('#dataDeNascimento').val('');
+            return;
+
+        }
+
+        var idade = yH - y;
+
+        if (mH < m) {
+            idade--;
+        }
+        if (dH < d && mH == m) {
+            idade--;
+        }
+
+        $('#idade').val(idade);
+        return idade;
+    }
+
     function listarFiltro() {
         var nome = $('#nome').val();
         var estadoCivil =$('#estadoCivil').val();
@@ -230,6 +273,7 @@ include("inc/scripts.php");
                 
         });
     }
+
     function novo() {
         $(location).attr('href', 'funcionarioCadastro.php');
     } 

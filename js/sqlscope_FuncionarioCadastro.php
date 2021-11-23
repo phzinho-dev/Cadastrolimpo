@@ -104,7 +104,7 @@ function grava()
     }
     $xml = simplexml_load_string($xmlEmail);
     if ($xml === false) {
-        $mensagem = "Erro na criação do XML de telefone";
+        $mensagem = "Erro na criação do XML de Email";
         echo "failed#" . $mensagem . ' ';
         return;
     }

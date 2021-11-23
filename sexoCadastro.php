@@ -28,7 +28,7 @@ if ($condicaoGravarOK === false) {
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
   E.G. $page_title = "Custom Title" */
 
-$page_title = "Grupo";
+$page_title = "Cadastro";
 
 /* ---------------- END PHP Custom Scripts ------------- */
 
@@ -40,7 +40,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav['configuracao']['sub']["grupo"]["active"] = true;
+$page_nav['Cadastro']['sub']["Sexo"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -50,7 +50,7 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Tabela Básica"] = "";
+    $breadcrumbs["Cadastro"] = "";
     include("inc/ribbon.php");
     ?>
 
@@ -63,7 +63,7 @@ include("inc/nav.php");
                     <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-deletebutton="false" data-widget-sortable="false">
                         <header>
                             <span class="widget-icon"><i class="fa fa-cog"></i></span>
-                            <h2>Grupo</h2>
+                            <h2>Sexo</h2>
                         </header>
                         <div>
                             <div class="widget-body no-padding">
@@ -299,6 +299,7 @@ include("inc/scripts.php");
         if (sexo === "") {
            smartAlert("Atenção", "Informe seu sexo", "error");
            $("#btnGravar").prop('disabled', false);
+           return;
        }
     
         gravarSexoCadastro(id,ativo,sexo, 
