@@ -194,7 +194,6 @@ include("inc/nav.php");
                                                                 <input id="sequencialTelefone" name="sequencialTelefone" type="hidden" value="">
                                                                 <input id="descricaoTelefonePrincipal" name="descricaoTelefonePrincipal" type="hidden" value="">
                                                                 <input id="descricaoTelefoneWhatsapp" name="descricaoTelefoneWhatsapp" type="hidden" value="">
-
                                                                 <div class="row">
                                                                     <section class="col col-4">
                                                                         <label class="label" for="telefone">Telefone</label>
@@ -243,7 +242,6 @@ include("inc/nav.php");
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                             <input id="jsonEmail" name="jsonEmail" type="hidden" value="[]">
                                                             <div id="formEmail" class="col-sm-6">
                                                                 <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
@@ -291,10 +289,11 @@ include("inc/nav.php");
                                                         </fieldset>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                             <span class="fa fa-trash"></span>
@@ -405,13 +404,17 @@ include("inc/scripts.php");
             var existe = true;
 
             if (!telefone) {
-                smartAlert("Atenção", "Escolha um telefone", "error")
+                smartAlert("Atenção", "Escolha um Telefone", "error")
                 return;
             }
             if (validaTelefone()) {
                 addTelefone();
             }
 
+        });
+
+        $("#btnExclTelefone").on("click", function() {
+            excluirTelefone();
         });
 
         $("#btnExclTelefone").on("click", function() {
@@ -463,11 +466,19 @@ include("inc/scripts.php");
         $("#btnGravar").on("click", function() {
             var cpf = $('#cpf').val();
 
-            if (!validarCPF(cpf)) {
-                smartAlert("Atençao", "Informe um Cpf valido", "error");
-                $('#cpf').val('');
-                return
+            if (id === 0) {
+                if (!validarCPF(cpf)) {
+                    smartAlert("Atençao", "Informe um Cpf valido", "error");
+                    $('#cpf').val('');
+                    return
 
+                };
+            }
+            var id = $("#codigo").val();
+
+            if (id !== 0); {
+                $('#codigo').val();
+                return gravar()
             };
         });
 
@@ -812,7 +823,6 @@ include("inc/scripts.php");
         if ($("#telefonePrincipal").is(':checked') === true) {
             telefonePrincipalMarcado = 1;
         }
-
         if (telefone === '') {
             smartAlert("Erro", "Informe um telefone.", "error");
             return false;
@@ -824,21 +834,21 @@ include("inc/scripts.php");
                     achou = true;
                     break;
                 }
-                if ((jsonTelefoneArray[i].telefone === telefone) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
-                    existe = true;
-                    break;
-                }
             }
-            if (existe === true) {
-                smartAlert("Erro", "telefone já cadastrado.", "error");
-                return false;
+            if ((jsonTelefoneArray[i].telefone === telefone) && (jsonTelefoneArray[i].sequencialTelefone !== sequencial)) {
+                existe = true;
+                break;
             }
-            if ((achou === true) && (telefonePrincipalMarcado === 1)) {
-                smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
-                return false;
-            }
-            return true;
         }
+        if ((achou === true) && (telefonePrincipalMarcado === 1)) {
+            smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
+            return false;
+        }
+        if (existe === true) {
+            smartAlert("Erro", "telefone já cadastrado.", "error");
+            return false;
+        }
+        return true;
     }
 
     function addTelefone() {
@@ -880,6 +890,7 @@ include("inc/scripts.php");
         clearFormTelefone();
 
     }
+
 
     function clearFormTelefone() {
         $("#telefone").val('');
@@ -1136,6 +1147,7 @@ include("inc/scripts.php");
     function carregaEmail(sequencialEmail) {
         var arr = jQuery.grep(jsonEmailArray, function(item, i) {
             return (item.sequencialEmail === sequencialEmail);
+
         });
 
         clearFormEmail();
@@ -1145,7 +1157,7 @@ include("inc/scripts.php");
             $("#email").val(item.email);
             $("#sequencialEmail").val(item.sequencialEmail);
 
-            if (item.email === 0) {
+            if (item.principal === 0) {
                 $("#emailPrincipal").prop('checked', false)
             }
         }
