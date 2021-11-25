@@ -40,7 +40,19 @@ function grava()
     $cpf = "'" . (string) $_POST['cpf'] . "'";
     $rg = "'" . (string)$_POST['rg'] . "'";
     $dataDeNascimento = $_POST['dataDeNascimento'];
+    //Converção de data
+    $dataDeNascimento = explode("/", $dataDeNascimento);
+    $dataDeNascimento = "'" . $dataDeNascimento[2] . "-" . $dataDeNascimento[1] . "-" . $dataDeNascimento[0] . "'";
+
     $sexo = (int)$_POST['sexo'];
+
+    $cep = "'" . (string)$_POST['cep'] . "'";
+    $logradouro = "'" . (string)$_POST['logradouro'] . "'";
+    $numero = "'" . (string)$_POST['numero'] . "'" ;
+    $complemento = "'" . (string)$_POST['complemento'] . "'" ;
+    $uf = "'" . (string)$_POST['uf'] . "'" ; 
+    $bairro = "'" . (string)$_POST['bairro']. "'" ;
+    $cidade = "'" . (string)$_POST['cidade']. "'" ;
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
@@ -111,9 +123,7 @@ function grava()
     $xmlEmail = "'" . $xmlEmail . "'";
 
 
-    //Converção de data
-    $dataDeNascimento = explode("/", $dataDeNascimento);
-    $dataDeNascimento = "'" . $dataDeNascimento[2] . "-" . $dataDeNascimento[1] . "-" . $dataDeNascimento[0] . "'";
+    
 
     $sql = "dbo.funcionario_Atualiza
             $codigo,
@@ -124,8 +134,17 @@ function grava()
             $sexo,
             $dataDeNascimento,
             $rg,
+
             $xmlTelefone,
-            $xmlEmail";
+            $xmlEmail,
+
+            $cep,
+            $logradouro,
+            $numero,
+            $complemento,
+            $uf,
+            $bairro,
+            $cidade";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -142,7 +161,24 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo, ativo, nomeCompleto,estadoCivil, dataDeNascimento, cpf , rg , sexo FROM dbo.funcionario WHERE (0 = 0)";
+    $sql = "SELECT 
+     codigo, 
+     ativo, 
+     nomeCompleto, 
+     estadoCivil, 
+     dataDeNascimento, 
+     cpf , 
+     rg, 
+     sexo,
+     cep, 
+     logradouro,
+     numero, 
+     complemento,
+     uf,
+     bairro,
+     cidade
+    
+      FROM dbo.funcionario WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -166,6 +202,14 @@ function recupera()
         $cpf = $row['cpf'];
         $rg = $row['rg'];
         $sexo = $row['sexo'];
+
+        $cep = $row['cep'];
+        $logradouro =(string)$row['logradouro'];
+        $numero = $row['numero'];
+        $complemento = (string)$row['complemento'];
+        $uf = (string)$row['uf'];
+        $bairro = (string)$row['bairro'];
+        $cidade = (string)$row['cidade'];
 
         $sql = "SELECT * FROM dbo.funcionario_telefone WHERE funcionario = $id " ;
         $reposit = new reposit();
@@ -233,7 +277,8 @@ function recupera()
         $strArrayEmail = json_encode($arrayEmail);
         
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo ;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . 
+            "^" . $cep . "^" . $logradouro . "^" . $numero. "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade;
 
         if ($out == "") {
             echo "failed#";

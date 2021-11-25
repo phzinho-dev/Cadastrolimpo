@@ -106,7 +106,6 @@ include("inc/nav.php");
                                                                     <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
-
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="rg">RG</label>
                                                                 <label class="input">
@@ -174,7 +173,7 @@ include("inc/nav.php");
                                         </div>
                                     </div>
 
-                                    <div class="panel-group smart-accordion-default" id="accordion">
+                                    <div class="panel-group smart-accordion-default" id="accordionContato">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
@@ -292,8 +291,73 @@ include("inc/nav.php");
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
+
+                                    <div class="panel-group smart-accordion-default" id="accordionEndereco">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordionContato" href="#collapseEndereco" class="" id="accordionEndereco">
+                                                    <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                    <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                    Endereço
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseEndereco" class="panel-collapse collapse">
+                                            <div class="panel-body no-padding">
+                                                <div class="container">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-2">
+                                                                <label class="label" for="cep">CEP</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="cep" name="cep" class="required" placeholder="Ex.: 00000-000">
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label" for="logradouro">Logradouro</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="logradouro" name="logradouro" class="required" />
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-1">
+                                                                <label class="label" for="numero">Numero</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="numero" name="numero" class="required" />
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label" for="complemento">Complemento</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="complemento" name="complemento" class="required" />
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-1">
+                                                                <label class="label" for="uf">UF</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="uf" name="uf" class="required" />
+                                                                </label>
+                                                            </section>
+                                                        </div>
+                                                        <div class="row">
+                                                            <section class="col col-2-auto">
+                                                                <label class="label" for="bairro">Bairro</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="bairro" name="bairro" class="required" />
+                                                                </label>
+                                                            </section>
+                                                            <section class="col col-2">
+                                                                <label class="label" for="cidade">Cidade</label>
+                                                                <label class="input">
+                                                                    <input type="text" id="cidade" name="cidade" class="required">
+                                                                </label>
+                                                            </section>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <footer>
                                         <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                             <span class="fa fa-trash"></span>
@@ -503,6 +567,7 @@ include("inc/scripts.php");
 
         $("#rg").mask("99.999.999-9")
 
+        $("#cep").mask("99999-999")
 
         carregaPagina();
 
@@ -540,6 +605,15 @@ include("inc/scripts.php");
                             var rg = piece[6];
                             var sexo = piece[7];
 
+                            var cep = piece[8];
+                            var logradouro = piece[9];
+                            var numero = piece[10]; 
+                            console.log(piece)
+                            var complemento = piece[11];
+                            var uf = piece[12];
+                            var bairro = piece[13];
+                            var cidade = piece[14];
+
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -550,6 +624,13 @@ include("inc/scripts.php");
                             $("#cpf").val(cpf);
                             $("#rg").val(rg);
                             $("#sexo").val(sexo);
+                            $("#cep").val(cep);
+                            $("#logradouro").val(logradouro);
+                            $("#numero").val(numero); 
+                            $("#complemento").val(complemento);
+                            $("#uf").val(uf);
+                            $("#bairro").val(bairro);
+                            $("#cidade").val(cidade);
 
                             $("#jsonTelefone").val(strArrayTelefone);
                             jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
@@ -582,8 +663,17 @@ include("inc/scripts.php");
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
         var sexo = +$('#sexo').val();
+
         var jsonTelefoneArray = $('#jsonTelefone').val();
         var jsonEmailArray = $('#jsonEmail').val();
+
+        var cep = $('#cep').val();
+        var logradouro = $('#logradouro').val();
+        var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
+        var uf = $('#uf').val();
+        var bairro = $('#bairro').val();
+        var cidade = $('#cidade').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
 
@@ -626,8 +716,44 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+        if (!cep) {
+            smartAlert("Atenção", "Informe o CEP", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!logradouro) {
+            smartAlert("Atenção", "Informe o Logradouro", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!numero) {
+            smartAlert("Atenção", "Informe o Numero ", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!complemento) {
+            smartAlert("Atenção", "Informe o Complemento", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!uf) {
+            smartAlert("Atenção", "Informe o UF", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!bairro) {
+            smartAlert("Atenção", "Informe o Bairro", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if (!cidade) {
+            smartAlert("Atenção", "Informe o Cidade", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
 
-        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, jsonTelefoneArray, jsonEmailArray,
+
+        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, complemento, uf, bairro, cidade, jsonTelefoneArray, jsonEmailArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");

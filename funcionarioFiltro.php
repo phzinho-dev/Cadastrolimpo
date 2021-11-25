@@ -269,8 +269,8 @@ include("inc/scripts.php");
             dataFim: dataFim,
             cpf: cpf,
             rg : rg,
-            sexo : sexo
-                
+            sexo : sexo,  
+              
         });
     }
 
