@@ -328,7 +328,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label" for="complemento">Complemento</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="complemento" name="complemento" class="required" />
+                                                                    <input type="text" id="complemento" name="complemento" class="" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -561,6 +561,10 @@ include("inc/scripts.php");
             };
         })
 
+        $("#cep").on("change",function(){
+            enderecoCep()
+        });
+
         $("#cpf").mask("999.999.999-99")
 
         $("#dataDeNascimento").mask("99/99/9999")
@@ -607,7 +611,7 @@ include("inc/scripts.php");
 
                             var cep = piece[8];
                             var logradouro = piece[9];
-                            var numero = piece[10]; 
+                            var numero = piece[10];
                             console.log(piece)
                             var complemento = piece[11];
                             var uf = piece[12];
@@ -626,7 +630,7 @@ include("inc/scripts.php");
                             $("#sexo").val(sexo);
                             $("#cep").val(cep);
                             $("#logradouro").val(logradouro);
-                            $("#numero").val(numero); 
+                            $("#numero").val(numero);
                             $("#complemento").val(complemento);
                             $("#uf").val(uf);
                             $("#bairro").val(bairro);
@@ -1306,5 +1310,38 @@ include("inc/scripts.php");
             fillTableEmail();
         } else
             smartAlert("Erro", "Selecione pelo menos 1 Email para excluir.", "error");
+    }
+
+    function enderecoCep() {
+        // Se o campo CEP não estiver vazio
+        if ($.trim($("#cep").val()) != "") {
+            /*
+                 Para conectar no serviço e executar o json, precisa usar uma função
+                 getScript do jQuery, o getScript e o dataType: "jsonp" conseguir fazer o cross-domain, os outros
+                 dataTypes não possibilitam esta interação entre domínios diferentes
+                 Estou chamando a url do serviço passando o parâmetro "formato = javascript" e o CEP digitado no formulário
+                 http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep= "+ $ (" #cep ") .val ()
+            */
+            $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep=" + $("#cep").val(),
+                function() {
+                    // o getScript dá um eval no script, então é só ler!
+                    // Se o resultado for igual a 1
+                    if (resultadoCEP["resultado"]) {
+                        // troca o valor dos elementos
+                        $("#logradouro").val(unescape(resultadoCEP["logradouro"]));
+                        //$("#campoBoporto").val(unescape(resultadoCEP["b bloco "]));
+                        $("#uf").val(unescape(resultadoCEP["uf"]));
+                        $("#bairro").val(unescape(resultadoCEP["bairro"]));
+                        //$("#enderecoCompleto").show("slow ");
+                        $("#cidade").val(unescape(resultadoCEP["cidade"]));
+                    } else {
+                        alerta("Endereço não encontrado");
+                        return false;
+                    }
+                });
+        } else {
+            alert('Antes, preencha o campo CEP!')
+        }
+
     }
 </script>
