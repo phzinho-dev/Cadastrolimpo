@@ -40,7 +40,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav['Cadastro']['sub']["Sexo"]["active"] = true;
+$page_nav['cadastro']['sub']["sexo"]["active"] = true;
 
 include("inc/nav.php");
 ?>

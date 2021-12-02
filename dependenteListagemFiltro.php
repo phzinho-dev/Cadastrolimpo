@@ -26,7 +26,7 @@ $where = "WHERE (0 = 0)";
                 $where = $where . " AND ( descricao like '%' + " . "replace('" . $descricao . "',' ','%') + " . "'%')";
                 }
 
-                $sql = " SELECT [codigo],[ativo] ,[descricao] FROM dependente ";
+                $sql = " SELECT [codigo],[ativo] ,[descricao] FROM tipo_dependente ";
                 
                 $where = $where ;
 

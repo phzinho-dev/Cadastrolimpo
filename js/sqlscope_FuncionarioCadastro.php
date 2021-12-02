@@ -24,6 +24,9 @@ if ($funcao == 'verificaCPF') {
 if ($funcao == 'verificaRG') {
     call_user_func($funcao);
 }
+if($funcao == 'verificaCPFDependente'){
+    call_user_func($funcao);
+}
 
 return;
 
@@ -53,6 +56,7 @@ function grava()
     $uf = "'" . (string)$_POST['uf'] . "'" ; 
     $bairro = "'" . (string)$_POST['bairro']. "'" ;
     $cidade = "'" . (string)$_POST['cidade']. "'" ;
+
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
     $arrayTelefone = json_decode($strArrayTelefone, true);
@@ -89,6 +93,7 @@ function grava()
     }
     $xmlTelefone = "'" . $xmlTelefone . "'";
 
+
     $strArrayEmail = $_POST['jsonEmailArray'];
     $arrayEmail = json_decode($strArrayEmail, true);
     $xmlEmail = "";
@@ -123,6 +128,40 @@ function grava()
     $xmlEmail = "'" . $xmlEmail . "'";
 
 
+    $strArrayDependente = $_POST['jsonDependenteArray'];
+    $arrayDependente = json_decode($strArrayDependente, true);
+    $xmlDependente = "";
+    $nomeXml = "ArrayOfFuncionario_dependente";
+    $nomeTabela = "dependente";
+    if (sizeof($arrayDependente) > 0) {
+        $xmlDependente = '<?xml version="1.0"?>';
+        $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+
+        foreach ($arrayDependente as $chave) {
+            $xmlDependente = $xmlDependente . "<" . $nomeTabela . ">";
+            foreach ($chave as $campo => $valor) {
+                if (($campo === "sequencialDescricao")) {
+                    continue;
+                }
+                $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
+            }
+            $xmlDependente = $xmlDependente . "</" . $nomeTabela . ">";
+        }
+        $xmlDependente = $xmlDependente . "</" . $nomeXml . ">";
+    } else {
+        $xmlDependente = '<?xml version="1.0"?>';
+        $xmlDependente = $xmlDependente . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+        $xmlDependente = $xmlDependente . "</" . $nomeXml . ">";
+    }
+    $xml = simplexml_load_string($xmlDependente);
+    if ($xml === false) {
+        $mensagem = "Erro na criação do XML de Descricao";
+        echo "failed#" . $mensagem . ' ';
+        return;
+    }
+    $xmlDependente = "'" . $xmlDependente . "'";
+
+
     
 
     $sql = "dbo.funcionario_Atualiza
@@ -137,6 +176,7 @@ function grava()
 
             $xmlTelefone,
             $xmlEmail,
+            $xmlDependente,
 
             $cep,
             $logradouro,
@@ -275,6 +315,31 @@ function recupera()
             );
         }
         $strArrayEmail = json_encode($arrayEmail);
+
+        $sql = "SELECT * FROM dbo.dependente WHERE funcionario = $id ";
+        $reposit = new reposit();
+        $result = $reposit ->RunQuery($sql);
+
+        $contadorDependente = 0;
+        $arrayDependente = array();
+        foreach ($result as $row) {
+            $dependenteId = $row['codigo'];
+            $descricao = $row ['descricao'];
+            $nome = $row ['nomeDependente'];
+            $cpf = $row['cpfDependente'];
+            $dataNascimento = $row['dataNascimento'];
+            
+            $contadorDependente = $contadorDependente + 1;
+            $arrayDependente = array(
+                "dependenteId" => $dependenteId,
+                "nomeDepedente" => $nome,
+                "cpfDependente" => $cpf,
+                "dataNascimento" => $dataNascimento,
+                "sequencialDescricao" => $contadorDependente,
+                "descricao" => $descricao,
+            );
+        }
+        $strArrayDependente= json_encode($arrayDependente);
         
 
         $out = $id . "^" . $ativo . "^" . $nome . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . 
@@ -284,7 +349,7 @@ function recupera()
             echo "failed#";
         }
         if ($out != '') {
-            echo "sucess#" . $out . "#" . $strArrayTelefone . "#" . $strArrayEmail  ;
+            echo "sucess#" . $out . "#" . $strArrayTelefone . "#" . $strArrayEmail . "#" . $strArrayDependente ;
         }
         return;
     }
@@ -332,6 +397,7 @@ function verificaCPF()
     echo ('sucess#');
     return;
 }
+
 function verificaRG()
 {
     $rg = "'" . $_POST["rg"] . "'";
@@ -344,6 +410,25 @@ function verificaRG()
     $result = $reposit->RunQuery($sql);
 
     if ($result[0]["rg"] === $_POST["rg"]) {
+        echo ('failed#');
+        return;
+    }
+    echo ('sucess#');
+    return;
+}
+
+function verificaCPFDependente()
+{
+    $cpfDependente = "'" . $_POST["cpf"] . "'";
+
+    $sql = "SELECT cpf FROM dbo.dependente
+    WHERE cpf = " . $cpfDependente;
+
+    $reposit = new reposit();
+
+    $result = $reposit->RunQuery($sql);
+
+    if ($result) {
         echo ('failed#');
         return;
     }

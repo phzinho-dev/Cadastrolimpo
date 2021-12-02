@@ -27,7 +27,7 @@ function grava()
     $descricao= "'" . (string)$_POST['descricao'] . "'";
     
 
-    $sql = "dbo.dependente_Atualiza
+    $sql = "dbo.tipo_dependente_Atualiza
             $codigo,
             $ativo,
             $descricao";
@@ -47,7 +47,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo,ativo,descricao FROM dbo.dependente WHERE (0 = 0)";
+    $sql = "SELECT codigo,ativo,descricao FROM dbo.tipo_dependente WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -87,10 +87,10 @@ function excluir()
         return;
     }
 
-    $result = $reposit->update('dbo.dependente*' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
+    $result = $reposit->update('dbo.tipo_dependente' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
 
     if ($result < 1) {
-        echo ('sucess#');
+        echo ('failed#');
         return;
     }
 

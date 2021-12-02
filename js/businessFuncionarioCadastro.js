@@ -23,7 +23,8 @@ function gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDe
             cidade: cidade,
 
             jsonEmailArray: jsonEmailArray,
-            jsonTelefoneArray: jsonTelefoneArray
+            jsonTelefoneArray: jsonTelefoneArray,
+            jsonDependenteArray: jsonDependenteArray
         },
         success: function(data) {
             callback(data);
@@ -75,6 +76,18 @@ function verificaRG(rg, callback) {
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
         data: { funcao: 'verificaRG', rg: rg }, //valores enviados ao script    
+        success: function(data) {
+            callback(data);
+        }
+    });
+}
+
+function verificaCPFDependente(cpf, callback) {
+    $.ajax({
+        url: 'js/sqlscope_FuncionarioCadastro.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: { funcao: 'verificaCPFDependente', cpf: cpf }, //valores enviados ao script    
         success: function(data) {
             callback(data);
         }

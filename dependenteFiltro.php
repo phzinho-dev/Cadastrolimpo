@@ -36,7 +36,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["Cadastro"]["sub"]["Dependente"]["active"] = true;
+$page_nav["tabelaBasica"]["sub"]["dependente"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -46,7 +46,7 @@ include("inc/nav.php");
     <?php
     //configure ribbon (breadcrumbs) array("name"=>"url"), leave url empty if no url
     //$breadcrumbs["New Crumb"] => "http://url.com"
-    $breadcrumbs["Cadastro"] = "";
+    $breadcrumbs["tabelaBasica"] = "";
     include("inc/ribbon.php");
     ?>
 
