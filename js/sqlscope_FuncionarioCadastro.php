@@ -96,9 +96,11 @@ function grava()
 
     $strArrayEmail = $_POST['jsonEmailArray'];
     $arrayEmail = json_decode($strArrayEmail, true);
+
     $xmlEmail = "";
-    $nomeXml = "ArrayOfFuncionario_email";
+    $nomeXml = "ArrayOfFuncionarioEmail";
     $nomeTabela = "funcionario_email";
+
     if (sizeof($arrayEmail) > 0) {
         $xmlEmail = '<?xml version="1.0"?>';
         $xmlEmail = $xmlEmail . '<' . $nomeXml . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
@@ -121,7 +123,7 @@ function grava()
     }
     $xml = simplexml_load_string($xmlEmail);
     if ($xml === false) {
-        $mensagem = "Erro na criação do XML de Email";
+        $mensagem = "Erro na criação do XML de email";
         echo "failed#" . $mensagem . ' ';
         return;
     }
@@ -187,7 +189,7 @@ function grava()
             $cidade";
 
     $result = $reposit->Execprocedure($sql);
-
+    // ahou o erro ? aindao nao
     $ret = 'sucess#';
     if ($result < 1) {
         $ret = 'failed#';

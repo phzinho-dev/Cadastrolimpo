@@ -378,17 +378,18 @@ include("inc/nav.php");
                                                             <input id="jsonDependente" name="jsonDependente" type="hidden" value="[]">
                                                             <div id="formDependente" class="col-sm-12">
                                                                 <input id="sequencialDependente" name="sequencialDependente" type="hidden" value="">
+                                                                <input id="descricaoDependente" name="descricaoDependente" type="hidden" value="">
                                                                 <div class="row">
                                                                     <section class="col col-3 col-auto">
                                                                         <label class="label" for="nomeDependente">Nome</label>
                                                                         <label class="input">
-                                                                            <input id="nomeDependente" name= "nomeDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="Nome">
+                                                                            <input id="nomeDependente" name="nomeDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="Nome">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-2">
                                                                         <label class="label" for="cpfDependente">CPF</label>
                                                                         <label class="input">
-                                                                            <input id="cpfDependente" name= "cpfDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="CPF">
+                                                                            <input id="cpfDependente" name="cpfDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="CPF">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-2 col-auto">
@@ -588,6 +589,9 @@ include("inc/scripts.php");
                 addEmail();
             }
 
+        });
+        $("#bntExclEmail").on("clicl", function() {
+            excluirEmail();
         });
 
         jsonDependenteArray = JSON.parse($("#jsonDependente").val());
@@ -803,7 +807,7 @@ include("inc/scripts.php");
 
         var jsonTelefoneArray = $('#jsonTelefone').val();
         var jsonEmailArray = $('#jsonEmail').val();
-        var jsonDependenteArray = $('#jsonDependete').val();
+        var jsonDependenteArray = $('#jsonDependente').val();
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
 
@@ -877,8 +881,7 @@ include("inc/scripts.php");
             return;
         }
 
-        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, uf, bairro, cidade, jsonTelefoneArray, jsonEmailArray,
-            jsonDependenteArray,
+        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, uf, bairro, cidade, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -1557,9 +1560,10 @@ include("inc/scripts.php");
             mode: 'combine',
             skipEmpty: false,
         });
+        const descricaoDependente = $("#descricao option:selected").text();
 
         if (item["sequencialDependente"] === '') {
-            if (jsonTelefoneArray.length === 0) {
+            if (jsonDependenteArray.length === 0) {
                 item["sequencialDependente"] = 1;
             } else {
                 item["sequencialDependente"] = Math.max.apply(Math, jsonDependenteArray.map(function(o) {
@@ -1570,6 +1574,7 @@ include("inc/scripts.php");
         } else {
             item["sequencialDependente"] = +item["sequencialDependente"];
         }
+        item["descricaoDependente"] = descricaoDependente;
 
         var index = -1;
         $.each(jsonDependenteArray, function(i, obj) {
@@ -1583,7 +1588,7 @@ include("inc/scripts.php");
             jsonDependenteArray.splice(index, 1, item);
         else
             jsonDependenteArray.push(item);
-        
+
         $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
         fillTableDependente();
         clearFormDependente();
@@ -1594,7 +1599,7 @@ include("inc/scripts.php");
         $("#nomeDependente").val('');
         $("#cpfDependente").val('');
         $("#dataNascimento").val('');
-        $("#descricao").val('');
+        $("#descricaoDependente").val('');
         $("#sequencialDependente").val('');
 
     }
@@ -1603,14 +1608,15 @@ include("inc/scripts.php");
         $("#tableDependente tbody").empty();
 
         for (var i = 0; i < jsonDependenteArray.length; i++) {
-
             var row = $('<tr />');
+            var descricaoDependente = $("#descricao option[value ='" + jsonDependenteArray[i].descricao + "']").text();
+
             $("#tableDependente tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
             row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].cpfDependente + '</td>'));
             row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].dataNascimento + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].descricao + '</td>'));
+            row.append($('<td class="text-center" onclick="">' + descricaoDependente + '</td>'));
 
         }
     }
@@ -1626,17 +1632,10 @@ include("inc/scripts.php");
 
         if (arr.length > 0) {
             var item = arr[0];
-            $("#descricao").val(item.telefone);
+            $("#descricao").val(item.dependente);
             $("#sequencialDependente").val(item.sequencialDependente);
 
-            if (item.principal === 0) {
-                $("#telefonePrincipal").prop('checked', false)
-            }
 
-            if (item.whatsapp === 0) {
-                $("#telefoneWhatsapp").prop('checked', false)
-
-            }
         }
     }
 
@@ -1646,15 +1645,15 @@ include("inc/scripts.php");
             arrSequencial.push(parseInt($(this).val()));
         });
         if (arrSequencial.length > 0) {
-            for (i = jsonTelefoneArray.length - 1; i >= 0; i--) {
-                var obj = jsonTelefoneArray[i];
-                if (jQuery.inArray(obj.sequencialTelefone, arrSequencial) > -1) {
-                    jsonTelefoneArray.splice(i, 1);
+            for (i = jsonDependenteArray.length - 1; i >= 0; i--) {
+                var obj = jsonDependenteArray[i];
+                if (jQuery.inArray(obj.sequencialDependente, arrSequencial) > -1) {
+                    jsonDependenteArray.splice(i, 1);
                 }
             }
             $("#jsonDependente").val(JSON.stringify(jsonDependenteArray));
             fillTableDependente();
         } else
-            smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
+            smartAlert("Erro", "Selecione pelo menos 1 Dependente para excluir.", "error");
     }
 </script>
