@@ -133,7 +133,7 @@ function grava()
     $strArrayDependente = $_POST['jsonDependenteArray'];
     $arrayDependente = json_decode($strArrayDependente, true);
     $xmlDependente = "";
-    $nomeXml = "ArrayOfFuncionario_dependente";
+    $nomeXml = "ArrayOfdependente";
     $nomeTabela = "dependente";
     if (sizeof($arrayDependente) > 0) {
         $xmlDependente = '<?xml version="1.0"?>';
@@ -318,7 +318,10 @@ function recupera()
         }
         $strArrayEmail = json_encode($arrayEmail);
 
-        $sql = "SELECT * FROM dbo.dependente WHERE funcionario = $id ";
+        $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimento, USUG.descricao, USU.descricao 
+                FROM dbo.dependente USU
+                LEFT JOIN dbo.tipo_dependente USUG on USU.descricao = USUG.codigo 
+                WHERE (0 = 0) ";
         $reposit = new reposit();
         $result = $reposit ->RunQuery($sql);
 
@@ -326,19 +329,19 @@ function recupera()
         $arrayDependente = array();
         foreach ($result as $row) {
             $dependenteId = $row['codigo'];
-            $descricao = $row ['descricao'];
             $nome = $row ['nomeDependente'];
             $cpf = $row['cpfDependente'];
             $dataNascimento = $row['dataNascimento'];
+            $descricao = $row ['descricao'];
             
             $contadorDependente = $contadorDependente + 1;
             $arrayDependente = array(
-                "dependenteId" => $dependenteId,
                 "nomeDepedente" => $nome,
                 "cpfDependente" => $cpf,
                 "dataNascimento" => $dataNascimento,
                 "sequencialDescricao" => $contadorDependente,
                 "descricao" => $descricao,
+                "dependenteId" => $dependenteId,
             );
         }
         $strArrayDependente= json_encode($arrayDependente);

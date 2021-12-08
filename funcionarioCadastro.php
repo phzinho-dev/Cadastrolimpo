@@ -590,7 +590,8 @@ include("inc/scripts.php");
             }
 
         });
-        $("#bntExclEmail").on("clicl", function() {
+
+        $("#bntExclEmail").on("click", function() {
             excluirEmail();
         });
 
@@ -649,7 +650,7 @@ include("inc/scripts.php");
 
                 }
             }
-        })
+        });
 
         $("#btnVoltar").on("click", function() {
             voltar();
@@ -675,6 +676,7 @@ include("inc/scripts.php");
                 return
             }
         })
+
         $("#cep").on("change", function() {
             enderecoCep()
         });
@@ -688,6 +690,8 @@ include("inc/scripts.php");
                 return
             }
         });
+
+
 
         $("#cpf").mask("999.999.999-99")
 
@@ -850,31 +854,43 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
+        if (jsonTelefoneArray.length <= 0) {
+            smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+
         if (!cep) {
             smartAlert("Atenção", "Informe o CEP", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
         if (!logradouro) {
             smartAlert("Atenção", "Informe o Logradouro", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
         if (!numero) {
             smartAlert("Atenção", "Informe o Numero ", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
         if (!uf) {
             smartAlert("Atenção", "Informe o UF", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
         if (!bairro) {
             smartAlert("Atenção", "Informe o Bairro", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
+
         if (!cidade) {
             smartAlert("Atenção", "Informe o Cidade", "error");
             $("#btnGravar").prop('disabled', false);
@@ -1121,6 +1137,7 @@ include("inc/scripts.php");
                 }
             });
     }
+
 
     function validaTelefone() {
         var existe = false;
@@ -1595,15 +1612,6 @@ include("inc/scripts.php");
 
     }
 
-    function clearFormDependente() {
-        $("#nomeDependente").val('');
-        $("#cpfDependente").val('');
-        $("#dataNascimento").val('');
-        $("#descricaoDependente").val('');
-        $("#sequencialDependente").val('');
-
-    }
-
     function fillTableDependente() {
         $("#tableDependente tbody").empty();
 
@@ -1614,13 +1622,21 @@ include("inc/scripts.php");
             $("#tableDependente tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].cpfDependente + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonDependenteArray[i].dataNascimento + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + descricaoDependente + '</td>'));
+            row.append($('<td class="text-center" "">' + jsonDependenteArray[i].cpfDependente + '</td>'));
+            row.append($('<td class="text-center" "">' + jsonDependenteArray[i].dataNascimento + '</td>'));
+            row.append($('<td class="text-center" "">' + descricaoDependente + '</td>'));
 
         }
     }
 
+    function clearFormDependente() {
+        $("#nomeDependente").val('');
+        $("#cpfDependente").val('');
+        $("#dataNascimento").val('');
+        $("#descricao").val('');
+        $("#sequencialDependente").val('');
+
+    }
 
     function carregaDependente(sequencialDependente) {
         var arr = jQuery.grep(jsonDependenteArray, function(item, i) {
@@ -1632,9 +1648,11 @@ include("inc/scripts.php");
 
         if (arr.length > 0) {
             var item = arr[0];
-            $("#descricao").val(item.dependente);
+            $("#nomeDependente").val(item.nomeDependente);
+            $("#cpfDependente").val(item.cpfDependente);
+            $("#dataNascimento").val(item.dataNascimento);
+            $("#descricao").val(item.descricao);
             $("#sequencialDependente").val(item.sequencialDependente);
-
 
         }
     }
