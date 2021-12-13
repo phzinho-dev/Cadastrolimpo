@@ -1,4 +1,4 @@
-function gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, uf, bairro, cidade, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, callback) {
+function gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray, callback) {
     $.ajax({
         url: 'js/sqlscope_FuncionarioCadastro.php',
         dataType: 'html', //tipo do retorno
@@ -13,14 +13,19 @@ function gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDe
             rg: rg,
             dataDeNascimento: dataDeNascimento,
             sexo: sexo,
+
             cep: cep,
             logradouro: logradouro,
             numero: numero,
             uf: uf,
             bairro: bairro,
             cidade: cidade,
+            primeiroEmprego: primeiroEmprego,
+            pisPasep: pisPasep,
+
             jsonTelefoneArray: jsonTelefoneArray,
             jsonEmailArray: jsonEmailArray,
+
             jsonDependenteArray: jsonDependenteArray
         },
         success: function(data) {
@@ -79,12 +84,24 @@ function verificaRG(rg, callback) {
     });
 }
 
-function verificaCPFDependente(cpf, callback) {
+function verificaPisPasep(pisPasep, callback) {
     $.ajax({
         url: 'js/sqlscope_FuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'verificaCPFDependente', cpf: cpf }, //valores enviados ao script    
+        data: { funcao: 'verificaPisPasep', pisPasep: pisPasep }, //valores enviados ao script    
+        success: function(data) {
+            callback(data);
+        }
+    });
+}
+
+function verificaCPFDependente(cpfDependente, callback) {
+    $.ajax({
+        url: 'js/sqlscope_FuncionarioCadastro.php', //caminho do arquivo a ser executado
+        dataType: 'html', //tipo do retorno
+        type: 'post', //metodo de envio
+        data: { funcao: 'verificaCPFDependente', cpfDependente: cpfDependente }, //valores enviados ao script    
         success: function(data) {
             callback(data);
         }

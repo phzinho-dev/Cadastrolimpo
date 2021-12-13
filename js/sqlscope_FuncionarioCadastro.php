@@ -24,6 +24,11 @@ if ($funcao == 'verificaCPF') {
 if ($funcao == 'verificaRG') {
     call_user_func($funcao);
 }
+
+if($funcao == 'verificaPisPasep') {
+    call_user_func($funcao);
+}
+
 if($funcao == 'verificaCPFDependente'){
     call_user_func($funcao);
 }
@@ -48,7 +53,6 @@ function grava()
     $dataDeNascimento = "'" . $dataDeNascimento[2] . "-" . $dataDeNascimento[1] . "-" . $dataDeNascimento[0] . "'";
 
     $sexo = (int)$_POST['sexo'];
-
     $cep = "'" . (string)$_POST['cep'] . "'";
     $logradouro = "'" . (string)$_POST['logradouro'] . "'";
     $numero = "'" . (string)$_POST['numero'] . "'" ;
@@ -56,6 +60,8 @@ function grava()
     $uf = "'" . (string)$_POST['uf'] . "'" ; 
     $bairro = "'" . (string)$_POST['bairro']. "'" ;
     $cidade = "'" . (string)$_POST['cidade']. "'" ;
+    $primeiroEmprego = (int)$_POST['primeiroEmprego'] ;
+    $pisPasep = "'" . (string)$_POST['pisPasep'] . "'";
 
 
     $strArrayTelefone = $_POST['jsonTelefoneArray'];
@@ -142,7 +148,7 @@ function grava()
         foreach ($arrayDependente as $chave) {
             $xmlDependente = $xmlDependente . "<" . $nomeTabela . ">";
             foreach ($chave as $campo => $valor) {
-                if (($campo === "sequencialDescricao")) {
+                if (($campo === "sequencialDependente")) {
                     continue;
                 }
                 $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
@@ -175,7 +181,7 @@ function grava()
             $sexo,
             $dataDeNascimento,
             $rg,
-
+        
             $xmlTelefone,
             $xmlEmail,
             $xmlDependente,
@@ -186,7 +192,9 @@ function grava()
             $complemento,
             $uf,
             $bairro,
-            $cidade";
+            $cidade,
+            $primeiroEmprego,
+            $pisPasep";
 
     $result = $reposit->Execprocedure($sql);
     // ahou o erro ? aindao nao
@@ -218,7 +226,9 @@ function recupera()
      complemento,
      uf,
      bairro,
-     cidade
+     cidade,
+     primeiroEmprego,
+     pisPasep
     
       FROM dbo.funcionario WHERE (0 = 0)";
 
@@ -252,6 +262,8 @@ function recupera()
         $uf = (string)$row['uf'];
         $bairro = (string)$row['bairro'];
         $cidade = (string)$row['cidade'];
+        $primeiroEmprego = $row['primeiroEmprego'];
+        $pisPasep = (string)$row['pisPasep'];
 
         $sql = "SELECT * FROM dbo.funcionario_telefone WHERE funcionario = $id " ;
         $reposit = new reposit();
@@ -318,10 +330,10 @@ function recupera()
         }
         $strArrayEmail = json_encode($arrayEmail);
 
-        $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimento, USUG.descricao, USU.descricao 
+        $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimento,USU.tipoDependente
                 FROM dbo.dependente USU
-                LEFT JOIN dbo.tipo_dependente USUG on USU.descricao = USUG.codigo 
-                WHERE (0 = 0) ";
+                LEFT JOIN dbo.tipo_dependente USUG on USU.tipoDependente = USUG.codigo
+                WHERE funcionario = $id";
         $reposit = new reposit();
         $result = $reposit ->RunQuery($sql);
 
@@ -329,26 +341,26 @@ function recupera()
         $arrayDependente = array();
         foreach ($result as $row) {
             $dependenteId = $row['codigo'];
-            $nome = $row ['nomeDependente'];
-            $cpf = $row['cpfDependente'];
+            $nomeDependente = $row ['nomeDependente'];
+            $cpfDependente = $row['cpfDependente'];
             $dataNascimento = $row['dataNascimento'];
-            $descricao = $row ['descricao'];
+            $tipoDependente = $row ['tipoDependente'];
             
             $contadorDependente = $contadorDependente + 1;
-            $arrayDependente = array(
-                "nomeDepedente" => $nome,
-                "cpfDependente" => $cpf,
-                "dataNascimento" => $dataNascimento,
-                "sequencialDescricao" => $contadorDependente,
-                "descricao" => $descricao,
+            $arrayDependente[] = array(
+                "sequencialDependente" => $contadorDependente,
                 "dependenteId" => $dependenteId,
+                "nomeDependente" => $nomeDependente,
+                "cpfDependente" => $cpfDependente,
+                "dataNascimento" => $dataNascimento,
+                "tipoDependente" => $tipoDependente,
             );
         }
         $strArrayDependente= json_encode($arrayDependente);
         
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo . 
-            "^" . $cep . "^" . $logradouro . "^" . $numero. "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade;
+        $out = $id . "^" . $ativo . "^" . $nome . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo .  
+               "^" . $cep . "^" . $logradouro . "^" . $numero. "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pisPasep;
 
         if ($out == "") {
             echo "failed#";
@@ -422,12 +434,31 @@ function verificaRG()
     return;
 }
 
+function verificaPisPasep()
+{
+    $pisPasep = "'" . $_POST["pisPasep"] . "'";
+
+    $sql = "SELECT pisPasep FROM dbo.funcionario 
+    WHERE pisPasep = " .  $pisPasep;
+
+    $reposit = new reposit();
+
+    $result = $reposit->RunQuery($sql);
+
+    if ($result) {
+        echo ('failed#');
+        return;
+    }
+    echo ('sucess#');
+    return;
+}
+
 function verificaCPFDependente()
 {
-    $cpfDependente = "'" . $_POST["cpf"] . "'";
+    $cpfDependente = "'" . $_POST["cpfDependente"] . "'";
 
-    $sql = "SELECT cpf FROM dbo.dependente
-    WHERE cpf = " . $cpfDependente;
+    $sql = "SELECT cpfDependente FROM dbo.dependente
+    WHERE cpfDependente = " . $cpfDependente;
 
     $reposit = new reposit();
 

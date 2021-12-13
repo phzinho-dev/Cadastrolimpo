@@ -93,7 +93,7 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo" class="required">
-                                                                        <option></option>
+                                                                        <option hidden selected></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -123,8 +123,8 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="select">
-                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off">
-                                                                        <option></option>
+                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off" placeholder ="Estado Civil">
+                                                                        <option hidden selected></option>
                                                                         <option value="Solteiro">Solteiro</option>
                                                                         <option value="Casado">Casado</option>
                                                                         <option value="Divorciado">Divorciado</opition>
@@ -135,7 +135,7 @@ include("inc/nav.php");
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
                                                                     <select id="sexo" name="sexo" class="required">
-                                                                        <option></option>
+                                                                        <option hidden selected></option>
                                                                         <?php
                                                                         $reposit = new reposit();
                                                                         $sql = "SELECT codigo, sexo 
@@ -162,25 +162,25 @@ include("inc/nav.php");
                                                             <section class="col col-1 col-auto">
                                                                 <label class="label">Idade</label>
                                                                 <label class="input">
-                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
+                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off" placeholder="Idade">
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Primeiro Emprego</label>
                                                                 <label class="select">
-                                                                    <select id="primeiroEmprego" name="primeiroEmprego" class="required">
-                                                                        <option></option>
-                                                                        <option value="1" selected>Sim</option>
+                                                                    <select id="primeiroEmprego" name="primeiroEmprego" class="required" placeholder ="Primeiro Emprego">
+                                                                        <option hidden selected></option>
+                                                                        <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
-                                                                    </select><i></i>
+                                                                    </select> <i></i>
                                                                 </label>
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">PisPasep</label>
                                                                 <label class="input">
-                                                                    <input id="pisPasep" type="text" maxlength="14" required autocomplete="off" readonly>
+                                                                    <input id="pisPasep" type="text" maxlength="14" required autocomplete="off" disabled class="" placeholder="PIS/Pasep" data-mask="999.99999.99.9">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -209,7 +209,7 @@ include("inc/nav.php");
                                                                 <section class="col col-5">
                                                                     <label class="label" for="telefone">Telefone</label>
                                                                     <label class="input">
-                                                                        <input type="text" id="telefone" name="telefone" class="required" data-mask="(99) 99999-9999" data-mask-selectonmfocus="true" />
+                                                                        <input type="text" id="telefone" name="telefone" class="required" data-mask="(99) 99999-9999" data-mask-selectonmfocus="true" placeholder="Telefone" />
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -261,7 +261,7 @@ include("inc/nav.php");
                                                                 <section class="col col-5">
                                                                     <label class="label">Email</label>
                                                                     <label class="input">
-                                                                        <input type="text" id="email" name="email" class="" />
+                                                                        <input type="text" id="email" name="email" class="" placeholder="Email"/>
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -316,31 +316,31 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label" for="cep">CEP</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cep" name="cep" class="required" placeholder="Ex.: 00000-000">
+                                                                    <input type="text" id="cep" name="cep" class="required" placeholder="CEP" data-mask="99999-999">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="logradouro">Logradouro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="logradouro" name="logradouro" class="required" />
+                                                                    <input type="text" id="logradouro" name="logradouro" class="required" placeholder="Logradouro" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
                                                                 <label class="label" for="numero">Numero</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="numero" name="numero" class="required" />
+                                                                    <input type="text" id="numero" name="numero" class="required" placeholder="Numero" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="complemento">Complemento</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="complemento" name="complemento" class="" />
+                                                                    <input type="text" id="complemento" name="complemento" class="" placeholder="Complemento" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
                                                                 <label class="label" for="uf">UF</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="uf" name="uf" class="required" />
+                                                                    <input type="text" id="uf" name="uf" class="required" placeholder="UF" />
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -348,13 +348,13 @@ include("inc/nav.php");
                                                             <section class="col col-2-auto">
                                                                 <label class="label" for="bairro">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" class="required" />
+                                                                    <input type="text" id="bairro" name="bairro" class="required" placeholder="Bairro"/>
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="cidade">Cidade</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cidade" name="cidade" class="required">
+                                                                    <input type="text" id="cidade" name="cidade" class="required" placeholder="Cidade">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -395,14 +395,14 @@ include("inc/nav.php");
                                                                     <section class="col col-2 col-auto">
                                                                         <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                         <label class="input">
-                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder="Data De Nascimento">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-3 col-auto">
                                                                         <label class="label">Tipo de Dependente</label>
                                                                         <label class="select">
-                                                                            <select id="descricao" name="descricao" class="">
-                                                                                <option></option>
+                                                                            <select id="tipoDependente" name="tipoDependente" class=""  placeholder="Tipo de Dependente">
+                                                                                <option hidden selected></option>
                                                                                 <?php
                                                                                 $reposit = new reposit();
                                                                                 $sql = "SELECT codigo, descricao 
@@ -598,10 +598,10 @@ include("inc/scripts.php");
         jsonDependenteArray = JSON.parse($("#jsonDependente").val());
 
         $("#btnAddDependente").on("click", function() {
-            var dependente = $("#descricao").text();
+            var tipoDependente = $("#tipoDependente").text();
             var existe = true;
 
-            if (!dependente) {
+            if (!tipoDependente) {
                 smartAlert("Atenção", "Escolha um Tipo De Dependente", "error")
                 return;
             }
@@ -642,16 +642,6 @@ include("inc/scripts.php");
             gravar()
         });
 
-        $("#primeiroEmprego").on("change", function() {
-            var primeiroEmprego = ('#primeiroEmprego').val();
-
-            if (id === 0) {
-                if (!validaPisPasep(pisPasep)) {
-
-                }
-            }
-        });
-
         $("#btnVoltar").on("click", function() {
             voltar();
         });
@@ -665,7 +655,7 @@ include("inc/scripts.php");
                 return
 
             };
-        })
+        });
 
         $("#cpf").on("change", function() {
             var cpf = $("#cpf").val()
@@ -675,11 +665,29 @@ include("inc/scripts.php");
                 $('#cpf').val('');
                 return
             }
-        })
+        });
+
+        $("#primeiroEmprego").on("change", function() {
+            var primeiroEmprego = +$('#primeiroEmprego').val();
+            if (primeiroEmprego == 1) {
+                $("#pisPasep").addClass('readonly', true);
+                $("#pisPasep").attr('disabled', true);
+                $("#pisPasep").val('');
+            } else {
+                $("#pisPasep").removeAttr('disabled', true);
+                $("#pisPasep").removeClass('readonly', true);
+                $("#pisPasep").addClass('required', true);
+            }
+        });
 
         $("#cep").on("change", function() {
             enderecoCep()
         });
+
+        $("#pisPasep").on("change", function() {
+                if (!verificarPisPasep()) {                 
+                };
+            });
 
         $("#cpfDependente").on("change", function() {
             var cpfDependente = $('#cpfDependente').val();
@@ -747,6 +755,8 @@ include("inc/scripts.php");
                             var uf = piece[12];
                             var bairro = piece[13];
                             var cidade = piece[14];
+                            var primeiroEmprego = piece[15];
+                            var pisPasep = piece[16];
 
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
@@ -765,6 +775,8 @@ include("inc/scripts.php");
                             $("#uf").val(uf);
                             $("#bairro").val(bairro);
                             $("#cidade").val(cidade);
+                            $("#primeiroEmprego").val(primeiroEmprego);
+                            $("#pisPasep").val(pisPasep);
 
                             $("#jsonTelefone").val(strArrayTelefone);
                             jsonTelefoneArray = JSON.parse($("#jsonTelefone").val());
@@ -808,6 +820,8 @@ include("inc/scripts.php");
         var uf = $('#uf').val();
         var bairro = $('#bairro').val();
         var cidade = $('#cidade').val();
+        var primeiroEmprego = +$('#primeiroEmprego').val();
+        var pisPasep = $('#pisPasep').val();
 
         var jsonTelefoneArray = $('#jsonTelefone').val();
         var jsonEmailArray = $('#jsonEmail').val();
@@ -855,6 +869,17 @@ include("inc/scripts.php");
             return;
         }
 
+        if (primeiroEmprego === "") {
+            smartAlert("Atenção", "Informe se é seu primeiro emprego ou não", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        if ((primeiroEmprego == 0) && (!pisPasep)) {
+            smartAlert("Atenção", "Informe o PisPasep", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+
         if (jsonTelefoneArray.length <= 0) {
             smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
             $("#btnGravar").prop('disabled', false);
@@ -897,7 +922,7 @@ include("inc/scripts.php");
             return;
         }
 
-        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, uf, bairro, cidade, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
+        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -1059,6 +1084,26 @@ include("inc/scripts.php");
                 }
             });
     }
+
+    function verificarPisPasep() {
+        var pisPasep = $("#pisPasep").val();
+
+        verificaPisPasep(pisPasep,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "PisPasep ja cadastrado no sistema", "error");
+                        $("#PisPasep").val('')
+                    }
+                }
+            });
+    }
+
 
     function validarCPFDependente(cpfDependente) {
         cpfDependente = cpfDependente.replace(/[^\d]+/g, '');
@@ -1550,10 +1595,10 @@ include("inc/scripts.php");
         var nomeDependente = $('#nomeDependente').val();
         var cpfDependente = $('#cpfDependente').val();
         var dataNascimento = $('#dataNascimento').val();
-        var descricao = $('#descricao').val();
+        var tipoDependente = $('#tipoDependente').val();
         var sequencial = +$('#sequencialDependente').val();
 
-        if (descricao === '') {
+        if (tipoDependente === '') {
             smartAlert("Erro", "Informe um Dependente.", "error");
             return false;
         }
@@ -1577,7 +1622,7 @@ include("inc/scripts.php");
             mode: 'combine',
             skipEmpty: false,
         });
-        const descricaoDependente = $("#descricao option:selected").text();
+        const descricaoDependente = $("#tipoDependente option:selected").text();
 
         if (item["sequencialDependente"] === '') {
             if (jsonDependenteArray.length === 0) {
@@ -1617,7 +1662,7 @@ include("inc/scripts.php");
 
         for (var i = 0; i < jsonDependenteArray.length; i++) {
             var row = $('<tr />');
-            var descricaoDependente = $("#descricao option[value ='" + jsonDependenteArray[i].descricao + "']").text();
+            var descricaoDependente = $("#tipoDependente option[value ='" + jsonDependenteArray[i].tipoDependente + "']").text();
 
             $("#tableDependente tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
@@ -1630,11 +1675,11 @@ include("inc/scripts.php");
     }
 
     function clearFormDependente() {
+        $("#sequencialDependente").val('');
         $("#nomeDependente").val('');
         $("#cpfDependente").val('');
         $("#dataNascimento").val('');
-        $("#descricao").val('');
-        $("#sequencialDependente").val('');
+        $("#tipoDependente").val('');
 
     }
 
@@ -1648,11 +1693,11 @@ include("inc/scripts.php");
 
         if (arr.length > 0) {
             var item = arr[0];
+            $("#sequencialDependente").val(item.sequencialDependente);
             $("#nomeDependente").val(item.nomeDependente);
             $("#cpfDependente").val(item.cpfDependente);
             $("#dataNascimento").val(item.dataNascimento);
-            $("#descricao").val(item.descricao);
-            $("#sequencialDependente").val(item.sequencialDependente);
+            $("#tipoDependente").val(item.descricaoDependente);
 
         }
     }
