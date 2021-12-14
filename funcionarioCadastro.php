@@ -123,7 +123,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="select">
-                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off" placeholder ="Estado Civil">
+                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off" placeholder="Estado Civil">
                                                                         <option hidden selected></option>
                                                                         <option value="Solteiro">Solteiro</option>
                                                                         <option value="Casado">Casado</option>
@@ -169,7 +169,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Primeiro Emprego</label>
                                                                 <label class="select">
-                                                                    <select id="primeiroEmprego" name="primeiroEmprego" class="required" placeholder ="Primeiro Emprego">
+                                                                    <select id="primeiroEmprego" name="primeiroEmprego" class="required" placeholder="Primeiro Emprego">
                                                                         <option hidden selected></option>
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
@@ -261,7 +261,7 @@ include("inc/nav.php");
                                                                 <section class="col col-5">
                                                                     <label class="label">Email</label>
                                                                     <label class="input">
-                                                                        <input type="text" id="email" name="email" class="" placeholder="Email"/>
+                                                                        <input type="text" id="email" name="email" class="" placeholder="Email" />
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -348,7 +348,7 @@ include("inc/nav.php");
                                                             <section class="col col-2-auto">
                                                                 <label class="label" for="bairro">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" class="required" placeholder="Bairro"/>
+                                                                    <input type="text" id="bairro" name="bairro" class="required" placeholder="Bairro" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
@@ -395,13 +395,13 @@ include("inc/nav.php");
                                                                     <section class="col col-2 col-auto">
                                                                         <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                         <label class="input">
-                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="" style="text-align: center" value="" data-mask="99/99/9999"  autocomplete="off" placeholder="Data De Nascimento">
+                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="" style="text-align: center" value="" data-mask="99/99/9999" autocomplete="off" placeholder="Data De Nascimento">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-3 col-auto">
                                                                         <label class="label">Tipo de Dependente</label>
                                                                         <label class="select">
-                                                                            <select id="tipoDependente" name="tipoDependente" class="" >
+                                                                            <select id="tipoDependente" name="tipoDependente" class="">
                                                                                 <option hidden selected></option>
                                                                                 <?php
                                                                                 $reposit = new reposit();
@@ -657,7 +657,7 @@ include("inc/scripts.php");
             };
         });
 
-        $("#cpf").on("change", function() {
+        $("#cpf").on("focusout", function() {
             var cpf = $("#cpf").val()
 
             if (!validarCPF(cpf)) {
@@ -685,9 +685,8 @@ include("inc/scripts.php");
         });
 
         $("#pisPasep").on("change", function() {
-                if (!verificarPisPasep()) {                 
-                };
-            });
+            if (!verificarPisPasep()) {};
+        });
 
         $("#cpfDependente").on("change", function() {
             var cpfDependente = $('#cpfDependente').val();
@@ -698,8 +697,6 @@ include("inc/scripts.php");
                 return
             }
         });
-
-
 
         $("#cpf").mask("999.999.999-99")
 
