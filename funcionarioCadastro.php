@@ -155,7 +155,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataDeNascimento">Data De Nascimento</label>
                                                                 <label class="input">
-                                                                    <input id="dataDeNascimento" name="dataDeNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                    <input id="dataDeNascimento" name="dataDeNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -395,13 +395,13 @@ include("inc/nav.php");
                                                                     <section class="col col-2 col-auto">
                                                                         <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                         <label class="input">
-                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off" placeholder="Data De Nascimento">
+                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="" style="text-align: center" value="" data-mask="99/99/9999"  autocomplete="off" placeholder="Data De Nascimento">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-3 col-auto">
                                                                         <label class="label">Tipo de Dependente</label>
                                                                         <label class="select">
-                                                                            <select id="tipoDependente" name="tipoDependente" class=""  placeholder="Tipo de Dependente">
+                                                                            <select id="tipoDependente" name="tipoDependente" class="" >
                                                                                 <option hidden selected></option>
                                                                                 <?php
                                                                                 $reposit = new reposit();
@@ -1697,7 +1697,7 @@ include("inc/scripts.php");
             $("#nomeDependente").val(item.nomeDependente);
             $("#cpfDependente").val(item.cpfDependente);
             $("#dataNascimento").val(item.dataNascimento);
-            $("#tipoDependente").val(item.descricaoDependente);
+            $("#tipoDependente").val(item.tipoDependente);
 
         }
     }
