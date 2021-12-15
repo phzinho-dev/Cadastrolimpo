@@ -78,16 +78,27 @@ class PDF extends FPDF
 }
 
 $pdf = new PDF('P', 'mm', 'A4'); #Crio o PDF padrão RETRATO, Medida em Milímetro e papel A$
-$pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superrior com 20 milímetro e esquerda com 20 milímetros
+$pdf->SetMargins(5, 10, 5); #Seta a Margin Esquerda com 20 milímetro, superior com 20 milímetro e esquerda com 20 milímetros
 $pdf->SetDisplayMode('default', 'continuous'); #Digo que o PDF abrirá em tamanho PADRÃO e as páginas na exibição serão contínuas
 $pdf->AddPage();
 
 //$pdf->SetFont('Arial','',10);
 //$pdf->SetLeftMargin(10);
 $pdf->SetFont('Times', 'B', 12);
-$pdf->Cell(193, 5, iconv('UTF-8', 'windows-1252', "CONCESSÃO DE PEDIDO DE VALE TRANSPORTE"), 0, 0, "C", 0);
+$pdf->Cell(193, 5, iconv('UTF-8', 'windows-1252', "PDF De Funcionarios Cadastrados"), 0, 0, "C", 0);
 $pdf->Ln(10);
 $pdf->Line(5, 30, 205, 30); #Linha na Horizontal
-$pdf->Ln(8);
+$pdf->Ln(4);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(23, 5, iconv('UTF-8', 'windows-1252', "Funcionario :"), 0, 0, "L", 0);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', "$nomeCompleto"), 0, 0, "L", 0);
+$pdf->Ln(4);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(23, 5, iconv('UTF-8', 'windows-1252', "Estado Civil :"), 0, 0, "L", 0);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(20, 5, iconv('UTF-8', 'windows-1252', "$estadoCivil"), 0, 0, "L", 0);
+$pdf->Ln(4);
+
 
 $pdf->Output();
