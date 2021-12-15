@@ -98,53 +98,78 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="rg">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" type="text"  maxlength="200" required autocomplete="off">
+                                                                    <input id="rg" type="text" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
 
-                                                            <section class="col col-3 col-auto">
-                                                                <label class="label" for="cpf">CPF</label>
-                                                                <label class="input">
-                                                                    <input id="cpf" type="text"  maxlength="200" required autocomplete="off">
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label">Sexo</label>
+                                                                <label class="select">
+                                                                    <select id="sexo" name="sexo" class="">
+                                                                        <option hidden selected></option>
+                                                                        <?php
+                                                                        $reposit = new reposit();
+                                                                        $sql = "SELECT codigo, descricao 
+                                                                        FROM dbo.sexo
+                                                                        WHERE ativo = 1 ";
+                                                                        $result = $reposit->RunQuery($sql);
+                                                                        foreach ($result as $row) {
+                                                                            $id = $row['codigo'];
+                                                                            $descricaoSexo = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $descricaoSexo . '</option>';
+                                                                        }
+                                                                        ?>
+                                                                    </select><i></i>
                                                                 </label>
                                                             </section>
                                                         </div>
-                                                            <div class="row">
-                                                                    <section class="col col-2 col-auto">
-                                                                        <label class="label" for="dataDeNascimento">Data De Nascimento</label>
-                                                                        <label class="input">
-                                                                            <input id="dataDeNascimento" type="text"  data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                        </label>
-                                                                    </section>
 
-                                                                    <section class="col col-2 col-auto">
-                                                                        <label class="label" for="dataInicio">Data Inicio</label>
-                                                                        <label class="input">
-                                                                        <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                        </label>
-                                                                    </section>
+                                                        <div class="row">
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="cpf">CPF</label>
+                                                                <label class="input">
+                                                                    <input id="cpf" type="text" maxlength="200" required autocomplete="off">
+                                                                </label>
+                                                            </section>
 
-                                                                    <section class="col col-2 col-auto">
-                                                                        <label class="label" for="dataFim">Data Fim</label>
-                                                                        <label class="input">
-                                                                        <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
-                                                                        </label>
-                                                                    </section>
-                                                            </div>
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataDeNascimento">Data De Nascimento</label>
+                                                                <label class="input">
+                                                                    <input id="dataDeNascimento" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataInicio">Data Inicio</label>
+                                                                <label class="input">
+                                                                    <input id="dataInicio" name="dataInicio" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                </label>
+                                                            </section>
+
+                                                            <section class="col col-2 col-auto">
+                                                                <label class="label" for="dataFim">Data Fim</label>
+                                                                <label class="input">
+                                                                    <input id="dataFim" name="dataFim" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" data-mask-placeholder="-" autocomplete="off">
+                                                                </label>
+                                                            </section>
+                                                        </div>
                                                     </fieldset>
-                                                <footer>
-                                                    <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
-                                                        <span class="fa fa-search"></span>
-                                                    </button>
-                                                    <?php if ($condicaoGravarOK) { ?>
-                                                        <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
-                                                            <span class="fa fa-file"></span>
+                                                    <footer>
+                                                        <button id="btnSearch" type="button" class="btn btn-primary pull-right" title="Buscar">
+                                                            <span class="fa fa-search"></span>
                                                         </button>
-                                                    <?php } ?>
-                                                </footer>
+                                                        <button id="btnRelatorio" type="button" class="btn btn-danger pull-right" title="relatorio">
+                                                            <span class="fa fa-file-pdf-o" ></span>
+                                                        </button>
+                                                        <?php if ($condicaoGravarOK) { ?>
+                                                            <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
+                                                                <span class="fa fa-file"></span>
+                                                            </button>
+                                                        <?php } ?>
+                                                    </footer>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </form>
                             </div>
                             <div id="resultadoBusca"></div>
@@ -199,6 +224,9 @@ include("inc/scripts.php");
         $('#btnNovo').on("click", function() {
             novo();
         });
+        $('#btnRelatorio').on("click", function() {
+            gerarPdf();
+        });
         $("#dataDeNascimento").on("change", function() {
             calculaIdade()
         });
@@ -207,7 +235,8 @@ include("inc/scripts.php");
         $("#rg").mask("99.999.999-9")
 
         $("#dataDeNascimento").mask("99/99/9999");
-        
+
+
     });
 
     function calculaIdade() {
@@ -249,13 +278,20 @@ include("inc/scripts.php");
         return idade;
     }
 
+    function gerarPdf() {
+        var sexo = $('#sexo').val();
+        var parametrosUrl = '&sexo=' + sexo; // - > PASSAGEM DE PARAMETRO
+        window.open("funcionarioPDF.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
+
+    }
+
     function listarFiltro() {
         var nome = $('#nome').val();
-        var estadoCivil =$('#estadoCivil').val();
+        var estadoCivil = $('#estadoCivil').val();
         var ativo = +$('#ativo').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
-        var dataInicio = $('#dataInicio').val();        
+        var dataInicio = $('#dataInicio').val();
         var dataFim = $('#dataFim').val();
         var rg = $('#rg').val();
         var sexo = $('#sexo').val();
@@ -268,13 +304,13 @@ include("inc/scripts.php");
             dataInicio: dataInicio,
             dataFim: dataFim,
             cpf: cpf,
-            rg : rg,
-            sexo : sexo,  
-              
+            rg: rg,
+            sexo: sexo,
+
         });
     }
 
     function novo() {
         $(location).attr('href', 'funcionarioCadastro.php');
-    } 
+    }
 </script>

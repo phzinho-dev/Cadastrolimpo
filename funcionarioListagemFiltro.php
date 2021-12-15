@@ -11,19 +11,19 @@ include "js/repositorio.php";
                     <th class="text-left" style="min-width:30px;">cpf</th>
                     <th class="text-left" style="min-width:35px;">Ativo</th>
                     <th class="text-left" style="min-width:35px;">data</th>
-                    <th class="text-left" style="min-width:35px;">rg</th>    
+                    <th class="text-left" style="min-width:35px;">rg</th>
                     <th class="text-left" style="min-width:35px;">Sexo</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
 
-            $where = "where (0 = 0)";
+                $where = "where (0 = 0)";
 
                 $ativo = "";
                 if ($_POST["ativo"] != "") {
-                    $ativo= (Int)$_POST["ativo"];
-                    $where = $where . " AND USU.ativo = '". $ativo . "'";
+                    $ativo = (int)$_POST["ativo"];
+                    $where = $where . " AND USU.ativo = '" . $ativo . "'";
                 }
                 $nome = "";
                 if ($_POST["nome"] != "") {
@@ -35,90 +35,87 @@ include "js/repositorio.php";
                     $nome = $_POST["estadoCivil"];
                     $where = $where . " AND ( USU.estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
                 }
-                $dataDeNascimento= "";
+                $dataDeNascimento = "";
                 if ($_POST["dataDeNascimento"] != "") {
-                    $dataDeNascimento = $_POST["dataDeNascimento"]; 
+                    $dataDeNascimento = $_POST["dataDeNascimento"];
 
-
-                    $dataDeNascimento = explode ("/",$dataDeNascimento);
-                    $dataDeNascimento= "'". $dataDeNascimento[2] ."-" . $dataDeNascimento[1]. "-" . $dataDeNascimento [0] . "'";
-                    $where = $where . " AND USU.dataDeNascimento =". $dataDeNascimento . "";
-                   
+                    $dataDeNascimento = explode("/", $dataDeNascimento);
+                    $dataDeNascimento = "'" . $dataDeNascimento[2] . "-" . $dataDeNascimento[1] . "-" . $dataDeNascimento[0] . "'";
+                    $where = $where . " AND USU.dataDeNascimento =" . $dataDeNascimento . "";
                 }
                 $rg = "";
                 if ($_POST["rg"] != "") {
                     $rg = $_POST["rg"];
-                    $where = $where . " AND USU.rg = '". $rg . "'";
+                    $where = $where . " AND USU.rg = '" . $rg . "'";
                 }
                 $cpf = "";
                 if ($_POST["cpf"] != "") {
                     $cpf = $_POST["cpf"];
-                    $where = $where . " AND USU.cpf = '". $cpf . "'";
+                    $where = $where . " AND USU.cpf = '" . $cpf . "'";
                 }
                 $sexo = "";
                 if ($_POST["sexo"] != "") {
-                    $nome = $_POST["sexo"];
-                    $where = $where . " AND ( USUG.sexo like '%' + " . "replace('" . $sexo. "',' ','%') + " . "'%')";
+                    $sexo = $_POST["sexo"];
+                    $where = $where . " AND ( USU.sexo like '%' + " . "replace('" . $sexo . "',' ','%') + " . "'%')";
                 }
                 $dataInicio = "";
                 if ($_POST["dataInicio"] != "") {
                     $dataInicio = $_POST["dataInicio"];
-   
-                    $dataInicio = explode ("/",$dataInicio);
-                    $dataInicio= "'". $dataInicio[2] ."-" . $dataInicio[1]. "-" . $dataInicio[0] . "'";
-                    $where = $where . "AND USU.dataDeNascimento >=" . $dataInicio . "" ;
+
+                    $dataInicio = explode("/", $dataInicio);
+                    $dataInicio = "'" . $dataInicio[2] . "-" . $dataInicio[1] . "-" . $dataInicio[0] . "'";
+                    $where = $where . "AND USU.dataDeNascimento >=" . $dataInicio . "";
                 }
                 $dataFim = "";
                 if ($_POST["dataFim"] != "") {
                     $dataFim = $_POST["dataFim"];
 
-                    $dataFim = explode ("/",$dataFim);
-                    $dataFim= "'". $dataFim[2] ."-" . $dataFim[1]. "-" . $dataFim[0] . "'";
-                    $where = $where . "AND USU.dataDeNascimento < " . $dataFim . ""; 
-                
+                    $dataFim = explode("/", $dataFim);
+                    $dataFim = "'" . $dataFim[2] . "-" . $dataFim[1] . "-" . $dataFim[0] . "'";
+                    $where = $where . "AND USU.dataDeNascimento < " . $dataFim . "";
                 }
-                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.sexo,
-                                USU.cep, USU.logradouro, USU.numero, USU.complemento, USU.uf, USU.bairro, USU.cidade
+
+                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.descricao,
+                USU.cep, USU.logradouro, USU.numero, USU.complemento, USU.uf, USU.bairro, USU.cidade
                 FROM dbo.funcionario USU
                 LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
 
                 $sql = $sql . $where;
-                
+
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
 
-                foreach($result as $row) {
-                    
-                    $id= (int) $row['codigo'];
+                foreach ($result as $row) {
+
+                    $id = (int) $row['codigo'];
                     $ativo = (int) $row['ativo'];
                     $nome = $row['nomeCompleto'];
-                    $estadoCivil=$row['estadoCivil'];
+                    $estadoCivil = $row['estadoCivil'];
                     $cpf = $row['cpf'];
-                    $rg= $row['rg'];
-                    
+                    $rg = $row['rg'];
+
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";
                     } else {
                         $descricaoAtivo = "Não";
-
                     }
-                    $sexo = $row['sexo'];
-                    $dataDeNascimento = $row['dataDeNascimento']; 
+                    $descricaoSexo = $row['descricao'];
+                    $dataDeNascimento = $row['dataDeNascimento'];
                     //Converção de data
-                    $dataDeNascimento = explode (" ",$dataDeNascimento);
-                    $dataDeNascimento= explode("-" , $dataDeNascimento[0] );
-                    $dataDeNascimento= $dataDeNascimento[2] ."/" . $dataDeNascimento[1]. "/" . $dataDeNascimento[0];
-                    
-                  
+                    $dataDeNascimento = explode(" ", $dataDeNascimento);
+                    $dataDeNascimento = explode("-", $dataDeNascimento[0]);
+                    $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
+
+
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id. '">' .$nome . '</a></td>';
+                    echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
                     echo '<td class="text-left">' . $estadoCivil  . '</td>';
                     echo '<td class="text-left">' . $cpf  . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
-                    echo '<td class="text-left">' . $dataDeNascimento. '</td>';
-                    echo '<td class="text-left">' . $rg. '</td>';
-                    echo '<td class="text-left">' . $sexo. '</td>';
+                    echo '<td class="text-left">' . $dataDeNascimento . '</td>';
+                    echo '<td class="text-left">' . $rg . '</td>';
+                    echo '<td class="text-left">' . $descricaoSexo . '</td>';
                     echo '</tr >';
                 }
                 ?>

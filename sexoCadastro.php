@@ -91,7 +91,7 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="nome">Descrição</label>
+                                                                <label class="label" for="sexo">Descrição</label>
                                                                 <label class="input">
                                                                     <input id="sexo" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
@@ -266,12 +266,12 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var sexo = piece[2];
+                            var descricao = piece[2];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
-                            $("#sexo").val(sexo);
+                            $("#sexo").val(descricao);
                             
                             return;
 
@@ -288,7 +288,7 @@ include("inc/scripts.php");
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
         var ativo = +$('#ativo').val();
-        var sexo = $('#sexo').val();
+        var descricaoSexo = $('#sexo').val();
         
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
@@ -296,13 +296,13 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Informe a Ativo", "error");
             $("#btnGravar").prop('disabled', false);
         }
-        if (sexo === "") {
+        if (descricaoSexo === "") {
            smartAlert("Atenção", "Informe seu sexo", "error");
            $("#btnGravar").prop('disabled', false);
            return;
        }
     
-        gravarSexoCadastro(id,ativo,sexo, 
+        gravarSexoCadastro(id,ativo,descricaoSexo, 
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");

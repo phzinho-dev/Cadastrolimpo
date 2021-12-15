@@ -138,14 +138,14 @@ include("inc/nav.php");
                                                                         <option hidden selected></option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, sexo 
+                                                                        $sql = "SELECT codigo,descricao
                                                                         FROM dbo.sexo
                                                                         WHERE ativo = 1 ";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $id = $row['codigo'];
-                                                                            $sexo = $row['sexo'];
-                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
+                                                                            $descricaoSexo = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $descricaoSexo . '</option>';
                                                                         }
                                                                         ?>
                                                                     </select><i></i>
@@ -743,7 +743,7 @@ include("inc/scripts.php");
                             var dataDeNascimento = piece[4];
                             var cpf = piece[5];
                             var rg = piece[6];
-                            var sexo = piece[7];
+                            var descricaoSexo = piece[7];
 
                             var cep = piece[8];
                             var logradouro = piece[9];
@@ -764,7 +764,7 @@ include("inc/scripts.php");
                             $("#dataDeNascimento").val(dataDeNascimento);
                             $("#cpf").val(cpf);
                             $("#rg").val(rg);
-                            $("#sexo").val(sexo);
+                            $("#sexo").val(descricaoSexo);
                             $("#cep").val(cep);
                             $("#logradouro").val(logradouro);
                             $("#numero").val(numero);
@@ -809,7 +809,7 @@ include("inc/scripts.php");
         var rg = $('#rg').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
-        var sexo = +$('#sexo').val();
+        var descricaoSexo = +$('#sexo').val();
 
         var cep = $('#cep').val();
         var logradouro = $('#logradouro').val();
@@ -855,7 +855,7 @@ include("inc/scripts.php");
             return;
         }
 
-        if (!sexo) {
+        if (!descricaoSexo) {
             smartAlert("Atenção", "Informe a Sexo", "error");
             $("#btnGravar").prop('disabled', false);
         }
@@ -919,7 +919,7 @@ include("inc/scripts.php");
             return;
         }
 
-        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, sexo, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
+        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, descricaoSexo, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");

@@ -170,10 +170,10 @@ include("inc/scripts.php");
     });
     function listarFiltro() {
         var ativo = +$('#ativo').val();
-        var sexo = $('#sexo').val();  
+        var descricaoSexo = $('#sexo').val();  
 
         $('#resultadoBusca').load('sexoListagemFiltro.php?', {
-            sexo: sexo,
+            descricaoSexo: descricaoSexo,
             ativo: ativo,
         });
     }

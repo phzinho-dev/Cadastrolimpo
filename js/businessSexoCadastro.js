@@ -1,9 +1,9 @@
-function gravarSexoCadastro(id, ativo, sexo, callback) {
+function gravarSexoCadastro(id, ativo, descricaoSexo, callback) {
     $.ajax({
         url: 'js/sqlscope_sexoCadastro.php',
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: "grava", id: id, ativo: ativo, sexo: sexo, },
+        data: { funcao: "grava", id: id, ativo: ativo, descricaoSexo: descricaoSexo, },
         success: function(data) {
             callback(data);
         }

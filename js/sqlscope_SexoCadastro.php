@@ -24,13 +24,13 @@ function grava()
     session_start();
     $codigo = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
-    $sexo= "'" . (string)$_POST['sexo'] . "'";
+    $descricaoSexo= "'" . (string)$_POST['descricao'] . "'";
     
 
     $sql = "dbo.sexo_Atualiza
             $codigo,
             $ativo,
-            $sexo";
+            $descricaoSexo";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -47,7 +47,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo,ativo,sexo FROM dbo.sexo WHERE (0 = 0)";
+    $sql = "SELECT codigo,ativo,descricao FROM dbo.sexo WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -60,9 +60,9 @@ function recupera()
 
         $id = (int)$row['codigo'];
         $ativo = $row['ativo'];
-        $sexo = $row ['sexo'];
+        $descricaoSexo = $row ['descricao'];
 
-        $out = $id ."^" . $ativo. "^" . $sexo  ;
+        $out = $id ."^" . $ativo. "^" . $descricaoSexo  ;
 
         if ($out == "") {
             echo "failed#";

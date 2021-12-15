@@ -20,13 +20,13 @@ $where = "WHERE (0 = 0)";
                 $ativo= (Int)$_POST["ativo"];
                 $where = $where . "AND ativo = '". $ativo . "'";
                 }
-                $sexo = "";
-                if ($_POST["sexo"] != "") {
-                $sexo = $_POST["sexo"];
-                $where = $where . " AND ( sexo like '%' + " . "replace('" . $sexo . "',' ','%') + " . "'%')";
+                $descricaoSexo = "";
+                if ($_POST["descricao"] != "") {
+                $descricaoSexo = $_POST["descricao"];
+                $where = $where . " AND ( sexo like '%' + " . "replace('" . $descricaoSexo . "',' ','%') + " . "'%')";
                 }
 
-                $sql = " SELECT [codigo],[ativo] ,[sexo] FROM sexo ";
+                $sql = " SELECT [codigo],[ativo] ,[descricao] FROM sexo ";
                 
                 $where = $where ;
 
@@ -36,7 +36,7 @@ $where = "WHERE (0 = 0)";
 
                 foreach($result as $row) {
                     $id= (int) $row['codigo'];
-                    $sexo = $row['sexo'];
+                    $descricaoSexo = $row['descricao'];
                     $ativo = (int) $row['ativo'];
 
                   
@@ -47,7 +47,7 @@ $where = "WHERE (0 = 0)";
                         $descricaoAtivo = "Não";
                     }
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="sexoCadastro.php?id=' . $id. '">' .$sexo . '</a></td>';
+                    echo '<td class="text-left"><a href="sexoCadastro.php?id=' . $id. '">' .$descricaoSexo . '</a></td>';
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
                     echo '</tr >';
                 }
