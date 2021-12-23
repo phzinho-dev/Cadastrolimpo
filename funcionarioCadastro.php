@@ -8,6 +8,7 @@ require_once("inc/config.ui.php");
 $condicaoAcessarOK = true;
 $condicaoGravarOK = true;
 $condicaoExcluirOK = true;
+$condicaoRelatorioOK = true;
 
 if ($condicaoAcessarOK == false) {
     unset($_SESSION['login']);
@@ -22,7 +23,10 @@ $esconderBtnGravar = "";
 if ($condicaoGravarOK === false) {
     $esconderBtnGravar = "none";
 }
-
+$esconderBtnRelario = "";
+if ($condicaoRelatorioOK === false) {
+    $esconderBtnRelario = "none";
+}
 /* ---------------- PHP Custom Scripts ---------
 
   YOU CAN SET CONFIGURATION VARIABLES HERE BEFORE IT GOES TO NAV, RIBBON, ETC.
@@ -295,6 +299,9 @@ include("inc/nav.php");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
+                                                            <button id="btnRelatorio" type="button" class="btn btn-danger pull-right hidden" title="relatorio" style="display:<?php echo $esconderBtnRelatorio ?>">
+                                                                <span class="fa fa-file-pdf-o"></span>
+                                                            </button>
                                                         </div>
                                                     </fieldset>
                                                 </div>
@@ -646,6 +653,10 @@ include("inc/scripts.php");
             voltar();
         });
 
+        $("#btnRelatorio").on("click", function() {
+            gerarPdf();
+        });
+
         $("#rg").on("focusout", function() {
             var rg = $('#rg').val();
 
@@ -787,7 +798,9 @@ include("inc/scripts.php");
                             fillTableTelefone();
                             fillTableEmail();
                             fillTableDependente();
-                            calculaIdade()
+                            calculaIdade();
+                            geraPDF();
+
 
                             return;
 
@@ -797,6 +810,7 @@ include("inc/scripts.php");
             }
         }
     }
+
 
     function gravar() {
         //Botão que desabilita a gravação até que ocorra uma mensagem de erro ou sucesso.
@@ -1022,6 +1036,21 @@ include("inc/scripts.php");
                 }
             });
     }
+
+    function geraPDF() {
+        var id = $("#codigo").val();
+        if (id != 0) {
+            $("#btnRelatorio").removeClass('hidden');
+        }
+    }
+
+    function gerarPdf() {
+        var id = $('#codigo').val();
+        var parametrosUrl = '&codigo=' + id; // - > PASSAGEM DE PARAMETRO
+        window.open("funcionarioContatoPDF.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
+
+    }
+
 
     function validarCPF(cpf) {
         cpf = cpf.replace(/[^\d]+/g, '');
@@ -1323,7 +1352,6 @@ include("inc/scripts.php");
                 value: valorTelefoneWhatsapp
             };
         }
-
         if (fieldName !== '' && (fieldId === "descricaoTelefoneWhatsapp")) {
             var valorDescricaoTelefoneWhatsapp = "Não";
             if ($("#telefoneWhatsapp").is(':checked') === true) {
@@ -1350,14 +1378,27 @@ include("inc/scripts.php");
             var item = arr[0];
             $("#telefone").val(item.telefone);
             $("#sequencialTelefone").val(item.sequencialTelefone);
+            $("#telefonePrincipal").val(item.telefonePrincipal);
+            $("#descricaoTelefonePrincipal").val(item.descricaoTelefonePrincipal);
+            $("#telefoneWhatsapp").val(item.TelefoneWhatsapp);
+            $("#descricaoTelefoneWhatsapp").val(item.descricaoTelefoneWhatsapp);
 
-            if (item.principal === 0) {
+            if (item.telefonePrincipal == 1) {
+                $("#telefonePrincipal").prop('checked', true)
+                $("#descricaoTelefonePrincipal").val("Sim")
+            } else {
                 $("#telefonePrincipal").prop('checked', false)
+                $("#descricaoTelefonePrincipal").val("Não")
             }
+            $("#telefoneWhatsapp").val(item.telefoneWhatsapp);
 
-            if (item.whatsapp === 0) {
+            if (item.telefoneWhatsapp == 1) {
+                $("#telefoneWhatsapp").prop('checked', true)
+                $("#descricaoTelefoneWhatsapp").val("Sim")
+            } else {
                 $("#telefoneWhatsapp").prop('checked', false)
-
+                $("#descricaoTelefoneWhatsapp").val("Não")
+            
             }
         }
     }
@@ -1525,9 +1566,15 @@ include("inc/scripts.php");
             var item = arr[0];
             $("#email").val(item.email);
             $("#sequencialEmail").val(item.sequencialEmail);
+            $("#emailPrincipal").val(item.emailPrincipal);
+            $("#descricaoEmailPrincipal").val(item.descricaoEmailPrincipal);
 
-            if (item.principal === 0) {
+            if (item.emailPrincipal == 1) {
+                $("#emailPrincipal").prop('checked', true)
+                $("#descricaoEmailPrincipal").val("Sim")
+            } else {
                 $("#emailPrincipal").prop('checked', false)
+                $("#descricaoEmailPrincipal").val("Não")
             }
         }
     }

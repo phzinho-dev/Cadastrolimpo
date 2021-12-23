@@ -178,7 +178,7 @@ function grava()
 
 
 
-    $sql = "dbo.funcionario_Atualiza
+    $sql = "dbo.funcionario_atualiza
             $codigo,
             $ativo,
             $nome,
@@ -187,11 +187,9 @@ function grava()
             $sexo,
             $dataDeNascimento,
             $rg,
-        
             $xmlTelefone,
             $xmlEmail,
             $xmlDependente,
-
             $cep,
             $logradouro,
             $numero,
@@ -218,25 +216,24 @@ function recupera()
     $codigo = $_POST["id"];
 
     $sql = "SELECT 
-     codigo, 
-     ativo, 
-     nomeCompleto, 
-     estadoCivil, 
-     dataDeNascimento, 
-     cpf , 
-     rg, 
-     sexo,
-     cep, 
-     logradouro,
-     numero, 
-     complemento,
-     uf,
-     bairro,
-     cidade,
-     primeiroEmprego,
-     pisPasep
-    
-      FROM dbo.funcionario WHERE (0 = 0)";
+            codigo, 
+            ativo, 
+            nomeCompleto, 
+            estadoCivil, 
+            dataDeNascimento, 
+            cpf , 
+            rg, 
+            sexo,
+            cep, 
+            logradouro,
+            numero, 
+            complemento,
+            uf,
+            bairro,
+            cidade,
+            primeiroEmprego,
+            pisPasep
+           FROM dbo.funcionario WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -280,18 +277,18 @@ function recupera()
         foreach ($result as $row) {
             $telefoneId = $row['codigo'];
             $telefone = $row['telefone'];
-            $principal = +$row['principal'];
-            $whatsapp = +$row['whatsapp'];
+            $telefonePrincipal = +$row['principal'];
+            $telefoneWhatsapp = +$row['whatsapp'];
 
-            if ($principal === 1) {
-                $descricaoPrincipal = "Sim";
+            if ($telefonePrincipal === 1) {
+                $descricaoTelefonePrincipal = "Sim";
             } else {
-                $descricaoPrincipal = "Não";
+                $descricaoTelefonePrincipal = "Não";
             }
-            if ($whatsapp === 1) {
-                $descricaoWhatsapp = "Sim";
+            if ($telefoneWhatsapp === 1) {
+                $descricaoTelefoneWhatsapp = "Sim";
             } else {
-                $descricaoWhatsapp = "Não";
+                $descricaoTelefoneWhatsapp = "Não";
             }
 
             $contadorTelefone = $contadorTelefone + 1;
@@ -299,10 +296,10 @@ function recupera()
                 "sequencialTelefone" => $contadorTelefone,
                 "telefoneId" => $telefoneId,
                 "telefone" => $telefone,
-                "principal" => $principal,
-                "descricaoTelefonePrincipal" => $descricaoPrincipal,
-                "whatsapp" => $whatsapp,
-                "descricaoTelefoneWhatsapp" => $descricaoWhatsapp
+                "telefonePrincipal" => $telefonePrincipal,
+                "descricaoTelefonePrincipal" => $descricaoTelefonePrincipal,
+                "telefoneWhatsapp" => $telefoneWhatsapp,
+                "descricaoTelefoneWhatsapp" => $descricaoTelefoneWhatsapp
             );
         }
         $strArrayTelefone = json_encode($arrayTelefone);
@@ -316,12 +313,12 @@ function recupera()
         foreach ($result as $row) {
             $emailId = $row['codigo'];
             $email = $row['email'];
-            $principal = +$row['principal'];
+            $emailPrincipal = +$row['principal'];
 
-            if ($principal === 1) {
-                $descricaoPrincipal = "Sim";
+            if ($emailPrincipal === 1) {
+                $descricaoEmailPrincipal = "Sim";
             } else {
-                $descricaoPrincipal = "Não";
+                $descricaoEmailPrincipal = "Não";
             }
 
             $contadorEmail = $contadorEmail + 1;
@@ -329,9 +326,8 @@ function recupera()
                 "sequencialEmail" => $contadorEmail,
                 "emailId" => $emailId,
                 "email" => $email,
-                "principal" => $principal,
-                "funcionario" => $id,
-                "descricaoEmailPrincipal" => $descricaoPrincipal,
+                "emailPrincipal" => $emailPrincipal,
+                "descricaoEmailPrincipal" => $descricaoEmailPrincipal,
             );
         }
         $strArrayEmail = json_encode($arrayEmail);
