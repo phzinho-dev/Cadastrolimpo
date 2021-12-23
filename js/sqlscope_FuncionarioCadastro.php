@@ -43,7 +43,7 @@ function grava()
     session_start();
     $codigo = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
-    $nome = "'" . (string)$_POST['nome'] . "'";
+    $nomeCompleto = "'" . (string)$_POST['nomeCompleto'] . "'";
     $estadoCivil = "'" . (string)$_POST['estadoCivil'] . "'";
     $cpf = "'" . (string) $_POST['cpf'] . "'";
     $rg = "'" . (string)$_POST['rg'] . "'";
@@ -181,7 +181,7 @@ function grava()
     $sql = "dbo.funcionario_atualiza
             $codigo,
             $ativo,
-            $nome,
+            $nomeCompleto,
             $estadoCivil,
             $cpf,
             $sexo,
@@ -246,7 +246,7 @@ function recupera()
 
         $id = (int)$row['codigo'];
         $ativo = $row['ativo'];
-        $nome = (string)$row['nomeCompleto'];
+        $nomeCompleto = (string)$row['nomeCompleto'];
         $estadoCivil = (string)$row['estadoCivil'];
         $dataDeNascimento = $row['dataDeNascimento'];
 
@@ -366,7 +366,7 @@ function recupera()
         $strArrayDependente = json_encode($arrayDependente);
 
 
-        $out = $id . "^" . $ativo . "^" . $nome . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo .
+        $out = $id . "^" . $ativo . "^" . $nomeCompleto . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo .
             "^" . $cep . "^" . $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pisPasep;
 
         if ($out == "") {

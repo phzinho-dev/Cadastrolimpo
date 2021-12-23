@@ -159,7 +159,7 @@ include("inc/nav.php");
                                                             <span class="fa fa-search"></span>
                                                         </button>
                                                         <button id="btnRelatorio" type="button" class="btn btn-danger pull-right" title="relatorio">
-                                                            <span class="fa fa-file-pdf-o" ></span>
+                                                            <span class="fa fa-file-pdf-o"></span>
                                                         </button>
                                                         <?php if ($condicaoGravarOK) { ?>
                                                             <button id="btnNovo" type="button" class="btn btn-primary pull-left" title="Novo">
@@ -224,9 +224,11 @@ include("inc/scripts.php");
         $('#btnNovo').on("click", function() {
             novo();
         });
+
         $('#btnRelatorio').on("click", function() {
-            gerarPdf();
+            verificaSexo();
         });
+
         $("#dataDeNascimento").on("change", function() {
             calculaIdade()
         });
@@ -278,7 +280,20 @@ include("inc/scripts.php");
         return idade;
     }
 
+    function verificaSexo() {
+
+        var descricaoSexo =+$('#sexo').val();
+        
+        if (!descricaoSexo) {
+            smartAlert("Atenção", "Informe um Sexo", "error");
+            $("#btnRelatorio").prop('disabled', false);
+        }else{
+            gerarPdf();
+        }
+    }
+
     function gerarPdf() {
+
         var sexo = $('#sexo').val();
         var parametrosUrl = '&sexo=' + sexo; // - > PASSAGEM DE PARAMETRO
         window.open("funcionarioPDF.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA

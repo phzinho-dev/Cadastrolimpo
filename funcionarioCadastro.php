@@ -104,9 +104,9 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="nome">Nome</label>
+                                                                <label class="label" for="nomeCompleto">Nome</label>
                                                                 <label class="input">
-                                                                    <input id="nome" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="Nome">
+                                                                    <input id="nomeCompleto" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="Nome">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
@@ -657,6 +657,10 @@ include("inc/scripts.php");
             gerarPdf();
         });
 
+        $("#nomeCompleto").on("change", function() {
+            var nomeCompleto = $('#nomeCompleto').val();
+        });
+
         $("#rg").on("focusout", function() {
             var rg = $('#rg').val();
 
@@ -749,7 +753,7 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var nome = piece[2];
+                            var nomeCompleto = piece[2];
                             var estadoCivil = piece[3]
                             var dataDeNascimento = piece[4];
                             var cpf = piece[5];
@@ -770,7 +774,7 @@ include("inc/scripts.php");
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
-                            $("#nome").val(nome);
+                            $("#nomeCompleto").val(nomeCompleto);
                             $("#estadoCivil").val(estadoCivil);
                             $("#dataDeNascimento").val(dataDeNascimento);
                             $("#cpf").val(cpf);
@@ -817,7 +821,7 @@ include("inc/scripts.php");
         // $("#btnGravar").prop('disabled', true);
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
-        var nome = $('#nome').val();
+        var nomeCompleto = $('#nomeCompleto').val();
         var estadoCivil = $('#estadoCivil').val();
         var ativo = $('#ativo').val();
         var rg = $('#rg').val();
@@ -845,7 +849,7 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
         }
 
-        if (!nome) {
+        if (!nomeCompleto) {
             smartAlert("Atenção", "Informe o nome", "error");
             $("#btnGravar").prop('disabled', false);
             return;
@@ -870,7 +874,7 @@ include("inc/scripts.php");
         }
 
         if (!descricaoSexo) {
-            smartAlert("Atenção", "Informe a Sexo", "error");
+            smartAlert("Atenção", "Informe um Sexo", "error");
             $("#btnGravar").prop('disabled', false);
         }
 
@@ -1398,7 +1402,7 @@ include("inc/scripts.php");
             } else {
                 $("#telefoneWhatsapp").prop('checked', false)
                 $("#descricaoTelefoneWhatsapp").val("Não")
-            
+
             }
         }
     }
