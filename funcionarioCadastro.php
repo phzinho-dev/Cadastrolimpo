@@ -347,7 +347,7 @@ include("inc/nav.php");
                                                             <section class="col col-1">
                                                                 <label class="label" for="uf">UF</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="uf" name="uf"  placeholder="UF" />
+                                                                    <input type="text" id="uf" name="uf" placeholder="UF" />
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -355,13 +355,13 @@ include("inc/nav.php");
                                                             <section class="col col-2-auto">
                                                                 <label class="label" for="bairro">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro"  placeholder="Bairro" />
+                                                                    <input type="text" id="bairro" name="bairro" placeholder="Bairro" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="cidade">Cidade</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cidade" name="cidade"  placeholder="Cidade">
+                                                                    <input type="text" id="cidade" name="cidade" placeholder="Cidade">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -402,7 +402,7 @@ include("inc/nav.php");
                                                                     <section class="col col-2 col-auto">
                                                                         <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                         <label class="input">
-                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="" style="text-align: center" value="" data-mask="99/99/9999" autocomplete="off" placeholder="Data De Nascimento">
+                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-3 col-auto">
@@ -651,9 +651,8 @@ include("inc/scripts.php");
 
         $("#btnGravar").on("click", function() {
             var ativo = +$('#ativo').val();
-            if (ativo == 1){     
-            }else{
-                (ativo==0)
+            if (ativo == 1) {} else {
+                (ativo == 0)
                 smartAlert("Atenção", "Não é possivel cadastrar um Funcionario INATIVO!!", "error");
                 $('#ativo').val(0);
                 return
@@ -705,6 +704,15 @@ include("inc/scripts.php");
 
         $("#cep").on("change", function() {
             enderecoCep()
+
+            $('#logradouro').addClass('readonly', true);
+            $("#logradouro").attr('disabled', true);
+            $('#uf').addClass('readonly', true);
+            $('#uf').attr('disabled', true);
+            $('#bairro').addClass('readonly', true);
+            $('#bairro').attr('disabled', true);
+            $('#cidade').addClass('readonly', true);
+            ('#cidade').attr('disable', true);
         });
 
         $("#pisPasep").on("change", function() {
@@ -724,6 +732,14 @@ include("inc/scripts.php");
                 $('#cpfDependente').val('');
                 return
             }
+        });
+
+        $("#dataNascimento").on("change", function() {
+            calculaIdadeDependente()
+        });
+
+        $("#email").on("change", function() {
+            validarEmail();
         });
 
         $("#cpf").mask("999.999.999-99")
@@ -915,35 +931,12 @@ include("inc/scripts.php");
             return;
         }
 
-        if (!logradouro) {
-            smartAlert("Atenção", "Informe o Logradouro", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-
         if (!numero) {
             smartAlert("Atenção", "Informe o Numero ", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
 
-        if (!uf) {
-            smartAlert("Atenção", "Informe o UF", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-
-        if (!bairro) {
-            smartAlert("Atenção", "Informe o Bairro", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
-
-        if (!cidade) {
-            smartAlert("Atenção", "Informe o Cidade", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
 
         if (jsonTelefoneArray.length <= 0) {
             smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
@@ -1005,6 +998,45 @@ include("inc/scripts.php");
             smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
             $('#idade').val('');
             $('#dataDeNascimento').val('');
+            return;
+
+        }
+
+        var idade = yH - y;
+
+        if (mH < m) {
+            idade--;
+        }
+        if (dH < d && mH == m) {
+            idade--;
+        }
+
+        $('#idade').val(idade);
+        return idade;
+    }
+
+    function calculaIdadeDependente() {
+        var dataNascimento = $('#dataNascimento').val();
+        var y = (parseInt(dataNascimento.split('/')[2]));
+        var m = (parseInt(dataNascimento.split('/')[1]));
+        var d = (parseInt(dataNascimento.split('/')[0]));
+
+        var dataHoje = moment().format('DD/MM/YYYY');
+        var yH = (parseInt(dataHoje.split('/')[2]));
+        var mH = (parseInt(dataHoje.split('/')[1]));
+        var dH = (parseInt(dataHoje.split('/')[0]));
+
+        var dataValida = moment(dataNascimento, 'DD/MM/YYYY').isValid();
+        if (!dataValida) {
+            smartAlert("Atenção", "DATA INVALIDA!", "error");
+            $('#idade').val('');
+            $('#dataNascimento').val('');
+            return;
+        }
+        if (moment(dataNascimento, 'DD/MM/YYYY').diff(moment()) > 0) {
+            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
+            $('#idade').val('');
+            $('#dataNascimento').val('');
             return;
 
         }
@@ -1191,9 +1223,9 @@ include("inc/scripts.php");
     }
 
     function verificarCPFDependente() {
-        var cpf = $("#cpfDependente").val();
+        var cpfDependente = $("#cpfDependente").val();
 
-        verificaCPFDependente(cpf,
+        verificaCPFDependente(cpfDependente,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -1227,6 +1259,16 @@ include("inc/scripts.php");
                 }
             });
     }
+
+    function validarEmail() {
+        if (document.forms[0].email.value == (" ") ||
+            document.forms[0].email.value.indexOf('@') == -1 ||
+            document.forms[0].email.value.indexOf('.') == -1) {
+            smartAlert("Atenção","Por favor, informe um E-MAIL válido!","error");
+            return $('#email').val('');
+        }
+    }
+
 
 
     function validaTelefone() {
