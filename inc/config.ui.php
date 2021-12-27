@@ -106,12 +106,9 @@ $condicaoCadastroOk =  true;
 if ($condicaoCadastroOk) {
     $page_nav['cadastro'] = array("title" => "Cadastro", "icon" => "fa-pencil-square-o");
     $page_nav['cadastro']['sub'] = array();
-
-    $page_nav['cadastro']['sub'] += array("filtro" => array("title" => "Filtro", "url" => APP_URL . "/funcionarioFiltro.php"));
+    
     $page_nav['cadastro']['sub'] += array("funcionario" => array("title" => "Funcionario", "url" => APP_URL . "/funcionarioCadastro.php")); //SYSCB 
-    $page_nav['cadastro']['sub'] += array("sexo" => array("title" => "Sexo", "url" => APP_URL . "/sexoCadastro.php"));
-    $page_nav['cadastro']['sub'] += array("dependente" => array("title" => "Dependente", "url" => APP_URL . "/dependenteCadastro.php")); 
-
+   
 }
 
 // OPERAÇÔES // A pedido do Márcio no dia 08/01/2020 foi pedido para colocar todos os módulos dentro de operação.
