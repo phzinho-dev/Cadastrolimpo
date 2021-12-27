@@ -636,6 +636,10 @@ include("inc/scripts.php");
             }
         });
 
+        $("#nomeCompleto").on("change", function() {
+            var nomeCompleto = $('#nomeCompleto').val().trim();
+            $("#nomeCompleto").val(nomeCompleto);
+        });
 
         $("#dataDeNascimento").on("change", function() {
             calculaIdade()
@@ -697,6 +701,11 @@ include("inc/scripts.php");
 
         $("#pisPasep").on("change", function() {
             if (!verificarPisPasep()) {};
+        });
+
+        $("#nomeDependente").on("change", function() {
+            var nomeDependente = $('#nomeDependente').val().trim();
+            $("#nomeDependente").val(nomeDependente);
         });
 
         $("#cpfDependente").on("change", function() {
@@ -817,7 +826,7 @@ include("inc/scripts.php");
         // $("#btnGravar").prop('disabled', true);
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
-        var nomeCompleto = $('#nomeCompleto').val();
+        var nomeCompleto = $('#nomeCompleto').val().trim();
         var estadoCivil = $('#estadoCivil').val();
         var ativo = $('#ativo').val();
         var rg = $('#rg').val();
@@ -963,6 +972,7 @@ include("inc/scripts.php");
             }
         );
     }
+
 
     function calculaIdade() {
         var dataDeNascimento = $('#dataDeNascimento').val();
