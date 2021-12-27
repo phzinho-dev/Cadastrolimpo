@@ -166,7 +166,7 @@ include("inc/nav.php");
                                                             <section class="col col-1 col-auto">
                                                                 <label class="label">Idade</label>
                                                                 <label class="input">
-                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off" placeholder="Idade">
+                                                                    <input id="idade" name="idade" readonly class="readonly" value="" autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -184,7 +184,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">PisPasep</label>
                                                                 <label class="input">
-                                                                    <input id="pisPasep" type="text" maxlength="14" required autocomplete="off" disabled class="" placeholder="PIS/Pasep" data-mask="999.99999.99.9">
+                                                                    <input id="pisPasep" type="text" maxlength="14" required autocomplete="off" disabled class="" data-mask="999.99999.99.9">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -329,7 +329,7 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label" for="logradouro">Logradouro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="logradouro" name="logradouro" class="required" placeholder="Logradouro" />
+                                                                    <input type="text" id="logradouro" name="logradouro" placeholder="Logradouro" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
@@ -347,7 +347,7 @@ include("inc/nav.php");
                                                             <section class="col col-1">
                                                                 <label class="label" for="uf">UF</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="uf" name="uf" class="required" placeholder="UF" />
+                                                                    <input type="text" id="uf" name="uf"  placeholder="UF" />
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -355,13 +355,13 @@ include("inc/nav.php");
                                                             <section class="col col-2-auto">
                                                                 <label class="label" for="bairro">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" class="required" placeholder="Bairro" />
+                                                                    <input type="text" id="bairro" name="bairro"  placeholder="Bairro" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="cidade">Cidade</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cidade" name="cidade" class="required" placeholder="Cidade">
+                                                                    <input type="text" id="cidade" name="cidade"  placeholder="Cidade">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -630,10 +630,10 @@ include("inc/scripts.php");
                 $("#nome").focus();
                 return;
             }
-
             if (id !== 0) {
                 $('#dlgSimpleExcluir').dialog('open');
             }
+
         });
 
         $("#nomeCompleto").on("change", function() {
@@ -650,6 +650,14 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
+            var ativo = +$('#ativo').val();
+            if (ativo == 1){     
+            }else{
+                (ativo==0)
+                smartAlert("Atenção", "Não é possivel cadastrar um Funcionario INATIVO!!", "error");
+                $('#ativo').val(0);
+                return
+            }
             gravar()
         });
 
@@ -895,16 +903,11 @@ include("inc/scripts.php");
             return;
         }
         if ((primeiroEmprego == 0) && (!pisPasep)) {
-            smartAlert("Atenção", "Informe se é Seu Primeiro Emprego !!", "error");
+            smartAlert("Atenção", "Informe seu PisPasep!!", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
 
-        if (jsonTelefoneArray.length <= 0) {
-            smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
 
         if (!cep) {
             smartAlert("Atenção", "Informe o CEP", "error");
@@ -938,6 +941,12 @@ include("inc/scripts.php");
 
         if (!cidade) {
             smartAlert("Atenção", "Informe o Cidade", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+
+        if (jsonTelefoneArray.length <= 0) {
+            smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -1319,8 +1328,8 @@ include("inc/scripts.php");
             $("#tableTelefone tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonTelefoneArray[i].sequencialTelefone + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaTelefone(' + jsonTelefoneArray[i].sequencialTelefone + ');">' + jsonTelefoneArray[i].telefone + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonTelefoneArray[i].descricaoTelefoneWhatsapp + '</td>'));
+            row.append($('<td class="text-center" "">' + jsonTelefoneArray[i].descricaoTelefonePrincipal + '</td>'));
+            row.append($('<td class="text-center" "">' + jsonTelefoneArray[i].descricaoTelefoneWhatsapp + '</td>'));
 
         }
     }
@@ -1529,7 +1538,7 @@ include("inc/scripts.php");
             $("#tableEmail tbody").append(row);
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonEmailArray[i].sequencialEmail + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaEmail(' + jsonEmailArray[i].sequencialEmail + ');">' + jsonEmailArray[i].email + '</td>'));
-            row.append($('<td class="text-center" onclick="">' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
+            row.append($('<td class="text-center" "">' + jsonEmailArray[i].descricaoEmailPrincipal + '</td>'));
 
         }
     }

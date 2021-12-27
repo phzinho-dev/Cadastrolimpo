@@ -233,6 +233,14 @@ include("inc/scripts.php");
         });
 
         $("#btnGravar").on("click", function() {
+            var ativo = +$('#ativo').val();
+            if (ativo == 1){     
+            }else{
+                (ativo==0)
+                smartAlert("Atenção", "Não é possivel cadastrar um Dependente INATIVO!!", "error");
+                $('#ativo').val(0);
+                return
+            }
             gravar()
         });
 

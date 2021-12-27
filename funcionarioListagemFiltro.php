@@ -75,7 +75,7 @@ include "js/repositorio.php";
                     $where = $where . "AND USU.dataDeNascimento < " . $dataFim . "";
                 }
 
-                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.descricao,
+                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.descricaoSexo,
                 USU.cep, USU.logradouro, USU.numero, USU.complemento, USU.uf, USU.bairro, USU.cidade
                 FROM dbo.funcionario USU
                 LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
@@ -100,7 +100,7 @@ include "js/repositorio.php";
                     } else {
                         $descricaoAtivo = "Não";
                     }
-                    $descricaoSexo = $row['descricao'];
+                    $descricaoSexo = $row['descricaoSexo'];
                     $dataDeNascimento = $row['dataDeNascimento'];
                     //Converção de data
                     $dataDeNascimento = explode(" ", $dataDeNascimento);
