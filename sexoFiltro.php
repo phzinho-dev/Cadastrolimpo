@@ -166,6 +166,11 @@ include("inc/scripts.php");
         $('#btnNovo').on("click", function() {
             novo();
         });
+
+        $("#sexo").on("change", function() {
+            var sexo = $('#sexo').val().trim();
+            $("#sexo").val(sexo);
+        });
         
     });
     function listarFiltro() {

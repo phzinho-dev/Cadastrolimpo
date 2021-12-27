@@ -229,6 +229,11 @@ include("inc/scripts.php");
             verificaSexo();
         });
 
+        $("#nome").on("change", function() {
+            var nome = $('#nome').val().trim();
+            $("#nome").val(nome);
+        });
+
         $("#dataDeNascimento").on("change", function() {
             calculaIdade()
         });

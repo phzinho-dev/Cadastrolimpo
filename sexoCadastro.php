@@ -239,6 +239,11 @@ include("inc/scripts.php");
         $("#btnVoltar").on("click", function() {
             voltar();
         });
+
+        $("#sexo").on("change", function() {
+            var sexo = $('#sexo').val().trim();
+            $("#sexo").val(sexo);
+        });
         carregaPagina();
 
 
