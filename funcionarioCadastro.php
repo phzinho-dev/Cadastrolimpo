@@ -598,7 +598,7 @@ include("inc/scripts.php");
 
         });
 
-        $("#bntExclEmail").on("click", function() {
+        $("#btnExclEmail").on("click", function() {
             excluirEmail();
         });
 
@@ -655,10 +655,6 @@ include("inc/scripts.php");
 
         $("#btnRelatorio").on("click", function() {
             gerarPdf();
-        });
-
-        $("#nomeCompleto").on("change", function() {
-            var nomeCompleto = $('#nomeCompleto').val();
         });
 
         $("#rg").on("focusout", function() {
@@ -890,7 +886,7 @@ include("inc/scripts.php");
             return;
         }
         if ((primeiroEmprego == 0) && (!pisPasep)) {
-            smartAlert("Atenção", "Informe o PisPasep", "error");
+            smartAlert("Atenção", "Informe se é Seu Primeiro Emprego !!", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -937,7 +933,7 @@ include("inc/scripts.php");
             return;
         }
 
-        gravarFuncionarioCadastro(id, ativo, nome, estadoCivil, cpf, rg, dataDeNascimento, descricaoSexo, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
+        gravarFuncionarioCadastro(id, ativo, nomeCompleto, estadoCivil, cpf, rg, dataDeNascimento, descricaoSexo, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
