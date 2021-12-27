@@ -21,12 +21,12 @@ $where = "WHERE (0 = 0)";
                 $where = $where . "AND ativo = '". $ativo . "'";
                 }
                 $descricaoSexo = "";
-                if ($_POST["descricao"] != "") {
-                $descricaoSexo = $_POST["descricao"];
-                $where = $where . " AND ( sexo like '%' + " . "replace('" . $descricaoSexo . "',' ','%') + " . "'%')";
+                if ($_POST["descricaoSexo"] != "") {
+                $descricaoSexo = $_POST["descricaoSexo"];
+                $where = $where . " AND ( descricaoSexo like '%' + " . "replace('" . $descricaoSexo . "',' ','%') + " . "'%')";
                 }
 
-                $sql = " SELECT [codigo],[ativo] ,[descricao] FROM sexo ";
+                $sql = " SELECT [codigo],[ativo] ,[descricaoSexo] FROM sexo ";
                 
                 $where = $where ;
 
@@ -36,7 +36,7 @@ $where = "WHERE (0 = 0)";
 
                 foreach($result as $row) {
                     $id= (int) $row['codigo'];
-                    $descricaoSexo = $row['descricao'];
+                    $descricaoSexo = $row['descricaoSexo'];
                     $ativo = (int) $row['ativo'];
 
                   

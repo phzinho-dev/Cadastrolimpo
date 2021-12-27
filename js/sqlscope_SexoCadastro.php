@@ -24,10 +24,10 @@ function grava()
     session_start();
     $codigo = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
-    $descricaoSexo= "'" . (string)$_POST['descricao'] . "'";
+    $descricaoSexo = "'" . (string)$_POST['descricaoSexo'] . "'" ;
     
 
-    $sql = "dbo.sexo_Atualiza
+    $sql = "dbo.sexo_atualiza
             $codigo,
             $ativo,
             $descricaoSexo";
@@ -47,7 +47,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo,ativo,descricao FROM dbo.sexo WHERE (0 = 0)";
+    $sql = "SELECT codigo,ativo,descricaoSexo FROM dbo.sexo WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -60,7 +60,7 @@ function recupera()
 
         $id = (int)$row['codigo'];
         $ativo = $row['ativo'];
-        $descricaoSexo = $row ['descricao'];
+        $descricaoSexo = $row ['descricaoSexo'];
 
         $out = $id ."^" . $ativo. "^" . $descricaoSexo  ;
 
