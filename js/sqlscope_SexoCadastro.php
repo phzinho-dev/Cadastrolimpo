@@ -12,6 +12,9 @@ if ($funcao == 'grava') {
 if ($funcao == 'recupera') {
     call_user_func($funcao);
 }
+if ($funcao == 'verificaSexo') {
+    call_user_func($funcao);
+}
 
 if ($funcao == 'excluir') {
     call_user_func($funcao);
@@ -72,6 +75,24 @@ function recupera()
         }
         return;
     }
+}
+function verificaSexo()
+{
+    $descricaoSexo = "'" . $_POST["descricaoSexo"] . "'";
+
+    $sql = "SELECT descricaoSexo FROM dbo.sexo
+    WHERE descricaoSexo = " .  $descricaoSexo;
+
+    $reposit = new reposit();
+
+    $result = $reposit->RunQuery($sql);
+
+    if ($result) {
+        echo ('failed#');
+        return;
+    }
+    echo ('sucess#');
+    return;
 }
 
 function excluir()

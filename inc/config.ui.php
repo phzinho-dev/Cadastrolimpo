@@ -55,7 +55,7 @@ if ($row = $result[0]) {
     }
 }
 
-$page_nav = array("home" => array("title" => "Home", "icon" => "fa-home", "url" => APP_URL . "/index.php"));
+$page_nav = array("home" => array("title" => "Home", "icon" => "fa-home", "url"));
 
 
 //Configurações 
@@ -107,7 +107,7 @@ if ($condicaoCadastroOk) {
     $page_nav['cadastro'] = array("title" => "Cadastro", "icon" => "fa-pencil-square-o");
     $page_nav['cadastro']['sub'] = array();
     
-    $page_nav['cadastro']['sub'] += array("funcionario" => array("title" => "Funcionario", "url" => APP_URL . "/funcionarioCadastro.php")); //SYSCB 
+    $page_nav['cadastro']['sub'] += array("filtro" => array("title" => "Funcionario", "url" => APP_URL . "/funcionarioFiltro.php")); //SYSCB 
    
 }
 

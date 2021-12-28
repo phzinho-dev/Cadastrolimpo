@@ -12,6 +12,9 @@ if ($funcao == 'grava') {
 if ($funcao == 'recupera') {
     call_user_func($funcao);
 }
+if ($funcao == 'verificaDependente') {
+    call_user_func($funcao);
+}
 
 if ($funcao == 'excluir') {
     call_user_func($funcao);
@@ -27,7 +30,7 @@ function grava()
     $descricao= "'" . (string)$_POST['descricao'] . "'";
     
 
-    $sql = "dbo.tipo_dependente_Atualiza
+    $sql = "dbo.tipo_dependente_atualiza
             $codigo,
             $ativo,
             $descricao";
@@ -72,6 +75,25 @@ function recupera()
         }
         return;
     }
+}
+
+function verificaDependente()
+{
+    $descricao = "'" . $_POST["descricao"] . "'";
+
+    $sql = "SELECT descricao FROM dbo.tipo_dependente 
+    WHERE descricao = " .  $descricao;
+
+    $reposit = new reposit();
+
+    $result = $reposit->RunQuery($sql);
+
+    if ($result) {
+        echo ('failed#');
+        return;
+    }
+    echo ('sucess#');
+    return;
 }
 
 function excluir()

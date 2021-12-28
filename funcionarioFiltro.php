@@ -36,7 +36,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav["cadastro"]["sub"]["funcionario"]["active"] = true;
+$page_nav["cadastro"]["sub"]["filtro"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -84,7 +84,6 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo">
-                                                                        <option></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -105,17 +104,17 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="sexo" name="sexo" class="">
+                                                                    <select id="descricaoSexo" name="descricaoSexo" class="">
                                                                         <option hidden selected></option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, descricao 
+                                                                        $sql = "SELECT codigo, descricaoSexo 
                                                                         FROM dbo.sexo
                                                                         WHERE ativo = 1 ";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $id = $row['codigo'];
-                                                                            $descricaoSexo = $row['descricao'];
+                                                                            $descricaoSexo = $row['descricaoSexo'];
                                                                             echo '<option value=' . $id . '>' . $descricaoSexo . '</option>';
                                                                         }
                                                                         ?>
@@ -287,7 +286,7 @@ include("inc/scripts.php");
 
     function verificaSexo() {
 
-        var descricaoSexo =+$('#sexo').val();
+        var descricaoSexo =+$('#descricaoSexo').val();
         
         if (!descricaoSexo) {
             smartAlert("Atenção", "Informe um Sexo", "error");
@@ -299,8 +298,8 @@ include("inc/scripts.php");
 
     function gerarPdf() {
 
-        var sexo = $('#sexo').val();
-        var parametrosUrl = '&sexo=' + sexo; // - > PASSAGEM DE PARAMETRO
+        var descricaoSexo = $('#descricaoSexo').val();
+        var parametrosUrl = '&descricaoSexo=' + descricaoSexo; // - > PASSAGEM DE PARAMETRO
         window.open("funcionarioPDF.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
 
     }
@@ -314,7 +313,7 @@ include("inc/scripts.php");
         var dataInicio = $('#dataInicio').val();
         var dataFim = $('#dataFim').val();
         var rg = $('#rg').val();
-        var sexo = $('#sexo').val();
+        var descricaoSexo = $('#descricaoSexo').val();
 
         $('#resultadoBusca').load('funcionarioListagemFiltro.php?', {
             nome: nome,
@@ -325,7 +324,7 @@ include("inc/scripts.php");
             dataFim: dataFim,
             cpf: cpf,
             rg: rg,
-            sexo: sexo,
+            descricaoSexo: descricaoSexo,
 
         });
     }

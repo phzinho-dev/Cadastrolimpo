@@ -249,12 +249,11 @@ include("inc/scripts.php");
         });
 
         $("#sexo").on("change", function() {
-            var sexo = $('#sexo').val().trim();
-            $("#sexo").val(sexo);
+            var descricaoSexo = $('#sexo').val().trim(); 
+            verificarSexo()
         });
+
         carregaPagina();
-
-
     });
 
     function carregaPagina() {
@@ -279,12 +278,12 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var descricao = piece[2];
+                            var descricaoSexo = piece[2];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
-                            $("#sexo").val(descricao);
+                            $("#sexo").val(descricaoSexo);
                             
                             return;
 
@@ -346,6 +345,26 @@ include("inc/scripts.php");
         );
     }
 
+    function verificarSexo() {
+        var descricaoSexo = $("#sexo").val();
+
+        verificaSexo(descricaoSexo,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "Tipo de Sexo ja cadastrado no sistema", "error");
+                        $("#sexo").val('')
+                    }
+                }else{
+                    gravar()
+                }
+            });
+    }
 
     function novo() {
         $(location).attr('href', 'sexoCadastro.php');

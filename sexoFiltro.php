@@ -83,14 +83,13 @@ include("inc/nav.php");
                                                             <section class="col col-4">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="sexo" maxlength="50" class=" " name="sexo" type="text" value="">
+                                                                    <input id="descricaoSexo" maxlength="50" class=" " name="descricaoSexo" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo">
-                                                                        <option></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -167,15 +166,15 @@ include("inc/scripts.php");
             novo();
         });
 
-        $("#sexo").on("change", function() {
-            var sexo = $('#sexo').val().trim();
-            $("#sexo").val(sexo);
+        $("#descricaoSexo").on("change", function() {
+            var descricaoSexo = $('#descricaoSexo').val().trim();
+            $("#descricaoSexo").val(descricaoSexo);
         });
         
     });
     function listarFiltro() {
         var ativo = +$('#ativo').val();
-        var descricaoSexo = $('#sexo').val();  
+        var descricaoSexo = $('#descricaoSexo').val();  
 
         $('#resultadoBusca').load('sexoListagemFiltro.php?', {
             descricaoSexo: descricaoSexo,

@@ -44,7 +44,7 @@ include("inc/header.php");
 
 //include left panel (navigation)
 //follow the tree in inc/config.ui.php
-$page_nav['cadastro']['sub']["funcionario"]["active"] = true;
+$page_nav['cadastro']['sub']["filtro"]["active"] = true;
 
 include("inc/nav.php");
 ?>
@@ -97,7 +97,6 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo" class="required">
-                                                                        <option hidden selected></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -262,7 +261,7 @@ include("inc/nav.php");
                                                             <input id="sequencialEmail" name="sequencialEmail" type="hidden" value="">
                                                             <input id="descricaoEmailPrincipal" name="descricaoEmailPrincipal" type="hidden" value="">
                                                             <div class="row">
-                                                                <section class="col col-5">
+                                                                <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input">
                                                                         <input type="text" id="email" name="email" class="" placeholder="Email" />
@@ -589,7 +588,7 @@ include("inc/scripts.php");
             var existe = true;
 
             if (!email) {
-                smartAlert("Atenção", "Escolha um Email", "error")
+                smartAlert("Atenção", "Informe um E-mail Valido!!!.", "error")
                 return;
             }
             if (validaEmail()) {
@@ -615,7 +614,6 @@ include("inc/scripts.php");
             if (validaDependente()) {
                 addDependente();
             }
-
         });
 
         $("#btnExclDependente").on("click", function() {
@@ -729,10 +727,9 @@ include("inc/scripts.php");
 
             if (!validarCPFDependente(cpfDependente)) {
                 smartAlert("Atenção", "Informe um CPF valido", "error");
-                $('#cpfDependente').val('');
-                return
+                $('#cpfDependente').val('')
             }
-        });
+        })
 
         $("#dataNascimento").on("change", function() {
             calculaIdadeDependente()
@@ -890,7 +887,7 @@ include("inc/scripts.php");
             return;
         }
 
-        if (!cpf) {
+        if (!cpf || cpf == "___.___.___-__") {
             smartAlert("Atenção", "Informe o cpf", "error");
             $("#btnGravar").prop('disabled', false);
             return;
@@ -1187,6 +1184,7 @@ include("inc/scripts.php");
         if (cpfDependente == '') return false;
         // Elimina CPFs invalidos conhecidos	
         if (cpfDependente.length != 11 ||
+            cpfDependente == "___.___.___-__" ||
             cpfDependente == "00000000000" ||
             cpfDependente == "11111111111" ||
             cpfDependente == "22222222222" ||
@@ -1264,13 +1262,11 @@ include("inc/scripts.php");
         if (document.forms[0].email.value == (" ") ||
             document.forms[0].email.value.indexOf('@') == -1 ||
             document.forms[0].email.value.indexOf('.') == -1) {
-            smartAlert("Atenção","Por favor, informe um E-MAIL válido!","error");
-            return $('#email').val('');
-        }
+            $("#email").val('')
+     }
     }
 
-
-
+    
     function validaTelefone() {
         var existe = false;
         var achou = false;
@@ -1299,6 +1295,10 @@ include("inc/scripts.php");
                 existe = true;
                 break;
             }
+        }
+        if (telefone === "(XX) XXXXX-XXXX") {
+            smartAlert("Erro", "Informe um Telefone valido", "error")
+            return false;
         }
         if ((achou === true) && (telefonePrincipalMarcado === 1)) {
             smartAlert("Erro", "Já existe um telefone principal na lista.", "error");
@@ -1703,6 +1703,18 @@ include("inc/scripts.php");
         var tipoDependente = $('#tipoDependente').val();
         var sequencial = +$('#sequencialDependente').val();
 
+        if (nomeDependente === '') {
+            smartAlert("Erro", "Informe o Nome do Dependente.", "error");
+            return false;
+        }
+        if (cpfDependente === '') {
+            smartAlert("Erro", "Informe o CPF do Dependente.", "error");
+            return false;
+        }
+        if (dataNascimento === '') {
+            smartAlert("Erro", "Informe a Data de Nascimento do Dependente.", "error");
+            return false;
+        }
         if (tipoDependente === '') {
             smartAlert("Erro", "Informe um Dependente.", "error");
             return false;
@@ -1713,6 +1725,10 @@ include("inc/scripts.php");
                 achou = true;
                 break;
             }
+        }
+        if (cpfDependente === "___.___.___-__") {
+            smartAlert("Erro", "Informe um CPF valido", "error")
+            return false;
         }
         if (achou === true) {
             smartAlert("Erro", "Este CPF ja esta na lista.", "error");

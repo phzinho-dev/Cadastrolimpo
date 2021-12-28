@@ -100,7 +100,6 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo">
-                                                                        <option></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -234,21 +233,26 @@ include("inc/scripts.php");
 
         $("#btnGravar").on("click", function() {
             var ativo = +$('#ativo').val();
-            if (ativo == 1){     
-            }else{
-                (ativo==0)
+            if (ativo == 1) {} else {
+                (ativo == 0)
                 smartAlert("Atenção", "Não é possivel cadastrar um Dependente INATIVO!!", "error");
                 $('#ativo').val(0);
                 return
             }
-            gravar()
+            gravar();
         });
 
         $("#btnVoltar").on("click", function() {
             voltar();
         });
-        carregaPagina();
 
+        $("#descricao").on("change", function() {
+            var descricao = $("#descricao").val().trim();
+            verificarDependente()
+            
+        });
+
+        carregaPagina();
 
     });
 
@@ -280,7 +284,7 @@ include("inc/scripts.php");
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
                             $("#descricao").val(descricao);
-                            
+
                             return;
 
                         }
@@ -297,7 +301,7 @@ include("inc/scripts.php");
         var id = +$('#codigo').val();
         var ativo = +$('#ativo').val();
         var descricao = $('#descricao').val();
-        
+
 
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (ativo === "") {
@@ -305,12 +309,12 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
         }
         if (descricao === "") {
-           smartAlert("Atenção", "Informe seu descricao", "error");
-           $("#btnGravar").prop('disabled', false);
-           return;
-       }
-    
-        gravarDependenteCadastro(id,ativo,descricao, 
+            smartAlert("Atenção", "Informe seu descricao", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+
+        gravarDependenteCadastro(id, ativo, descricao,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -348,6 +352,27 @@ include("inc/scripts.php");
 
     function voltar() {
         $(location).attr('href', 'dependenteFiltro.php');
+    }
+
+    function verificarDependente() {
+        var descricao = $("#descricao").val();
+
+        verificaDependente(descricao,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "Tipo Dependente ja cadastrado no sistema", "error");
+                        $("#descricao").val('')
+                    }
+                }else{
+                    gravar()
+                }
+            });
     }
 
     function excluir() {
