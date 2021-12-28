@@ -1339,13 +1339,22 @@ include("inc/scripts.php");
                 return false;
             }
         });
-
+        var telefonePrincipal = $("#telefonePrincipal").val();
+        if (telefonePrincipal == "true"){
+            $("#telefonePrincipal").prop('checked', false)
+        }
+        var telefoneWhatsapp = $("#telefoneWhatsapp").val();
+        if(telefoneWhatsapp == "true"){
+            $("#telefoneWhatsapp").prop('checked', false)
+        }
         if (index >= 0)
             jsonTelefoneArray.splice(index, 1, item);
         else
             jsonTelefoneArray.push(item);
         console.log(jsonTelefoneArray)
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
+
+
         fillTableTelefone();
         clearFormTelefone();
 
@@ -1354,11 +1363,10 @@ include("inc/scripts.php");
     function clearFormTelefone() {
         $("#telefone").val('');
         $("#sequencialTelefone").val('');
-        $("#telefonePrincipal").val('');
         $("#descricaoTelefonePrincipal").val('');
         $("#telefoneWhatsapp").val('');
         $("#descricaoTelefoneWhatsapp").val('');
-
+        $("#telefonePrincipal").val('');
     }
 
     function fillTableTelefone() {
@@ -1551,6 +1559,11 @@ include("inc/scripts.php");
                 return false;
             }
         });
+
+        var emailPrincipal = $("#emailPrincipal").val();
+        if (emailPrincipal == "true"){
+            $("#emailPrincipal").prop('checked', false)
+        }
 
         if (index >= 0)
             jsonEmailArray.splice(index, 1, item);
