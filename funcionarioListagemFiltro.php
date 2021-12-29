@@ -99,7 +99,8 @@ include "js/repositorio.php";
                         $descricaoAtivo = "Sim";
                     } else {
                         $descricaoAtivo = "Não";
-                    }
+                    };
+
                     $descricaoSexo = $row['descricaoSexo'];
                     $dataDeNascimento = $row['dataDeNascimento'];
                     //Converção de data

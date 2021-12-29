@@ -84,7 +84,8 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo">
-                                                                        <option value="1" selected>Sim</option>
+                                                                        <option selected></option>
+                                                                        <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
                                                             </section>
@@ -104,7 +105,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Sexo</label>
                                                                 <label class="select">
-                                                                    <select id="descricaoSexo" name="descricaoSexo" class="">
+                                                                    <select id="sexo" name="sexo" class="">
                                                                         <option hidden selected></option>
                                                                         <?php
                                                                         $reposit = new reposit();
@@ -285,10 +286,9 @@ include("inc/scripts.php");
     }
 
     function verificaSexo() {
-
-        var descricaoSexo =+$('#descricaoSexo').val();
+        var sexo = +$('#sexo').val();
         
-        if (!descricaoSexo) {
+        if (!sexo) {
             smartAlert("Atenção", "Informe um Sexo", "error");
             $("#btnRelatorio").prop('disabled', false);
         }else{
@@ -298,8 +298,8 @@ include("inc/scripts.php");
 
     function gerarPdf() {
 
-        var descricaoSexo = $('#descricaoSexo').val();
-        var parametrosUrl = '&descricaoSexo=' + descricaoSexo; // - > PASSAGEM DE PARAMETRO
+        var sexo = $('#sexo').val();
+        var parametrosUrl = '&sexo=' + sexo; // - > PASSAGEM DE PARAMETRO
         window.open("funcionarioPDF.php?'" + parametrosUrl); // - > ABRE O RELATÓRIO EM UMA NOVA GUIA
 
     }
@@ -307,13 +307,13 @@ include("inc/scripts.php");
     function listarFiltro() {
         var nome = $('#nome').val();
         var estadoCivil = $('#estadoCivil').val();
-        var ativo = +$('#ativo').val();
+        var ativo = $('#ativo').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
         var dataInicio = $('#dataInicio').val();
         var dataFim = $('#dataFim').val();
         var rg = $('#rg').val();
-        var descricaoSexo = $('#descricaoSexo').val();
+        var sexo = $('#sexo').val();
 
         $('#resultadoBusca').load('funcionarioListagemFiltro.php?', {
             nome: nome,
@@ -324,7 +324,7 @@ include("inc/scripts.php");
             dataFim: dataFim,
             cpf: cpf,
             rg: rg,
-            descricaoSexo: descricaoSexo,
+            sexo: sexo,
 
         });
     }

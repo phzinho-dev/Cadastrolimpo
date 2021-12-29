@@ -100,7 +100,6 @@ include("inc/nav.php");
                                                                 <label class="label">Ativo</label>
                                                                 <label class="select">
                                                                     <select id="ativo" name="ativo">
-                                                                        <option></option>
                                                                         <option value="1" selected>Sim</option>
                                                                         <option value="0">Não</option>
                                                                     </select><i></i>
@@ -250,7 +249,7 @@ include("inc/scripts.php");
 
         $("#sexo").on("change", function() {
             var descricaoSexo = $('#sexo').val().trim(); 
-            verificarSexo()
+            verificarSexo();
         });
 
         carregaPagina();
@@ -293,7 +292,6 @@ include("inc/scripts.php");
             }
         }
     }
-
     function gravar() {
         //Botão que desabilita a gravação até que ocorra uma mensagem de erro ou sucesso.
         // $("#btnGravar").prop('disabled', true);
@@ -302,23 +300,23 @@ include("inc/scripts.php");
         var ativo = +$('#ativo').val();
         var descricaoSexo = $('#sexo').val();
         
-
+        
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (ativo === "") {
             smartAlert("Atenção", "Informe a Ativo", "error");
             $("#btnGravar").prop('disabled', false);
         }
         if (descricaoSexo === "") {
-           smartAlert("Atenção", "Informe seu sexo", "error");
-           $("#btnGravar").prop('disabled', false);
-           return;
-       }
-    
+            smartAlert("Atenção", "Informe seu sexo", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+        
         gravarSexoCadastro(id,ativo,descricaoSexo, 
-            function(data) {
-                if (data.indexOf('sucess') < 0) {
-                    var piece = data.split("#");
-                    var mensagem = piece[1];
+        function(data) {
+            if (data.indexOf('sucess') < 0) {
+                var piece = data.split("#");
+                var mensagem = piece[1];
                     if (mensagem !== "") {
                         smartAlert("Atenção", mensagem, "error");
                         $("#btnGravar").prop('disabled', false);
@@ -328,32 +326,32 @@ include("inc/scripts.php");
                     }
                     return '';
                 } else {
-
+                    
                     //Verifica se a função de recuperar os campos foi executada.
                     var verificaRecuperacao = +$("#verificaRecuperacao").val();
                     smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-
+                    
                     if (verificaRecuperacao === 1) {
                         voltar();
                     } else {
                         novo();
-
+                        
                     }
-
+                    
                 }
             }
-        );
-    }
-
-    function verificarSexo() {
-        var descricaoSexo = $("#sexo").val();
-
-        verificaSexo(descricaoSexo,
+            );
+        }
+        
+        function verificarSexo() {
+            var descricaoSexo = $("#sexo").val();
+            
+            verificaSexo(descricaoSexo,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
                     var mensagem = piece[1];
-
+                    
                     if (mensagem !== "") {
                         smartAlert("Atenção", mensagem, "error");
                     } else {
@@ -361,12 +359,12 @@ include("inc/scripts.php");
                         $("#sexo").val('')
                     }
                 }else{
-                    gravar()
+                    gravar();
                 }
             });
-    }
-
-    function novo() {
+        }
+        
+        function novo() {
         $(location).attr('href', 'sexoCadastro.php');
     }
 

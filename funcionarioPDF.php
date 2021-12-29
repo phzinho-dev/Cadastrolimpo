@@ -18,7 +18,7 @@ if ((empty($_GET["sexo"])) || (!isset($_GET["sexo"])) || (is_null($_GET["sexo"])
 }
 
 $sql = "SELECT USU.codigo , USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf,
-        USU.rg, USUG.descricao, USU.cep,USU.logradouro,USU.numero,USU.uf,USU.bairro,USU.cidade
+        USU.rg, USUG.descricaoSexo, USU.cep,USU.logradouro,USU.numero,USU.uf,USU.bairro,USU.cidade
 FROM dbo.funcionario USU 
 INNER JOIN dbo.sexo USUG ON USUG.codigo = USU.sexo
 WHERE USU.sexo = $sexo";
@@ -40,7 +40,7 @@ foreach ($result as $row) {
 
     $cpf = $row['cpf'];
     $rg = $row['rg'];
-    $sexo = $row['descricao'];
+    $sexo = $row['descricaoSexo'];
     $cep = $row['cep'];
     $logradouro = $row['logradouro'];
     $numero = $row['numero'];
@@ -56,7 +56,7 @@ foreach ($result as $row) {
         "dataDeNascimento" => $dataDeNascimento,
         "cpf" => $cpf,
         "rg" => $rg,
-        "descricao" => $sexo,
+        "descricaoSexo" => $sexo,
         "cep" => $cep,
         "logradouro" => $logradouro,
         "numero" => $numero,
@@ -156,7 +156,7 @@ foreach ($arrayFuncionario as $key) {
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(11, 5, iconv('UTF-8', 'windows-1252', "Sexo:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["descricao"]), 0, 0, "L", 0);
+    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["descricaoSexo"]), 0, 0, "L", 0);
 
     $pdf->Ln(4);
     $pdf->Ln(4);

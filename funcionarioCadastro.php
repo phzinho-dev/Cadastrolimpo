@@ -634,9 +634,10 @@ include("inc/scripts.php");
 
         });
 
-        $("#nomeCompleto").on("change", function() {
+        $("#nomeCompleto").on("change", function() {      
             var nomeCompleto = $('#nomeCompleto').val().trim();
             $("#nomeCompleto").val(nomeCompleto);
+            valida_nome()
         });
 
         $("#dataDeNascimento").on("change", function() {
@@ -665,6 +666,9 @@ include("inc/scripts.php");
         $("#btnRelatorio").on("click", function() {
             gerarPdf();
         });
+        $("#nomeCompleto").on("change", function() {
+            valida_nome();
+        }); 
 
         $("#rg").on("focusout", function() {
             var rg = $('#rg').val();
@@ -720,6 +724,7 @@ include("inc/scripts.php");
         $("#nomeDependente").on("change", function() {
             var nomeDependente = $('#nomeDependente').val().trim();
             $("#nomeDependente").val(nomeDependente);
+            valida_nomedependente();
         });
 
         $("#cpfDependente").on("change", function() {
@@ -753,6 +758,41 @@ include("inc/scripts.php");
 
 
     });
+
+    function valida_nome() {
+        var filter_nome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+        if (!filter_nome.test(document.getElementById("nomeCompleto").value)) {
+            document.getElementById("nomeCompleto").style.borderColor = "#ff0000";
+            document.getElementById("nomeCompleto").style.outline = "#ff0000";
+            document.getElementById("nomeCompleto").focus();
+            document.getElementById("nomeCompleto").onkeydown = function keydown_nome() {
+                document.getElementById("nomeCompleto").placeholder = "";
+                document.getElementById("nomeCompleto").style.borderColor = "#999999";
+                document.getElementById("nomeCompleto").style.outline = null;
+            } 
+            smartAlert("Atenção","Nome Invalido !!","error");
+            return $("#nomeCompleto").val('');
+        }
+        return true;
+    }
+
+    function valida_nomedependente() {
+        var nomeDependente = $("#nomeDependente").val();
+        var filter_nome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+        if (!filter_nome.test(document.getElementById("nomeDependente").value)) {
+            document.getElementById("nomeDependente").style.borderColor = "#ff0000";
+            document.getElementById("nomeDependente").style.outline = "#ff0000";
+            document.getElementById("nomeDependente").focus();
+            document.getElementById("nomeDependente").onkeydown = function keydown_nome() {
+                document.getElementById("nomeDependente").placeholder = "";
+                document.getElementById("nomeDependente").style.borderColor = "#999999";
+                document.getElementById("nomeDependente").style.outline = null;
+            }
+            smartAlert("Atenção","Nome Invalido !!","error");
+            return $("#nomeDependente").val('');
+        }
+        return true;
+    }
 
     function carregaPagina() {
         var urlx = window.document.URL.toString();
@@ -1263,10 +1303,10 @@ include("inc/scripts.php");
             document.forms[0].email.value.indexOf('@') == -1 ||
             document.forms[0].email.value.indexOf('.') == -1) {
             $("#email").val('')
-     }
+        }
     }
 
-    
+
     function validaTelefone() {
         var existe = false;
         var achou = false;
@@ -1340,11 +1380,11 @@ include("inc/scripts.php");
             }
         });
         var telefonePrincipal = $("#telefonePrincipal").val();
-        if (telefonePrincipal == "true"){
+        if (telefonePrincipal == "true") {
             $("#telefonePrincipal").prop('checked', false)
         }
         var telefoneWhatsapp = $("#telefoneWhatsapp").val();
-        if(telefoneWhatsapp == "true"){
+        if (telefoneWhatsapp == "true") {
             $("#telefoneWhatsapp").prop('checked', false)
         }
         if (index >= 0)
@@ -1561,7 +1601,7 @@ include("inc/scripts.php");
         });
 
         var emailPrincipal = $("#emailPrincipal").val();
-        if (emailPrincipal == "true"){
+        if (emailPrincipal == "true") {
             $("#emailPrincipal").prop('checked', false)
         }
 
