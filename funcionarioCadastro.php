@@ -128,9 +128,9 @@ include("inc/nav.php");
                                                                 <label class="select">
                                                                     <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off" placeholder="Estado Civil">
                                                                         <option hidden selected></option>
-                                                                        <option value="Solteiro">Solteiro</option>
-                                                                        <option value="Casado">Casado</option>
-                                                                        <option value="Divorciado">Divorciado</opition>
+                                                                        <option value="1">Solteiro</option>
+                                                                        <option value="2">Casado</option>
+                                                                        <option value="3">Divorciado</opition>
                                                                     </select><i></i>
                                                                 </label>
                                                             </section>
@@ -141,14 +141,14 @@ include("inc/nav.php");
                                                                         <option hidden selected></option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo,descricaoSexo
+                                                                        $sql = "SELECT codigo,descricao
                                                                         FROM dbo.sexo
                                                                         WHERE ativo = 1 ";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $id = $row['codigo'];
-                                                                            $descricaoSexo = $row['descricaoSexo'];
-                                                                            echo '<option value=' . $id . '>' . $descricaoSexo . '</option>';
+                                                                            $sexo = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
                                                                         }
                                                                         ?>
                                                                     </select><i></i>
@@ -412,7 +412,7 @@ include("inc/nav.php");
                                                                                 <?php
                                                                                 $reposit = new reposit();
                                                                                 $sql = "SELECT codigo, descricao 
-                                                                                FROM dbo.tipo_dependente
+                                                                                FROM dbo.tipoDependente
                                                                                 WHERE ativo = 1 ";
                                                                                 $result = $reposit->RunQuery($sql);
                                                                                 foreach ($result as $row) {
@@ -637,7 +637,7 @@ include("inc/scripts.php");
         $("#nomeCompleto").on("change", function() {      
             var nomeCompleto = $('#nomeCompleto').val().trim();
             $("#nomeCompleto").val(nomeCompleto);
-            valida_nome()
+            validanome()
         });
 
         $("#dataDeNascimento").on("change", function() {
@@ -667,7 +667,7 @@ include("inc/scripts.php");
             gerarPdf();
         });
         $("#nomeCompleto").on("change", function() {
-            valida_nome();
+            validaNome();
         }); 
 
         $("#rg").on("focusout", function() {
@@ -724,7 +724,7 @@ include("inc/scripts.php");
         $("#nomeDependente").on("change", function() {
             var nomeDependente = $('#nomeDependente').val().trim();
             $("#nomeDependente").val(nomeDependente);
-            valida_nomedependente();
+            validaNomedependente();
         });
 
         $("#cpfDependente").on("change", function() {
@@ -759,13 +759,13 @@ include("inc/scripts.php");
 
     });
 
-    function valida_nome() {
-        var filter_nome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
-        if (!filter_nome.test(document.getElementById("nomeCompleto").value)) {
+    function validaNome() {
+        var filterNome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+        if (!filterNome.test(document.getElementById("nomeCompleto").value)) {
             document.getElementById("nomeCompleto").style.borderColor = "#ff0000";
             document.getElementById("nomeCompleto").style.outline = "#ff0000";
             document.getElementById("nomeCompleto").focus();
-            document.getElementById("nomeCompleto").onkeydown = function keydown_nome() {
+            document.getElementById("nomeCompleto").onkeydown = function keydownNome() {
                 document.getElementById("nomeCompleto").placeholder = "";
                 document.getElementById("nomeCompleto").style.borderColor = "#999999";
                 document.getElementById("nomeCompleto").style.outline = null;
@@ -776,14 +776,14 @@ include("inc/scripts.php");
         return true;
     }
 
-    function valida_nomedependente() {
+    function validaNomeDependente() {
         var nomeDependente = $("#nomeDependente").val();
-        var filter_nome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
-        if (!filter_nome.test(document.getElementById("nomeDependente").value)) {
+        var filterNome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+        if (!filterNome.test(document.getElementById("nomeDependente").value)) {
             document.getElementById("nomeDependente").style.borderColor = "#ff0000";
             document.getElementById("nomeDependente").style.outline = "#ff0000";
             document.getElementById("nomeDependente").focus();
-            document.getElementById("nomeDependente").onkeydown = function keydown_nome() {
+            document.getElementById("nomeDependente").onkeydown = function keydownNome() {
                 document.getElementById("nomeDependente").placeholder = "";
                 document.getElementById("nomeDependente").style.borderColor = "#999999";
                 document.getElementById("nomeDependente").style.outline = null;
@@ -824,7 +824,7 @@ include("inc/scripts.php");
                             var dataDeNascimento = piece[4];
                             var cpf = piece[5];
                             var rg = piece[6];
-                            var descricaoSexo = piece[7];
+                            var descricao = piece[7];
 
                             var cep = piece[8];
                             var logradouro = piece[9];
@@ -845,7 +845,7 @@ include("inc/scripts.php");
                             $("#dataDeNascimento").val(dataDeNascimento);
                             $("#cpf").val(cpf);
                             $("#rg").val(rg);
-                            $("#sexo").val(descricaoSexo);
+                            $("#sexo").val(descricao);
                             $("#cep").val(cep);
                             $("#logradouro").val(logradouro);
                             $("#numero").val(numero);
@@ -893,7 +893,7 @@ include("inc/scripts.php");
         var rg = $('#rg').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
-        var descricaoSexo = +$('#sexo').val();
+        var sexo = +$('#sexo').val();
 
         var cep = $('#cep').val();
         var logradouro = $('#logradouro').val();
@@ -939,7 +939,7 @@ include("inc/scripts.php");
             return;
         }
 
-        if (!descricaoSexo) {
+        if (!sexo) {
             smartAlert("Atenção", "Informe um Sexo", "error");
             $("#btnGravar").prop('disabled', false);
         }
@@ -961,7 +961,6 @@ include("inc/scripts.php");
             return;
         }
 
-
         if (!cep) {
             smartAlert("Atenção", "Informe o CEP", "error");
             $("#btnGravar").prop('disabled', false);
@@ -974,14 +973,13 @@ include("inc/scripts.php");
             return;
         }
 
-
         if (jsonTelefoneArray.length <= 0) {
             smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
 
-        gravarFuncionarioCadastro(id, ativo, nomeCompleto, estadoCivil, cpf, rg, dataDeNascimento, descricaoSexo, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
+        gravarFuncionarioCadastro(id, ativo, nomeCompleto, estadoCivil, cpf, rg, dataDeNascimento, descricao, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");

@@ -17,8 +17,9 @@ if ((empty($_GET["sexo"])) || (!isset($_GET["sexo"])) || (is_null($_GET["sexo"])
     $sexo = +$_GET["sexo"];
 }
 
+
 $sql = "SELECT USU.codigo , USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf,
-        USU.rg, USUG.descricaoSexo, USU.cep,USU.logradouro,USU.numero,USU.uf,USU.bairro,USU.cidade
+        USU.rg, USUG.descricao, USU.cep,USU.logradouro,USU.numero,USU.uf,USU.bairro,USU.cidade
 FROM dbo.funcionario USU 
 INNER JOIN dbo.sexo USUG ON USUG.codigo = USU.sexo
 WHERE USU.sexo = $sexo";
@@ -40,7 +41,7 @@ foreach ($result as $row) {
 
     $cpf = $row['cpf'];
     $rg = $row['rg'];
-    $sexo = $row['descricaoSexo'];
+    $descricao = $row['descricao'];
     $cep = $row['cep'];
     $logradouro = $row['logradouro'];
     $numero = $row['numero'];
@@ -56,7 +57,7 @@ foreach ($result as $row) {
         "dataDeNascimento" => $dataDeNascimento,
         "cpf" => $cpf,
         "rg" => $rg,
-        "descricaoSexo" => $sexo,
+        "descricao" => $descricao,
         "cep" => $cep,
         "logradouro" => $logradouro,
         "numero" => $numero,
@@ -121,9 +122,8 @@ foreach ($arrayFuncionario as $key) {
     if((($contador % 7) == 0) && $contador != 0 ) {
         $contador = 0;
         $pdf->AddPage();
-        $baseY = 0;
+        $baseY = 25;
     }
-    
     $pdf->Ln(4);
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(23, 5, iconv('UTF-8', 'windows-1252', "Funcionario:"), 0, 0, "L", 0);
@@ -156,7 +156,7 @@ foreach ($arrayFuncionario as $key) {
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(11, 5, iconv('UTF-8', 'windows-1252', "Sexo:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["descricaoSexo"]), 0, 0, "L", 0);
+    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["descricao"]), 0, 0, "L", 0);
 
     $pdf->Ln(4);
     $pdf->Ln(4);
@@ -193,8 +193,11 @@ foreach ($arrayFuncionario as $key) {
     $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "Cidade:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["cidade"]), 0, 0, "L", 0);
+    
+    $pdf->Ln(4);
+    $pdf->Ln(4);
 
-    $pdf->Line(5,$linha + $baseY + 33, 205,$linha + $baseY + 33); #Linha na Horizontal
+    $pdf->Line(5,$linha + $baseY + 35, 205,$linha + $baseY + 35); #Linha na Horizontal
     $pdf->SetX(5);
     $pdf->SetY(30 + $baseY);
     $pdf->Ln(7);

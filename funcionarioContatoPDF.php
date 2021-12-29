@@ -36,7 +36,7 @@ if ($row) {
     $reposit = "";
     $result = "";
     $sql = "SELECT F.codigo, E.email, E.funcionario, E.principal AS 'emailPrincipal'FROM dbo.funcionario F
-    LEFT JOIN dbo.funcionario_email E ON F.codigo = E.funcionario WHERE F.codigo = " . $id;
+    LEFT JOIN dbo.funcionarioEmail E ON F.codigo = E.funcionario WHERE F.codigo = " . $id;
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
@@ -63,7 +63,7 @@ if ($row) {
         $arrayEmail[] = array(
             "sequencialEmail" => $contadorEmail,
             "email" => $email,
-            "email_Principal" => $emailPrincipal
+            "emailPrincipal" => $emailPrincipal
         );
     }
 
@@ -73,7 +73,7 @@ if ($row) {
     $reposit = "";
     $result = "";
     $sql = "SELECT F.codigo, T.telefone, T.funcionario, T.principal AS 'telefonePrincipal', T.whatsapp FROM dbo.funcionario F
-    LEFT JOIN dbo.funcionario_telefone T ON F.codigo = T.funcionario WHERE F.codigo = " . $id;
+    LEFT JOIN dbo.funcionarioTelefone T ON F.codigo = T.funcionario WHERE F.codigo = " . $id;
     $reposit = new reposit();
     $result = $reposit->RunQuery($sql);
 
@@ -179,7 +179,7 @@ foreach ($arrayEmail as $key) {
     $sequencialEmail = $key["sequencialEmail"];
     $email = $key["email"];
 
-    $emailPrincipal = $key["email_Principal"];
+    $emailPrincipal = $key["emailPrincipal"];
     $emailPrincipal = iconv('UTF-8', 'windows-1252', $emailPrincipal);
 
     $pdf->SetX(60);

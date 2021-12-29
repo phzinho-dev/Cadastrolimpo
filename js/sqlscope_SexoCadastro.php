@@ -12,7 +12,7 @@ if ($funcao == 'grava') {
 if ($funcao == 'recupera') {
     call_user_func($funcao);
 }
-if ($funcao == 'verificaSexo') {
+if ($funcao == 'verificaDescricao') {
     call_user_func($funcao);
 }
 
@@ -27,13 +27,13 @@ function grava()
     session_start();
     $codigo = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
-    $descricaoSexo = "'" . (string)$_POST['descricaoSexo'] . "'" ;
+    $descricao = "'" . (string)$_POST['descricao'] . "'" ;
     
 
-    $sql = "dbo.sexo_atualiza
+    $sql = "dbo.sexoAtualiza
             $codigo,
             $ativo,
-            $descricaoSexo";
+            $descricao";
 
     $result = $reposit->Execprocedure($sql);
 
@@ -50,7 +50,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo,ativo,descricaoSexo FROM dbo.sexo WHERE (0 = 0)";
+    $sql = "SELECT codigo,ativo,descricao FROM dbo.sexo WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
@@ -63,9 +63,9 @@ function recupera()
 
         $id = (int)$row['codigo'];
         $ativo = $row['ativo'];
-        $descricaoSexo = $row ['descricaoSexo'];
+        $descricao = $row ['descricao'];
 
-        $out = $id ."^" . $ativo. "^" . $descricaoSexo  ;
+        $out = $id ."^" . $ativo. "^" . $descricao  ;
 
         if ($out == "") {
             echo "failed#";
@@ -76,12 +76,12 @@ function recupera()
         return;
     }
 }
-function verificaSexo()
+function verificaDescricao()
 {
-    $descricaoSexo = "'" . $_POST["descricaoSexo"] . "'";
+    $descricao = "'" . $_POST["descricao"] . "'";
 
-    $sql = "SELECT descricaoSexo FROM dbo.sexo
-    WHERE descricaoSexo = " .  $descricaoSexo;
+    $sql = "SELECT descricao FROM dbo.sexo
+    WHERE descricao = " .  $descricao;
 
     $reposit = new reposit();
 

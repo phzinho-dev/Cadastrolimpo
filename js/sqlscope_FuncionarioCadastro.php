@@ -69,7 +69,7 @@ function grava()
 
     $xmlTelefone = "";
     $nomeXml = "ArrayOfFuncionarioTelefone";
-    $nomeTabela = "funcionario_telefone";
+    $nomeTabela = "funcionarioTelefone";
 
     if (sizeof($arrayTelefone) > 0) {
         $xmlTelefone = '<?xml version="1.0"?>';
@@ -105,7 +105,7 @@ function grava()
 
     $xmlEmail = "";
     $nomeXml = "ArrayOfFuncionarioEmail";
-    $nomeTabela = "funcionario_email";
+    $nomeTabela = "funcionarioEmail";
 
     if (sizeof($arrayEmail) > 0) {
         $xmlEmail = '<?xml version="1.0"?>';
@@ -178,7 +178,7 @@ function grava()
 
 
 
-    $sql = "dbo.funcionario_atualiza
+    $sql = "dbo.funcionarioAtualiza
             $codigo,
             $ativo,
             $nomeCompleto,
@@ -268,7 +268,7 @@ function recupera()
         $primeiroEmprego = $row['primeiroEmprego'];
         $pisPasep = (string)$row['pisPasep'];
 
-        $sql = "SELECT * FROM dbo.funcionario_telefone WHERE funcionario = $id ";
+        $sql = "SELECT * FROM dbo.funcionarioTelefone WHERE funcionario = $id ";
         $reposit = new reposit();
         $result = $reposit->RunQuery($sql);
 
@@ -304,7 +304,7 @@ function recupera()
         }
         $strArrayTelefone = json_encode($arrayTelefone);
 
-        $sql = "SELECT * FROM dbo.funcionario_email WHERE funcionario = $id ";
+        $sql = "SELECT * FROM dbo.funcionarioEmail WHERE funcionario = $id ";
         $reposit = new reposit();
         $result = $reposit->RunQuery($sql);
 
@@ -334,7 +334,7 @@ function recupera()
 
         $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimento,USU.tipoDependente
                 FROM dbo.dependente USU
-                LEFT JOIN dbo.tipo_dependente USUG on USU.tipoDependente = USUG.codigo
+                LEFT JOIN dbo.tipoDependente USUG on USU.tipoDependente = USUG.codigo
                 WHERE funcionario = $id";
         $reposit = new reposit();
         $result = $reposit->RunQuery($sql);

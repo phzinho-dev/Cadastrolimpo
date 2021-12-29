@@ -109,14 +109,14 @@ include("inc/nav.php");
                                                                         <option hidden selected></option>
                                                                         <?php
                                                                         $reposit = new reposit();
-                                                                        $sql = "SELECT codigo, descricaoSexo 
+                                                                        $sql = "SELECT codigo, descricao
                                                                         FROM dbo.sexo
                                                                         WHERE ativo = 1 ";
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $id = $row['codigo'];
-                                                                            $descricaoSexo = $row['descricaoSexo'];
-                                                                            echo '<option value=' . $id . '>' . $descricaoSexo . '</option>';
+                                                                            $descricao = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $descricao . '</option>';
                                                                         }
                                                                         ?>
                                                                     </select><i></i>

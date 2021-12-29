@@ -345,7 +345,6 @@ include("inc/scripts.php");
         );
     }
 
-
     function novo() {
         $(location).attr('href', 'dependenteCadastro.php');
     }

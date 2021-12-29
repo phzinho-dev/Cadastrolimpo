@@ -83,7 +83,7 @@ include("inc/nav.php");
                                                             <section class="col col-4">
                                                                 <label class="label">Descrição</label>
                                                                 <label class="input"><i class="icon-prepend fa fa-user"></i>
-                                                                    <input id="descricaoSexo" maxlength="50" class=" " name="descricaoSexo" type="text" value="">
+                                                                    <input id="descricao" maxlength="50" class=" " name="descricao" type="text" value="">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
@@ -166,18 +166,18 @@ include("inc/scripts.php");
             novo();
         });
 
-        $("#descricaoSexo").on("change", function() {
-            var descricaoSexo = $('#descricaoSexo').val().trim();
-            $("#descricaoSexo").val(descricaoSexo);
+        $("#descricao").on("change", function() {
+            var descricao = $('#descricao').val().trim();
+            $("#descricao").val(descricao);
         });
         
     });
     function listarFiltro() {
         var ativo = +$('#ativo').val();
-        var descricaoSexo = $('#descricaoSexo').val();  
+        var descricao = $('#descricao').val();  
 
         $('#resultadoBusca').load('sexoListagemFiltro.php?', {
-            descricaoSexo: descricaoSexo,
+            descricao: descricao,
             ativo: ativo,
         });
     }

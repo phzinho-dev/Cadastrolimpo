@@ -91,9 +91,9 @@ include("inc/nav.php");
                                                                 </label>
                                                             </section>
                                                             <section class="col col-3 col-auto">
-                                                                <label class="label" for="sexo">Descrição</label>
+                                                                <label class="label" for="descricao">Descrição</label>
                                                                 <label class="input">
-                                                                    <input id="sexo" type="text" class="required" maxlength="200" required autocomplete="off">
+                                                                    <input id="descricao" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
@@ -247,8 +247,8 @@ include("inc/scripts.php");
             voltar();
         });
 
-        $("#sexo").on("change", function() {
-            var descricaoSexo = $('#sexo').val().trim(); 
+        $("#descricao").on("change", function() {
+            var descricao = $('#descricao').val().trim(); 
             verificarSexo();
         });
 
@@ -282,7 +282,7 @@ include("inc/scripts.php");
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
-                            $("#sexo").val(descricaoSexo);
+                            $("#descricao").val(descricao);
                             
                             return;
 
@@ -298,7 +298,7 @@ include("inc/scripts.php");
         // Variáveis que vão ser gravadas no banco:
         var id = +$('#codigo').val();
         var ativo = +$('#ativo').val();
-        var descricaoSexo = $('#sexo').val();
+        var descricao = $('#descricao').val();
         
         
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
@@ -306,13 +306,13 @@ include("inc/scripts.php");
             smartAlert("Atenção", "Informe a Ativo", "error");
             $("#btnGravar").prop('disabled', false);
         }
-        if (descricaoSexo === "") {
+        if (descricao === "") {
             smartAlert("Atenção", "Informe seu sexo", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
         
-        gravarSexoCadastro(id,ativo,descricaoSexo, 
+        gravarSexoCadastro(id,ativo,descricao, 
         function(data) {
             if (data.indexOf('sucess') < 0) {
                 var piece = data.split("#");
@@ -343,10 +343,10 @@ include("inc/scripts.php");
             );
         }
         
-        function verificarSexo() {
-            var descricaoSexo = $("#sexo").val();
+        function verificarDescricao() {
+            var descricao = $("#descricao").val();
             
-            verificaSexo(descricaoSexo,
+            verificaDescricao(descricao,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -379,7 +379,7 @@ include("inc/scripts.php");
             return;
         }
 
-        excluirSexoCadastro(id,
+        excluirDescricaoCadastro(id,
             function(data) {
                 if (data.indexOf('failed') > 0) {
                     var piece = data.split("#");

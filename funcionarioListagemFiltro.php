@@ -75,7 +75,7 @@ include "js/repositorio.php";
                     $where = $where . "AND USU.dataDeNascimento < " . $dataFim . "";
                 }
 
-                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.descricaoSexo,
+                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.descricao,
                 USU.cep, USU.logradouro, USU.numero, USU.complemento, USU.uf, USU.bairro, USU.cidade
                 FROM dbo.funcionario USU
                 LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
@@ -101,7 +101,7 @@ include "js/repositorio.php";
                         $descricaoAtivo = "Não";
                     };
 
-                    $descricaoSexo = $row['descricaoSexo'];
+                    $descricao = $row['descricao'];
                     $dataDeNascimento = $row['dataDeNascimento'];
                     //Converção de data
                     $dataDeNascimento = explode(" ", $dataDeNascimento);
@@ -116,7 +116,7 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
                     echo '<td class="text-left">' . $dataDeNascimento . '</td>';
                     echo '<td class="text-left">' . $rg . '</td>';
-                    echo '<td class="text-left">' . $descricaoSexo . '</td>';
+                    echo '<td class="text-left">' . $descricao . '</td>';
                     echo '</tr >';
                 }
                 ?>

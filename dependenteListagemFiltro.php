@@ -13,33 +13,33 @@ include "js/repositorio.php";
             <tbody>
                 <?php
 
-$where = "WHERE (0 = 0)";
+                $where = "WHERE (0 = 0)";
 
                 $ativo = "";
                 if ($_POST["ativo"] != "") {
-                $ativo= (Int)$_POST["ativo"];
-                $where = $where . "AND ativo = '". $ativo . "'";
+                    $ativo = (int)$_POST["ativo"];
+                    $where = $where . "AND ativo = '" . $ativo . "'";
                 }
                 $descricao = "";
                 if ($_POST["descricao"] != "") {
-                $descricao = $_POST["descricao"];
-                $where = $where . " AND ( descricao like '%' + " . "replace('" . $descricao . "',' ','%') + " . "'%')";
+                    $descricao = $_POST["descricao"];
+                    $where = $where . " AND ( descricao like '%' + " . "replace('" . $descricao . "',' ','%') + " . "'%')";
                 }
 
-                $sql = " SELECT [codigo],[ativo] ,[descricao] FROM tipo_dependente ";
-                
-                $where = $where ;
+                $sql = " SELECT [codigo],[ativo] ,[descricao] FROM tipoDependente ";
+
+                $where = $where;
 
                 $sql = $sql . $where;
                 $reposit = new reposit();
                 $result = $reposit->RunQuery($sql);
 
-                foreach($result as $row) {
-                    $id= (int) $row['codigo'];
+                foreach ($result as $row) {
+                    $id = (int) $row['codigo'];
                     $descricao = $row['descricao'];
                     $ativo = (int) $row['ativo'];
 
-                  
+
                     $descricaoAtivo = "";
                     if ($ativo == 1) {
                         $descricaoAtivo = "Sim";
@@ -47,7 +47,7 @@ $where = "WHERE (0 = 0)";
                         $descricaoAtivo = "Não";
                     }
                     echo '<tr >';
-                    echo '<td class="text-left"><a href="dependenteCadastro.php?id=' . $id. '">' .$descricao . '</a></td>';
+                    echo '<td class="text-left"><a href="dependenteCadastro.php?id=' . $id . '">' . $descricao . '</a></td>';
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
                     echo '</tr >';
                 }
