@@ -30,18 +30,13 @@ include "js/repositorio.php";
                     $nome = $_POST["nome"];
                     $where = $where . " AND ( USU.nomeCompleto like '%' + " . "replace('" . $nome . "',' ','%') + " . "'%')";
                 }
-                $estadoCivil = "";
-                if ($_POST["estadoCivil"] != "") {
-                    $nome = $_POST["estadoCivil"];
-                    $where = $where . " AND ( USU.estadoCivil like '%' + " . "replace('" . $estadoCivil . "',' ','%') + " . "'%')";
-                }
-                $dataDeNascimento = "";
-                if ($_POST["dataDeNascimento"] != "") {
-                    $dataDeNascimento = $_POST["dataDeNascimento"];
+                $dataNascimento = "";
+                if ($_POST["dataNascimento"] != "") {
+                    $dataNascimento = $_POST["dataNascimento"];
 
-                    $dataDeNascimento = explode("/", $dataDeNascimento);
-                    $dataDeNascimento = "'" . $dataDeNascimento[2] . "-" . $dataDeNascimento[1] . "-" . $dataDeNascimento[0] . "'";
-                    $where = $where . " AND USU.dataDeNascimento =" . $dataDeNascimento . "";
+                    $dataNascimento = explode("/", $dataNascimento);
+                    $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
+                    $where = $where . " AND USU.dataNascimento =" . $dataNascimento . "";
                 }
                 $rg = "";
                 if ($_POST["rg"] != "") {
@@ -75,7 +70,7 @@ include "js/repositorio.php";
                     $where = $where . "AND USU.dataDeNascimento < " . $dataFim . "";
                 }
 
-                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf, USU.rg , USUG.descricao,
+                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataNascimento, USU.cpf, USU.rg , USUG.descricao,
                 USU.cep, USU.logradouro, USU.numero, USU.complemento, USU.uf, USU.bairro, USU.cidade
                 FROM dbo.funcionario USU
                 LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
@@ -90,7 +85,7 @@ include "js/repositorio.php";
                     $id = (int) $row['codigo'];
                     $ativo = (int) $row['ativo'];
                     $nome = $row['nomeCompleto'];
-                    $estadoCivil = $row['estadoCivil'];
+                    $estadoCivil = (int)$row['estadoCivil'];
                     $cpf = $row['cpf'];
                     $rg = $row['rg'];
 
@@ -101,12 +96,12 @@ include "js/repositorio.php";
                         $descricaoAtivo = "Não";
                     };
 
-                    $descricao = $row['descricao'];
-                    $dataDeNascimento = $row['dataDeNascimento'];
+                    $sexo = $row['descricao'];
+                    $dataNascimento = $row['dataNascimento'];
                     //Converção de data
-                    $dataDeNascimento = explode(" ", $dataDeNascimento);
-                    $dataDeNascimento = explode("-", $dataDeNascimento[0]);
-                    $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
+                    $dataNascimento = explode(" ", $dataNascimento);
+                    $dataNascimento = explode("-", $dataNascimento[0]);
+                    $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
 
 
                     echo '<tr >';
@@ -114,9 +109,9 @@ include "js/repositorio.php";
                     echo '<td class="text-left">' . $estadoCivil  . '</td>';
                     echo '<td class="text-left">' . $cpf  . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
-                    echo '<td class="text-left">' . $dataDeNascimento . '</td>';
+                    echo '<td class="text-left">' . $dataNascimento . '</td>';
                     echo '<td class="text-left">' . $rg . '</td>';
-                    echo '<td class="text-left">' . $descricao . '</td>';
+                    echo '<td class="text-left">' . $sexo . '</td>';
                     echo '</tr >';
                 }
                 ?>

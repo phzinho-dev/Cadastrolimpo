@@ -115,8 +115,8 @@ include("inc/nav.php");
                                                                         $result = $reposit->RunQuery($sql);
                                                                         foreach ($result as $row) {
                                                                             $id = $row['codigo'];
-                                                                            $descricao = $row['descricao'];
-                                                                            echo '<option value=' . $id . '>' . $descricao . '</option>';
+                                                                            $sexo = $row['descricao'];
+                                                                            echo '<option value=' . $id . '>' . $sexo . '</option>';
                                                                         }
                                                                         ?>
                                                                     </select><i></i>
@@ -306,7 +306,6 @@ include("inc/scripts.php");
 
     function listarFiltro() {
         var nome = $('#nome').val();
-        var estadoCivil = $('#estadoCivil').val();
         var ativo = $('#ativo').val();
         var cpf = $('#cpf').val();
         var dataDeNascimento = $('#dataDeNascimento').val();
@@ -317,7 +316,6 @@ include("inc/scripts.php");
 
         $('#resultadoBusca').load('funcionarioListagemFiltro.php?', {
             nome: nome,
-            estadoCivil: estadoCivil,
             ativo: ativo,
             dataDeNascimento: dataDeNascimento,
             dataInicio: dataInicio,

@@ -156,9 +156,9 @@ include("inc/nav.php");
                                                             </section>
 
                                                             <section class="col col-2 col-auto">
-                                                                <label class="label" for="dataDeNascimento">Data De Nascimento</label>
+                                                                <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                 <label class="input">
-                                                                    <input id="dataDeNascimento" name="dataDeNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
+                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -399,9 +399,9 @@ include("inc/nav.php");
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-2 col-auto">
-                                                                        <label class="label" for="dataNascimento">Data De Nascimento</label>
+                                                                        <label class="label" for="dataNascimentoDependete">Data De Nascimento</label>
                                                                         <label class="input">
-                                                                            <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
+                                                                            <input id="dataNascimentoDependete" name="dataNascimentoDependete" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-3 col-auto">
@@ -637,10 +637,10 @@ include("inc/scripts.php");
         $("#nomeCompleto").on("change", function() {      
             var nomeCompleto = $('#nomeCompleto').val().trim();
             $("#nomeCompleto").val(nomeCompleto);
-            validanome()
+            validaNome()
         });
 
-        $("#dataDeNascimento").on("change", function() {
+        $("#dataNascimento").on("change", function() {
             calculaIdade()
         });
 
@@ -666,11 +666,8 @@ include("inc/scripts.php");
         $("#btnRelatorio").on("click", function() {
             gerarPdf();
         });
-        $("#nomeCompleto").on("change", function() {
-            validaNome();
-        }); 
 
-        $("#rg").on("focusout", function() {
+        $("#rg").on("change", function() {
             var rg = $('#rg').val();
 
             if (verificarRG(rg)) {
@@ -681,7 +678,7 @@ include("inc/scripts.php");
             };
         });
 
-        $("#cpf").on("focusout", function() {
+        $("#cpf").on("change", function() {
             var cpf = $("#cpf").val()
 
             if (!validarCPF(cpf)) {
@@ -706,15 +703,6 @@ include("inc/scripts.php");
 
         $("#cep").on("change", function() {
             enderecoCep()
-
-            $('#logradouro').addClass('readonly', true);
-            $("#logradouro").attr('disabled', true);
-            $('#uf').addClass('readonly', true);
-            $('#uf').attr('disabled', true);
-            $('#bairro').addClass('readonly', true);
-            $('#bairro').attr('disabled', true);
-            $('#cidade').addClass('readonly', true);
-            ('#cidade').attr('disable', true);
         });
 
         $("#pisPasep").on("change", function() {
@@ -724,7 +712,7 @@ include("inc/scripts.php");
         $("#nomeDependente").on("change", function() {
             var nomeDependente = $('#nomeDependente').val().trim();
             $("#nomeDependente").val(nomeDependente);
-            validaNomedependente();
+            validaNomeDependente();
         });
 
         $("#cpfDependente").on("change", function() {
@@ -736,7 +724,7 @@ include("inc/scripts.php");
             }
         })
 
-        $("#dataNascimento").on("change", function() {
+        $("#dataNascimentoDependete").on("change", function() {
             calculaIdadeDependente()
         });
 
@@ -746,7 +734,7 @@ include("inc/scripts.php");
 
         $("#cpf").mask("999.999.999-99")
 
-        $("#dataDeNascimento").mask("99/99/9999")
+        $("#dataNascimento").mask("99/99/9999")
 
         $("#rg").mask("99.999.999-9")
 
@@ -758,41 +746,6 @@ include("inc/scripts.php");
 
 
     });
-
-    function validaNome() {
-        var filterNome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
-        if (!filterNome.test(document.getElementById("nomeCompleto").value)) {
-            document.getElementById("nomeCompleto").style.borderColor = "#ff0000";
-            document.getElementById("nomeCompleto").style.outline = "#ff0000";
-            document.getElementById("nomeCompleto").focus();
-            document.getElementById("nomeCompleto").onkeydown = function keydownNome() {
-                document.getElementById("nomeCompleto").placeholder = "";
-                document.getElementById("nomeCompleto").style.borderColor = "#999999";
-                document.getElementById("nomeCompleto").style.outline = null;
-            } 
-            smartAlert("Atenção","Nome Invalido !!","error");
-            return $("#nomeCompleto").val('');
-        }
-        return true;
-    }
-
-    function validaNomeDependente() {
-        var nomeDependente = $("#nomeDependente").val();
-        var filterNome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
-        if (!filterNome.test(document.getElementById("nomeDependente").value)) {
-            document.getElementById("nomeDependente").style.borderColor = "#ff0000";
-            document.getElementById("nomeDependente").style.outline = "#ff0000";
-            document.getElementById("nomeDependente").focus();
-            document.getElementById("nomeDependente").onkeydown = function keydownNome() {
-                document.getElementById("nomeDependente").placeholder = "";
-                document.getElementById("nomeDependente").style.borderColor = "#999999";
-                document.getElementById("nomeDependente").style.outline = null;
-            }
-            smartAlert("Atenção","Nome Invalido !!","error");
-            return $("#nomeDependente").val('');
-        }
-        return true;
-    }
 
     function carregaPagina() {
         var urlx = window.document.URL.toString();
@@ -821,10 +774,10 @@ include("inc/scripts.php");
                             var ativo = piece[1];
                             var nomeCompleto = piece[2];
                             var estadoCivil = piece[3]
-                            var dataDeNascimento = piece[4];
+                            var dataNascimento = piece[4];
                             var cpf = piece[5];
                             var rg = piece[6];
-                            var descricao = piece[7];
+                            var sexo = piece[7];
 
                             var cep = piece[8];
                             var logradouro = piece[9];
@@ -842,10 +795,10 @@ include("inc/scripts.php");
                             $("#ativo").val(ativo);
                             $("#nomeCompleto").val(nomeCompleto);
                             $("#estadoCivil").val(estadoCivil);
-                            $("#dataDeNascimento").val(dataDeNascimento);
+                            $("#dataNascimento").val(dataNascimento);
                             $("#cpf").val(cpf);
                             $("#rg").val(rg);
-                            $("#sexo").val(descricao);
+                            $("#sexo").val(sexo);
                             $("#cep").val(cep);
                             $("#logradouro").val(logradouro);
                             $("#numero").val(numero);
@@ -892,12 +845,13 @@ include("inc/scripts.php");
         var ativo = $('#ativo').val();
         var rg = $('#rg').val();
         var cpf = $('#cpf').val();
-        var dataDeNascimento = $('#dataDeNascimento').val();
+        var dataNascimento = $('#dataNascimento').val();
         var sexo = +$('#sexo').val();
 
         var cep = $('#cep').val();
         var logradouro = $('#logradouro').val();
         var numero = $('#numero').val();
+        var complemento = $('#complemento').val();
         var uf = $('#uf').val();
         var bairro = $('#bairro').val();
         var cidade = $('#cidade').val();
@@ -942,9 +896,10 @@ include("inc/scripts.php");
         if (!sexo) {
             smartAlert("Atenção", "Informe um Sexo", "error");
             $("#btnGravar").prop('disabled', false);
+            return;
         }
 
-        if (!dataDeNascimento) {
+        if (!dataNascimento) {
             smartAlert("Atenção", "Informe a Data de Nascimento", "error");
             $("#btnGravar").prop('disabled', false);
             return;
@@ -961,6 +916,12 @@ include("inc/scripts.php");
             return;
         }
 
+        if (jsonTelefoneArray == "[]") {
+            smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
+            $("#btnGravar").prop('disabled', false);
+            return;
+        }
+
         if (!cep) {
             smartAlert("Atenção", "Informe o CEP", "error");
             $("#btnGravar").prop('disabled', false);
@@ -973,13 +934,8 @@ include("inc/scripts.php");
             return;
         }
 
-        if (jsonTelefoneArray.length <= 0) {
-            smartAlert("Atenção", "Informe Pelo menos 1 telefone", "error");
-            $("#btnGravar").prop('disabled', false);
-            return;
-        }
 
-        gravarFuncionarioCadastro(id, ativo, nomeCompleto, estadoCivil, cpf, rg, dataDeNascimento, descricao, cep, logradouro, numero, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
+        gravarFuncionarioCadastro(id, ativo, nomeCompleto, estadoCivil, cpf, rg, dataNascimento, sexo, cep, logradouro, numero, complemento, uf, bairro, cidade, primeiroEmprego, pisPasep, jsonTelefoneArray, jsonEmailArray, jsonDependenteArray,
             function(data) {
                 if (data.indexOf('sucess') < 0) {
                     var piece = data.split("#");
@@ -1010,47 +966,42 @@ include("inc/scripts.php");
         );
     }
 
-
-    function calculaIdade() {
-        var dataDeNascimento = $('#dataDeNascimento').val();
-        var y = (parseInt(dataDeNascimento.split('/')[2]));
-        var m = (parseInt(dataDeNascimento.split('/')[1]));
-        var d = (parseInt(dataDeNascimento.split('/')[0]));
-
-        var dataHoje = moment().format('DD/MM/YYYY');
-        var yH = (parseInt(dataHoje.split('/')[2]));
-        var mH = (parseInt(dataHoje.split('/')[1]));
-        var dH = (parseInt(dataHoje.split('/')[0]));
-
-        var dataValida = moment(dataDeNascimento, 'DD/MM/YYYY').isValid();
-        if (!dataValida) {
-            smartAlert("Atenção", "DATA INVALIDA!", "error");
-            $('#idade').val('');
-            $('#dataDeNascimento').val('');
-            return;
+    function validaNome() {
+        var filterNome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+        if (!filterNome.test(document.getElementById("nomeCompleto").value)) {
+            document.getElementById("nomeCompleto").style.borderColor = "#ff0000";
+            document.getElementById("nomeCompleto").style.outline = "#ff0000";
+            document.getElementById("nomeCompleto").focus();
+            document.getElementById("nomeCompleto").onkeydown = function keydownNome() {
+                document.getElementById("nomeCompleto").placeholder = "";
+                document.getElementById("nomeCompleto").style.borderColor = "#999999";
+                document.getElementById("nomeCompleto").style.outline = null;
+            } 
+            smartAlert("Atenção","Nome Invalido !","error");
+            return $("#nomeCompleto").val('');
         }
-        if (moment(dataDeNascimento, 'DD/MM/YYYY').diff(moment()) > 0) {
-            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
-            $('#idade').val('');
-            $('#dataDeNascimento').val('');
-            return;
-
-        }
-
-        var idade = yH - y;
-
-        if (mH < m) {
-            idade--;
-        }
-        if (dH < d && mH == m) {
-            idade--;
-        }
-
-        $('#idade').val(idade);
-        return idade;
+        return true;
     }
 
-    function calculaIdadeDependente() {
+    function validaNomeDependente() {
+        var nomeDependente = $("#nomeDependente").val();
+        var filterNome = /^([a-zA-Zà-úÀ-Ú]|\s+)+$/;
+        if (!filterNome.test(document.getElementById("nomeDependente").value)) {
+            document.getElementById("nomeDependente").style.borderColor = "#ff0000";
+            document.getElementById("nomeDependente").style.outline = "#ff0000";
+            document.getElementById("nomeDependente").focus();
+            document.getElementById("nomeDependente").onkeydown = function keydownNome() {
+                document.getElementById("nomeDependente").placeholder = "";
+                document.getElementById("nomeDependente").style.borderColor = "#999999";
+                document.getElementById("nomeDependente").style.outline = null;
+            }
+            smartAlert("Atenção","Nome Invalido !","error");
+            return $("#nomeDependente").val('');
+        }
+        return true;
+    }
+
+    function calculaIdade() {
         var dataNascimento = $('#dataNascimento').val();
         var y = (parseInt(dataNascimento.split('/')[2]));
         var m = (parseInt(dataNascimento.split('/')[1]));
@@ -1087,6 +1038,33 @@ include("inc/scripts.php");
 
         $('#idade').val(idade);
         return idade;
+    }
+
+    function calculaIdadeDependente() {
+        var dataNascimentoDependete = $('#dataNascimentoDependete').val();
+        var y = (parseInt(dataNascimentoDependete.split('/')[2]));
+        var m = (parseInt(dataNascimentoDependete.split('/')[1]));
+        var d = (parseInt(dataNascimentoDependete.split('/')[0]));
+
+        var dataHoje = moment().format('DD/MM/YYYY');
+        var yH = (parseInt(dataHoje.split('/')[2]));
+        var mH = (parseInt(dataHoje.split('/')[1]));
+        var dH = (parseInt(dataHoje.split('/')[0]));
+
+        var dataValida = moment(dataNascimentoDependete, 'DD/MM/YYYY').isValid();
+        if (!dataValida) {
+            smartAlert("Atenção", "DATA invalida!", "error");
+            $('#idade').val('');
+            $('#dataNascimentoDependete').val('');
+            return;
+        }
+        if (moment(dataNascimentoDependete, 'DD/MM/YYYY').diff(moment()) > 0) {
+            smartAlert("Atenção", "Data não pode ser maior que hoje!", "error");
+            $('#idade').val('');
+            $('#dataNascimentoDependete').val('');
+            return;
+
+        }
     }
 
     function novo() {
@@ -1750,7 +1728,7 @@ include("inc/scripts.php");
 
         var nomeDependente = $('#nomeDependente').val();
         var cpfDependente = $('#cpfDependente').val();
-        var dataNascimento = $('#dataNascimento').val();
+        var dataNascimentoDependete = $('#dataNascimentoDependete').val();
         var tipoDependente = $('#tipoDependente').val();
         var sequencial = +$('#sequencialDependente').val();
 
@@ -1762,7 +1740,7 @@ include("inc/scripts.php");
             smartAlert("Erro", "Informe o CPF do Dependente.", "error");
             return false;
         }
-        if (dataNascimento === '') {
+        if (dataNascimentoDependete === '') {
             smartAlert("Erro", "Informe a Data de Nascimento do Dependente.", "error");
             return false;
         }
@@ -1840,7 +1818,7 @@ include("inc/scripts.php");
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
             row.append($('<td class="text-center" "">' + jsonDependenteArray[i].cpfDependente + '</td>'));
-            row.append($('<td class="text-center" "">' + jsonDependenteArray[i].dataNascimento + '</td>'));
+            row.append($('<td class="text-center" "">' + jsonDependenteArray[i].dataNascimentoDependete + '</td>'));
             row.append($('<td class="text-center" "">' + descricaoDependente + '</td>'));
 
         }
@@ -1850,7 +1828,7 @@ include("inc/scripts.php");
         $("#sequencialDependente").val('');
         $("#nomeDependente").val('');
         $("#cpfDependente").val('');
-        $("#dataNascimento").val('');
+        $("#dataNascimentoDependete").val('');
         $("#tipoDependente").val('');
 
     }
@@ -1868,7 +1846,7 @@ include("inc/scripts.php");
             $("#sequencialDependente").val(item.sequencialDependente);
             $("#nomeDependente").val(item.nomeDependente);
             $("#cpfDependente").val(item.cpfDependente);
-            $("#dataNascimento").val(item.dataNascimento);
+            $("#dataNascimentoDependete").val(item.dataNascimentoDependete);
             $("#tipoDependente").val(item.tipoDependente);
 
         }

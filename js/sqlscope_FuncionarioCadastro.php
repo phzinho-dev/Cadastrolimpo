@@ -44,13 +44,13 @@ function grava()
     $codigo = (int)$_POST['id'];
     $ativo = (int)$_POST['ativo'];
     $nomeCompleto = "'" . (string)$_POST['nomeCompleto'] . "'";
-    $estadoCivil = "'" . (string)$_POST['estadoCivil'] . "'";
+    $estadoCivil = (int)$_POST['estadoCivil'];
     $cpf = "'" . (string) $_POST['cpf'] . "'";
     $rg = "'" . (string)$_POST['rg'] . "'";
-    $dataDeNascimento = $_POST['dataDeNascimento'];
+    $dataNascimento = $_POST['dataNascimento'];
     //Converção de data
-    $dataDeNascimento = explode("/", $dataDeNascimento);
-    $dataDeNascimento = "'" . $dataDeNascimento[2] . "-" . $dataDeNascimento[1] . "-" . $dataDeNascimento[0] . "'";
+    $dataNascimento = explode("/", $dataNascimento);
+    $dataNascimento = "'" . $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0] . "'";
 
     $sexo = (int)$_POST['sexo'];
     $cep = "'" . (string)$_POST['cep'] . "'";
@@ -151,11 +151,11 @@ function grava()
                 if (($campo === "sequencialDependente")) {
                     continue;
                 }
-                if (($campo === "dataNascimento")) {
-                    $dataNascimento = $valor;
-                    $dataNascimento = explode("/", $dataNascimento);
-                    $dataNascimento =  $dataNascimento[2] . "-" . $dataNascimento[1] . "-" . $dataNascimento[0];
-                    $valor = $dataNascimento;
+                if (($campo === "dataNascimentoDependete")) {
+                    $dataNascimentoDependete = $valor;
+                    $dataNascimentoDependete = explode("/", $dataNascimentoDependete);
+                    $dataNascimentoDependete =  $dataNascimentoDependete[2] . "-" . $dataNascimentoDependete[1] . "-" . $dataNascimentoDependete[0];
+                    $valor = $dataNascimentoDependete;
                 }
                 $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -185,7 +185,7 @@ function grava()
             $estadoCivil,
             $cpf,
             $sexo,
-            $dataDeNascimento,
+            $dataNascimento,
             $rg,
             $xmlTelefone,
             $xmlEmail,
@@ -220,7 +220,7 @@ function recupera()
             ativo, 
             nomeCompleto, 
             estadoCivil, 
-            dataDeNascimento, 
+            dataNascimento, 
             cpf , 
             rg, 
             sexo,
@@ -247,13 +247,13 @@ function recupera()
         $id = (int)$row['codigo'];
         $ativo = $row['ativo'];
         $nomeCompleto = (string)$row['nomeCompleto'];
-        $estadoCivil = (string)$row['estadoCivil'];
-        $dataDeNascimento = $row['dataDeNascimento'];
+        $estadoCivil = (int)$row['estadoCivil'];
+        $dataNascimento = $row['dataNascimento'];
 
         //Converção de data
-        $dataDeNascimento = explode(" ", $dataDeNascimento);
-        $dataDeNascimento = explode("-", $dataDeNascimento[0]);
-        $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
+        $dataNascimento = explode(" ", $dataNascimento);
+        $dataNascimento = explode("-", $dataNascimento[0]);
+        $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
         $cpf = $row['cpf'];
         $rg = $row['rg'];
         $sexo = $row['sexo'];
@@ -332,7 +332,7 @@ function recupera()
         }
         $strArrayEmail = json_encode($arrayEmail);
 
-        $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimento,USU.tipoDependente
+        $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimentoDependete,USU.tipoDependente
                 FROM dbo.dependente USU
                 LEFT JOIN dbo.tipoDependente USUG on USU.tipoDependente = USUG.codigo
                 WHERE funcionario = $id";
@@ -346,10 +346,10 @@ function recupera()
             $nomeDependente = $row['nomeDependente'];
             $cpfDependente = $row['cpfDependente'];
 
-            $dataNascimento = $row['dataNascimento'];
-            $dataNascimento = explode(" ", $dataNascimento);
-            $dataNascimento = explode("-", $dataNascimento[0]);
-            $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
+            $dataNascimentoDependete = $row['dataNascimentoDependete'];
+            $dataNascimentoDependete = explode(" ", $dataNascimentoDependete);
+            $dataNascimentoDependete = explode("-", $dataNascimentoDependete[0]);
+            $dataNascimentoDependete = $dataNascimentoDependete[2] . "/" . $dataNascimentoDependete[1] . "/" . $dataNascimentoDependete[0];
 
             $tipoDependente = $row['tipoDependente'];
 
@@ -359,14 +359,14 @@ function recupera()
                 "dependenteId" => $dependenteId,
                 "nomeDependente" => $nomeDependente,
                 "cpfDependente" => $cpfDependente,
-                "dataNascimento" => $dataNascimento,
+                "dataNascimentoDependete" => $dataNascimentoDependete,
                 "tipoDependente" => $tipoDependente,
             );
         }
         $strArrayDependente = json_encode($arrayDependente);
 
 
-        $out = $id . "^" . $ativo . "^" . $nomeCompleto . "^" . $estadoCivil . "^" . $dataDeNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo .
+        $out = $id . "^" . $ativo . "^" . $nomeCompleto . "^" . $estadoCivil . "^" . $dataNascimento . "^" . $cpf . "^" . $rg . "^" . $sexo .
             "^" . $cep . "^" . $logradouro . "^" . $numero . "^" . $complemento . "^" . $uf . "^" . $bairro . "^" . $cidade . "^" . $primeiroEmprego . "^" . $pisPasep;
 
         if ($out == "") {
