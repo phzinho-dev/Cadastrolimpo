@@ -78,16 +78,22 @@ function recupera()
 }
 function verificaDescricao()
 {
+    $id = $_POST["id"];
     $descricao = "'" . $_POST["descricao"] . "'";
 
-    $sql = "SELECT descricao FROM dbo.sexo
+    if ($id != 0 ){
+        $sql = "SELECT codigo,descricao FROM dbo.tipoDependente
+        WHERE descricao = $descricao AND codigo = $id";
+    }else{ 
+    $sql = "SELECT codigo,descricao FROM dbo.tipoDependente 
     WHERE descricao = " .  $descricao;
+    }
 
     $reposit = new reposit();
 
     $result = $reposit->RunQuery($sql);
 
-    if ($result) {
+    if ($result < 1) {
         echo ('failed#');
         return;
     }

@@ -233,14 +233,14 @@ include("inc/scripts.php");
 
         $("#btnGravar").on("click", function() {
             var ativo = +$('#ativo').val();
-            if (ativo == 1){     
-            }else{
-                (ativo==0)
+            if (ativo == 1) {} else {
+                (ativo == 0)
                 smartAlert("Atenção", "Não é possivel cadastrar uma Descricao INATIVA!!", "error");
                 $('#ativo').val(0);
                 return
             }
-            gravar()
+            if(verificarDescricao()){
+            };
         });
 
         $("#btnVoltar").on("click", function() {
@@ -248,8 +248,8 @@ include("inc/scripts.php");
         });
 
         $("#descricao").on("change", function() {
-            var descricao = $('#descricao').val().trim(); 
-            verificarSexo();
+            var descricao = $('#descricao').val().trim();
+            
         });
 
         carregaPagina();
@@ -283,7 +283,7 @@ include("inc/scripts.php");
                             $("#codigo").val(codigo);
                             $("#ativo").val(ativo);
                             $("#descricao").val(descricao);
-                            
+
                             return;
 
                         }
@@ -292,6 +292,7 @@ include("inc/scripts.php");
             }
         }
     }
+
     function gravar() {
         //Botão que desabilita a gravação até que ocorra uma mensagem de erro ou sucesso.
         // $("#btnGravar").prop('disabled', true);
@@ -299,8 +300,8 @@ include("inc/scripts.php");
         var id = +$('#codigo').val();
         var ativo = +$('#ativo').val();
         var descricao = $('#descricao').val();
-        
-        
+
+
         // Mensagens de aviso caso o usuário deixe de digitar algum campo obrigatório:
         if (ativo === "") {
             smartAlert("Atenção", "Informe a Ativo", "error");
@@ -311,12 +312,12 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
             return;
         }
-        
-        gravarSexoCadastro(id,ativo,descricao, 
-        function(data) {
-            if (data.indexOf('sucess') < 0) {
-                var piece = data.split("#");
-                var mensagem = piece[1];
+
+        gravarSexoCadastro(id, ativo, descricao,
+            function(data) {
+                if (data.indexOf('sucess') < 0) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
                     if (mensagem !== "") {
                         smartAlert("Atenção", mensagem, "error");
                         $("#btnGravar").prop('disabled', false);
@@ -326,45 +327,48 @@ include("inc/scripts.php");
                     }
                     return '';
                 } else {
-                    
+
                     //Verifica se a função de recuperar os campos foi executada.
                     var verificaRecuperacao = +$("#verificaRecuperacao").val();
                     smartAlert("Sucesso", "Operação realizada com sucesso!", "success");
-                    
+
                     if (verificaRecuperacao === 1) {
                         voltar();
                     } else {
                         novo();
-                        
+
                     }
-                    
+
                 }
             }
-            );
-        }
-        
-        function verificarDescricao() {
-            var descricao = $("#descricao").val();
-            
-            verificaDescricao(descricao,
+        );
+    }
+
+    function verificarDescricao() {
+        var id = $("#codigo").val();
+        var descricao = $("#descricao").val();
+
+        verificaDescricao(id,descricao,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
                     var mensagem = piece[1];
-                    
+
                     if (mensagem !== "") {
                         smartAlert("Atenção", mensagem, "error");
                     } else {
                         smartAlert("Atenção", "Tipo de Sexo ja cadastrado no sistema", "error");
                         $("#descricao").val('')
+                        $("#btnGravar").prop('disabled', false);
+                        return;
                     }
-                }else{
+                } else {
                     gravar();
                 }
             });
-        }
-        
-        function novo() {
+    }
+
+    function novo() {
         $(location).attr('href', 'sexoCadastro.php');
     }
 

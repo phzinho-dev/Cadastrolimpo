@@ -24,12 +24,12 @@ function recuperaSexoCadastro(id, callback) {
     return;
 }
 
-function verificaDescricao(descricao, callback) {
+function verificaDescricao(id, descricao, callback) {
     $.ajax({
-        url: 'js/sqlscope_DependenteCadastro.php', //caminho do arquivo a ser executado
+        url: 'js/sqlscope_SexoCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'verificaDependente', descricao: descricao }, //valores enviados ao script      
+        data: { funcao: 'verificaDescricao', id: id, descricao: descricao }, //valores enviados ao script      
         success: function(data) {
             callback(data);
         }

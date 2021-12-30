@@ -1014,13 +1014,13 @@ include("inc/scripts.php");
 
         var dataValida = moment(dataNascimento, 'DD/MM/YYYY').isValid();
         if (!dataValida) {
-            smartAlert("Atenção", "DATA INVALIDA!", "error");
+            smartAlert("Atenção", "Data invalida!", "error");
             $('#idade').val('');
             $('#dataNascimento').val('');
             return;
         }
         if (moment(dataNascimento, 'DD/MM/YYYY').diff(moment()) > 0) {
-            smartAlert("Atenção", "DATA NÃO PODE SER MAIOR QUE HOJE!", "error");
+            smartAlert("Atenção", "Data não pode ser maior que hoje!", "error");
             $('#idade').val('');
             $('#dataNascimento').val('');
             return;
@@ -1053,7 +1053,7 @@ include("inc/scripts.php");
 
         var dataValida = moment(dataNascimentoDependente, 'DD/MM/YYYY').isValid();
         if (!dataValida) {
-            smartAlert("Atenção", "DATA invalida!", "error");
+            smartAlert("Atenção", "Data invalida!", "error");
             $('#idade').val('');
             $('#dataNascimentoDependente').val('');
             return;
@@ -1367,7 +1367,6 @@ include("inc/scripts.php");
             jsonTelefoneArray.splice(index, 1, item);
         else
             jsonTelefoneArray.push(item);
-        console.log(jsonTelefoneArray)
         $("#jsonTelefone").val(JSON.stringify(jsonTelefoneArray));
 
 
@@ -1506,7 +1505,6 @@ include("inc/scripts.php");
             smartAlert("Erro", "Selecione pelo menos 1 Telefone para excluir.", "error");
     }
 
-
     function validaEmail() {
         var existe = false;
         var achou = false;
@@ -1585,7 +1583,6 @@ include("inc/scripts.php");
             jsonEmailArray.splice(index, 1, item);
         else
             jsonEmailArray.push(item);
-        console.log(jsonEmailArray)
         $("#jsonEmail").val(JSON.stringify(jsonEmailArray));
         fillTableEmail();
         clearFormEmail();

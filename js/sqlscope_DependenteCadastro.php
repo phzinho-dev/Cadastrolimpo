@@ -78,17 +78,22 @@ function recupera()
 }
 
 function verificaDependente()
-{
+{   $id = $_POST["id"];
     $descricao = "'" . $_POST["descricao"] . "'";
 
-    $sql = "SELECT descricao FROM dbo.tipoDependente 
+    if ($id != 0 ){
+        $sql = "SELECT codigo,descricao FROM dbo.tipoDependente
+        WHERE descricao = $descricao AND codigo = $id";
+    }else{ 
+    $sql = "SELECT codigo,descricao FROM dbo.tipoDependente 
     WHERE descricao = " .  $descricao;
+    }
 
     $reposit = new reposit();
 
     $result = $reposit->RunQuery($sql);
 
-    if ($result) {
+    if ($result < 1) {
         echo ('failed#');
         return;
     }
@@ -109,7 +114,7 @@ function excluir()
         return;
     }
 
-    $result = $reposit->update('dbo.tipoDeependente' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
+    $result = $reposit->update('dbo.tipoDependente' . '|' . 'ativo = 0' . '|' . 'codigo = ' . $id);
 
     if ($result < 1) {
         echo ('failed#');

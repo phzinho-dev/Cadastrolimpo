@@ -18,7 +18,7 @@ if ((empty($_GET["sexo"])) || (!isset($_GET["sexo"])) || (is_null($_GET["sexo"])
 }
 
 
-$sql = "SELECT USU.codigo , USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataDeNascimento, USU.cpf,
+$sql = "SELECT USU.codigo , USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataNascimento, USU.cpf,
         USU.rg, USUG.descricao, USU.cep,USU.logradouro,USU.numero,USU.uf,USU.bairro,USU.cidade
 FROM dbo.funcionario USU 
 INNER JOIN dbo.sexo USUG ON USUG.codigo = USU.sexo
@@ -32,12 +32,24 @@ foreach ($result as $row) {
 
     $codigo = $row['codigo'];
     $nomeCompleto = $row['nomeCompleto'];
-    $estadoCivil =  $row['estadoCivil'];
-    $dataDeNascimento = $row['dataDeNascimento'];
 
-    $dataDeNascimento = explode(" ", $dataDeNascimento);
-    $dataDeNascimento = explode("-", $dataDeNascimento[0]);
-    $dataDeNascimento = $dataDeNascimento[2] . "/" . $dataDeNascimento[1] . "/" . $dataDeNascimento[0];
+    $estadoCivil =  $row['estadoCivil'];
+    $descricaoEstadoCivil = "";
+    if ($estadoCivil == 1) {
+        $descricaoEstadoCivil = "Solteiro";
+    }
+    if($estadoCivil == 2){
+        $descricaoEstadoCivil = "Casado";
+    }
+    if($estadoCivil == 3){
+        $descricaoEstadoCivil = "Divorciado";
+    };
+
+    $dataNascimento = $row['dataNascimento'];
+
+    $dataNascimento = explode(" ", $dataNascimento);
+    $dataNascimento = explode("-", $dataNascimento[0]);
+    $dataNascimento = $dataNascimento[2] . "/" . $dataNascimento[1] . "/" . $dataNascimento[0];
 
     $cpf = $row['cpf'];
     $rg = $row['rg'];
@@ -53,8 +65,8 @@ foreach ($result as $row) {
     $arrayFuncionario[] = array(
         "sequencialFuncionario" => $contadorFuncionario,
         "nomeCompleto" => $nomeCompleto,
-        "estadoCivil" => $estadoCivil,
-        "dataDeNascimento" => $dataDeNascimento,
+        "descricaoEstadoCivil" => $descricaoEstadoCivil,
+        "dataNascimento" => $dataNascimento,
         "cpf" => $cpf,
         "rg" => $rg,
         "descricao" => $descricao,
@@ -90,7 +102,6 @@ class PDF extends FPDF
         $this->Cell(20, 5, 'Pagina ' . $this->pageno()); #Imprime o Número das Página
         $this->Ln(11); #Quebra de Linhas
         $this->Ln(8);
-        
     }
     function Footer()
     {
@@ -118,8 +129,8 @@ $contadorFuncionario = -1;
 foreach ($arrayFuncionario as $key) {
 
 
-    $contador ++;
-    if((($contador % 7) == 0) && $contador != 0 ) {
+    $contador++;
+    if ((($contador % 7) == 0) && $contador != 0) {
         $contador = 0;
         $pdf->AddPage();
         $baseY = 25;
@@ -129,16 +140,16 @@ foreach ($arrayFuncionario as $key) {
     $pdf->Cell(23, 5, iconv('UTF-8', 'windows-1252', "Funcionario:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(60, 5, iconv('UTF-8', 'windows-1252', $key["nomeCompleto"]), 0, 0, "L", 0);
-    
+
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(23, 5, iconv('UTF-8', 'windows-1252', "Estado Civil:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $key["estadoCivil"]), 0, 0, "L", 0);
+    $pdf->Cell(30, 5, iconv('UTF-8', 'windows-1252', $key["descricaoEstadoCivil"]), 0, 0, "L", 0);
 
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(37, 5, iconv('UTF-8', 'windows-1252', "Data De Nascimento:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["dataDeNascimento"]), 0, 0, "L", 0);
+    $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["dataNascimento"]), 0, 0, "L", 0);
 
     $pdf->Ln(4);
     $pdf->Ln(4);
@@ -147,7 +158,7 @@ foreach ($arrayFuncionario as $key) {
     $pdf->Cell(10, 5, iconv('UTF-8', 'windows-1252', "CPF:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(40, 5, iconv('UTF-8', 'windows-1252', $key["cpf"]), 0, 0, "L", 0);
-    
+
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(8, 5, iconv('UTF-8', 'windows-1252', "RG:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
@@ -178,30 +189,30 @@ foreach ($arrayFuncionario as $key) {
 
     $pdf->Ln(4);
     $pdf->Ln(4);
-    
+
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(8, 5, iconv('UTF-8', 'windows-1252', "UF:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(42, 5, iconv('UTF-8', 'windows-1252', $key["uf"]), 0, 0, "L", 0);
-  
+
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(13, 5, iconv('UTF-8', 'windows-1252', "Bairro:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(73, 5, iconv('UTF-8', 'windows-1252', $key["bairro"]), 0, 0, "L", 0);
-    
+
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(15, 5, iconv('UTF-8', 'windows-1252', "Cidade:"), 0, 0, "L", 0);
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell(25, 5, iconv('UTF-8', 'windows-1252', $key["cidade"]), 0, 0, "L", 0);
-    
+
     $pdf->Ln(4);
     $pdf->Ln(4);
 
-    $pdf->Line(5,$linha + $baseY + 35, 205,$linha + $baseY + 35); #Linha na Horizontal
+    $pdf->Line(5, $linha + $baseY + 35, 205, $linha + $baseY + 35); #Linha na Horizontal
     $pdf->SetX(5);
     $pdf->SetY(30 + $baseY);
     $pdf->Ln(7);
-    
+
     $baseY = $baseY + $baseAdd;
 }
 $pdf->Ln(8);

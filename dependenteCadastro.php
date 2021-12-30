@@ -239,9 +239,8 @@ include("inc/scripts.php");
                 $('#ativo').val(0);
                 return
             }
-            if (verificarDependente()) {
-                gravar();
-            }
+            if (verificarDependente(descricao)) {
+            };
 
         });
 
@@ -357,8 +356,9 @@ include("inc/scripts.php");
 
     function verificarDependente() {
         var descricao = $("#descricao").val();
+        var id = $("#codigo").val();
 
-        verificaDependente(descricao,
+        verificaDependente(id,descricao,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
