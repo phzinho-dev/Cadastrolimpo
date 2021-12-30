@@ -7,7 +7,6 @@ include "js/repositorio.php";
             <thead>
                 <tr role="row">
                     <th class="text-left" style="min-width:30px;">Funcionario</th>
-                    <th class="text-left" style="min-width:30px;">EstadoCivil</th>
                     <th class="text-left" style="min-width:30px;">cpf</th>
                     <th class="text-left" style="min-width:35px;">Ativo</th>
                     <th class="text-left" style="min-width:35px;">data</th>
@@ -70,7 +69,7 @@ include "js/repositorio.php";
                     $where = $where . "AND USU.dataDeNascimento < " . $dataFim . "";
                 }
 
-                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto, USU.estadoCivil, USU.dataNascimento, USU.cpf, USU.rg , USUG.descricao,
+                $sql = " SELECT USU.codigo, USU.ativo, USU.nomeCompleto,USU.dataNascimento, USU.cpf, USU.rg , USUG.descricao,
                 USU.cep, USU.logradouro, USU.numero, USU.complemento, USU.uf, USU.bairro, USU.cidade
                 FROM dbo.funcionario USU
                 LEFT JOIN dbo.sexo USUG on USUG.codigo = USU.sexo ";
@@ -85,7 +84,6 @@ include "js/repositorio.php";
                     $id = (int) $row['codigo'];
                     $ativo = (int) $row['ativo'];
                     $nome = $row['nomeCompleto'];
-                    $estadoCivil = (int)$row['estadoCivil'];
                     $cpf = $row['cpf'];
                     $rg = $row['rg'];
 
@@ -106,7 +104,6 @@ include "js/repositorio.php";
 
                     echo '<tr >';
                     echo '<td class="text-left"><a href="funcionarioCadastro.php?id=' . $id . '">' . $nome . '</a></td>';
-                    echo '<td class="text-left">' . $estadoCivil  . '</td>';
                     echo '<td class="text-left">' . $cpf  . '</td>';
                     echo '<td class="text-left">' . $descricaoAtivo  . '</td>';
                     echo '<td class="text-left">' . $dataNascimento . '</td>';

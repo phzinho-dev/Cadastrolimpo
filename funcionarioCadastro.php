@@ -399,9 +399,9 @@ include("inc/nav.php");
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-2 col-auto">
-                                                                        <label class="label" for="dataNascimentoDependete">Data De Nascimento</label>
+                                                                        <label class="label" for="dataNascimentoDependente">Data De Nascimento</label>
                                                                         <label class="input">
-                                                                            <input id="dataNascimentoDependete" name="dataNascimentoDependete" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
+                                                                            <input id="dataNascimentoDependente" name="dataNascimentoDependente" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
                                                                         </label>
                                                                     </section>
                                                                     <section class="col col-3 col-auto">
@@ -724,7 +724,7 @@ include("inc/scripts.php");
             }
         })
 
-        $("#dataNascimentoDependete").on("change", function() {
+        $("#dataNascimentoDependente").on("change", function() {
             calculaIdadeDependente()
         });
 
@@ -1041,27 +1041,27 @@ include("inc/scripts.php");
     }
 
     function calculaIdadeDependente() {
-        var dataNascimentoDependete = $('#dataNascimentoDependete').val();
-        var y = (parseInt(dataNascimentoDependete.split('/')[2]));
-        var m = (parseInt(dataNascimentoDependete.split('/')[1]));
-        var d = (parseInt(dataNascimentoDependete.split('/')[0]));
+        var dataNascimentoDependente = $('#dataNascimentoDependente').val();
+        var y = (parseInt(dataNascimentoDependente.split('/')[2]));
+        var m = (parseInt(dataNascimentoDependente.split('/')[1]));
+        var d = (parseInt(dataNascimentoDependente.split('/')[0]));
 
         var dataHoje = moment().format('DD/MM/YYYY');
         var yH = (parseInt(dataHoje.split('/')[2]));
         var mH = (parseInt(dataHoje.split('/')[1]));
         var dH = (parseInt(dataHoje.split('/')[0]));
 
-        var dataValida = moment(dataNascimentoDependete, 'DD/MM/YYYY').isValid();
+        var dataValida = moment(dataNascimentoDependente, 'DD/MM/YYYY').isValid();
         if (!dataValida) {
             smartAlert("Atenção", "DATA invalida!", "error");
             $('#idade').val('');
-            $('#dataNascimentoDependete').val('');
+            $('#dataNascimentoDependente').val('');
             return;
         }
-        if (moment(dataNascimentoDependete, 'DD/MM/YYYY').diff(moment()) > 0) {
+        if (moment(dataNascimentoDependente, 'DD/MM/YYYY').diff(moment()) > 0) {
             smartAlert("Atenção", "Data não pode ser maior que hoje!", "error");
             $('#idade').val('');
-            $('#dataNascimentoDependete').val('');
+            $('#dataNascimentoDependente').val('');
             return;
 
         }
@@ -1728,7 +1728,7 @@ include("inc/scripts.php");
 
         var nomeDependente = $('#nomeDependente').val();
         var cpfDependente = $('#cpfDependente').val();
-        var dataNascimentoDependete = $('#dataNascimentoDependete').val();
+        var dataNascimentoDependente = $('#dataNascimentoDependente').val();
         var tipoDependente = $('#tipoDependente').val();
         var sequencial = +$('#sequencialDependente').val();
 
@@ -1740,7 +1740,7 @@ include("inc/scripts.php");
             smartAlert("Erro", "Informe o CPF do Dependente.", "error");
             return false;
         }
-        if (dataNascimentoDependete === '') {
+        if (dataNascimentoDependente === '') {
             smartAlert("Erro", "Informe a Data de Nascimento do Dependente.", "error");
             return false;
         }
@@ -1818,7 +1818,7 @@ include("inc/scripts.php");
             row.append($('<td><label class="checkbox"><input type="checkbox" name="checkbox" value="' + jsonDependenteArray[i].sequencialDependente + '"><i></i></label></td>'));
             row.append($('<td class="text-center" onclick="carregaDependente(' + jsonDependenteArray[i].sequencialDependente + ');">' + jsonDependenteArray[i].nomeDependente + '</td>'));
             row.append($('<td class="text-center" "">' + jsonDependenteArray[i].cpfDependente + '</td>'));
-            row.append($('<td class="text-center" "">' + jsonDependenteArray[i].dataNascimentoDependete + '</td>'));
+            row.append($('<td class="text-center" "">' + jsonDependenteArray[i].dataNascimentoDependente + '</td>'));
             row.append($('<td class="text-center" "">' + descricaoDependente + '</td>'));
 
         }
@@ -1828,7 +1828,7 @@ include("inc/scripts.php");
         $("#sequencialDependente").val('');
         $("#nomeDependente").val('');
         $("#cpfDependente").val('');
-        $("#dataNascimentoDependete").val('');
+        $("#dataNascimentoDependente").val('');
         $("#tipoDependente").val('');
 
     }
@@ -1846,7 +1846,7 @@ include("inc/scripts.php");
             $("#sequencialDependente").val(item.sequencialDependente);
             $("#nomeDependente").val(item.nomeDependente);
             $("#cpfDependente").val(item.cpfDependente);
-            $("#dataNascimentoDependete").val(item.dataNascimentoDependete);
+            $("#dataNascimentoDependente").val(item.dataNascimentoDependente);
             $("#tipoDependente").val(item.tipoDependente);
 
         }

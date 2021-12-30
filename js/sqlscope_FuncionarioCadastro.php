@@ -151,11 +151,11 @@ function grava()
                 if (($campo === "sequencialDependente")) {
                     continue;
                 }
-                if (($campo === "dataNascimentoDependete")) {
-                    $dataNascimentoDependete = $valor;
-                    $dataNascimentoDependete = explode("/", $dataNascimentoDependete);
-                    $dataNascimentoDependete =  $dataNascimentoDependete[2] . "-" . $dataNascimentoDependete[1] . "-" . $dataNascimentoDependete[0];
-                    $valor = $dataNascimentoDependete;
+                if (($campo === "dataNascimentoDependente")) {
+                    $dataNascimentoDependente = $valor;
+                    $dataNascimentoDependente = explode("/", $dataNascimentoDependente);
+                    $dataNascimentoDependente =  $dataNascimentoDependente[2] . "-" . $dataNascimentoDependente[1] . "-" . $dataNascimentoDependente[0];
+                    $valor = $dataNascimentoDependente;
                 }
                 $xmlDependente = $xmlDependente . "<" . $campo . ">" . $valor . "</" . $campo . ">";
             }
@@ -187,9 +187,6 @@ function grava()
             $sexo,
             $dataNascimento,
             $rg,
-            $xmlTelefone,
-            $xmlEmail,
-            $xmlDependente,
             $cep,
             $logradouro,
             $numero,
@@ -198,7 +195,10 @@ function grava()
             $bairro,
             $cidade,
             $primeiroEmprego,
-            $pisPasep";
+            $pisPasep,
+            $xmlTelefone,
+            $xmlEmail,
+            $xmlDependente";
 
     $result = $reposit->Execprocedure($sql);
     // ahou o erro ? aindao nao
@@ -332,7 +332,7 @@ function recupera()
         }
         $strArrayEmail = json_encode($arrayEmail);
 
-        $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimentoDependete,USU.tipoDependente
+        $sql = "SELECT USU.codigo, USU.nomeDependente, USU.cpfDependente, USU.dataNascimentoDependente,USU.tipoDependente
                 FROM dbo.dependente USU
                 LEFT JOIN dbo.tipoDependente USUG on USU.tipoDependente = USUG.codigo
                 WHERE funcionario = $id";
@@ -346,10 +346,10 @@ function recupera()
             $nomeDependente = $row['nomeDependente'];
             $cpfDependente = $row['cpfDependente'];
 
-            $dataNascimentoDependete = $row['dataNascimentoDependete'];
-            $dataNascimentoDependete = explode(" ", $dataNascimentoDependete);
-            $dataNascimentoDependete = explode("-", $dataNascimentoDependete[0]);
-            $dataNascimentoDependete = $dataNascimentoDependete[2] . "/" . $dataNascimentoDependete[1] . "/" . $dataNascimentoDependete[0];
+            $dataNascimentoDependente = $row['dataNascimentoDependente'];
+            $dataNascimentoDependente = explode(" ", $dataNascimentoDependente);
+            $dataNascimentoDependente = explode("-", $dataNascimentoDependente[0]);
+            $dataNascimentoDependente = $dataNascimentoDependente[2] . "/" . $dataNascimentoDependente[1] . "/" . $dataNascimentoDependente[0];
 
             $tipoDependente = $row['tipoDependente'];
 
@@ -359,7 +359,7 @@ function recupera()
                 "dependenteId" => $dependenteId,
                 "nomeDependente" => $nomeDependente,
                 "cpfDependente" => $cpfDependente,
-                "dataNascimentoDependete" => $dataNascimentoDependete,
+                "dataNascimentoDependente" => $dataNascimentoDependente,
                 "tipoDependente" => $tipoDependente,
             );
         }
