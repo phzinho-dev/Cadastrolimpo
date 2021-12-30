@@ -239,7 +239,10 @@ include("inc/scripts.php");
                 $('#ativo').val(0);
                 return
             }
-            gravar();
+            if (verificarDependente()) {
+                gravar();
+            }
+
         });
 
         $("#btnVoltar").on("click", function() {
@@ -248,8 +251,7 @@ include("inc/scripts.php");
 
         $("#descricao").on("change", function() {
             var descricao = $("#descricao").val().trim();
-            verificarDependente()
-            
+
         });
 
         carregaPagina();
@@ -309,7 +311,7 @@ include("inc/scripts.php");
             $("#btnGravar").prop('disabled', false);
         }
         if (descricao === "") {
-            smartAlert("Atenção", "Informe seu descricao", "error");
+            smartAlert("Atenção", "Informe um Descricao", "error");
             $("#btnGravar").prop('disabled', false);
             return;
         }
@@ -367,9 +369,11 @@ include("inc/scripts.php");
                     } else {
                         smartAlert("Atenção", "Tipo Dependente ja cadastrado no sistema", "error");
                         $("#descricao").val('')
+                        $("#btnGravar").prop('disabled', false);
+                        return;
                     }
                 }else{
-                    gravar()
+                    gravar();
                 }
             });
     }

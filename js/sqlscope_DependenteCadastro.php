@@ -50,7 +50,7 @@ function recupera()
 
     $codigo = $_POST["id"];
 
-    $sql = "SELECT codigo,ativo,descricao FROM dbo.tipo_dependente WHERE (0 = 0)";
+    $sql = "SELECT codigo,ativo,descricao FROM dbo.tipoDependente WHERE (0 = 0)";
 
     $sql = $sql . " AND codigo = " . $codigo;
 
