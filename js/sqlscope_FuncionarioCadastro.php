@@ -405,76 +405,110 @@ function excluir()
 
 function verificaCPF()
 {
+    $id = $_POST["id"];
     $cpf = "'" . $_POST["cpf"] . "'";
 
-    $sql = "SELECT cpf FROM dbo.funcionario 
+    $sql = "SELECT codigo, cpf FROM dbo.funcionario 
     WHERE cpf = " .  $cpf;
 
     $reposit = new reposit();
 
     $result = $reposit->RunQuery($sql);
+    if ($row = $result[0]) {
+        $codigo = $row["codigo"];
 
-    if ($result) {
-        echo ('failed#');
+        if ($codigo == $id) {
+            echo ('sucess#');
+            return;
+        } else {
+            echo ('failed#');
+            return;
+        }
+    } else {
+        echo ('sucess#');
         return;
     }
-    echo ('sucess#');
-    return;
 }
 
 function verificaRG()
 {
+    $id = $_POST["id"];
     $rg = "'" . $_POST["rg"] . "'";
 
-    $sql = "SELECT rg FROM dbo.funcionario 
+    $sql = "SELECT codigo, rg FROM dbo.funcionario 
     WHERE rg = " .  $rg;
 
     $reposit = new reposit();
 
     $result = $reposit->RunQuery($sql);
+    if ($row = $result[0]) {
+        $codigo = $row["codigo"];
 
-    if ($result[0]["rg"] === $_POST["rg"]) {
-        echo ('failed#');
+        if ($codigo == $id) {
+            echo ('sucess#');
+            return;
+        } else {
+            echo ('failed#');
+            return;
+        }
+    } else {
+        echo ('sucess#');
         return;
     }
-    echo ('sucess#');
-    return;
 }
 
 function verificaPisPasep()
 {
+    $id = $_POST["id"];
     $pisPasep = "'" . $_POST["pisPasep"] . "'";
 
-    $sql = "SELECT pisPasep FROM dbo.funcionario 
+    $sql = "SELECT codigo, pisPasep FROM dbo.funcionario 
     WHERE pisPasep = " .  $pisPasep;
 
     $reposit = new reposit();
 
     $result = $reposit->RunQuery($sql);
+    if ($row = $result[0]) {
+        $codigo = $row["codigo"];
 
-    if ($result) {
-        echo ('failed#');
+        if ($codigo == $id) {
+            echo ('sucess#');
+            return;
+        } else {
+            echo ('failed#');
+            return;
+        }
+    }else{
+        echo ('sucess#');
         return;
+
     }
-    echo ('sucess#');
-    return;
 }
 
 function verificaCPFDependente()
 {
+    $id = $_POST["id"];
     $cpfDependente = "'" . $_POST["cpfDependente"] . "'";
 
-    $sql = "SELECT cpfDependente FROM dbo.dependente
+    $sql = "SELECT codigo, cpfDependente FROM dbo.dependente
     WHERE cpfDependente = " . $cpfDependente;
 
     $reposit = new reposit();
 
     $result = $reposit->RunQuery($sql);
+    if ($row = $result[0]) {
+        $codigo = $row["codigo"];
 
-    if ($result) {
-        echo ('failed#');
+        if ($codigo == $id) {
+            echo ('sucess#');
+            return;
+        } else {
+            echo ('failed#');
+            return;
+        }
+    }else{
+        echo ('sucess#');
         return;
+
     }
-    echo ('sucess#');
-    return;
 }

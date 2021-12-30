@@ -1157,9 +1157,10 @@ include("inc/scripts.php");
     }
 
     function verificarCPF() {
+        var id = $("#codigo").val();
         var cpf = $("#cpf").val();
 
-        verificaCPF(cpf,
+        verificaCPF(id,cpf,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -1174,11 +1175,31 @@ include("inc/scripts.php");
                 }
             });
     }
+    function verificarRG() {
+        var id = $("#codigo").val();
+        var rg = $("#rg").val();
+
+        verificaRG(id,rg,
+            function(data) {
+                if (data.indexOf('failed') > -1) {
+                    var piece = data.split("#");
+                    var mensagem = piece[1];
+
+                    if (mensagem !== "") {
+                        smartAlert("Atenção", mensagem, "error");
+                    } else {
+                        smartAlert("Atenção", "Rg ja cadastrado no sistema", "error");
+                        $("#rg").val('')
+                    }
+                }
+            });
+    }
 
     function verificarPisPasep() {
+        var id = $("#codigo").val();
         var pisPasep = $("#pisPasep").val();
 
-        verificaPisPasep(pisPasep,
+        verificaPisPasep(id,pisPasep,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -1237,9 +1258,10 @@ include("inc/scripts.php");
     }
 
     function verificarCPFDependente() {
+        var id = $("#codigo").val();
         var cpfDependente = $("#cpfDependente").val();
 
-        verificaCPFDependente(cpfDependente,
+        verificaCPFDependente(id,cpfDependente,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -1255,24 +1277,6 @@ include("inc/scripts.php");
             });
     }
 
-    function verificarRG() {
-        var rg = $("#rg").val();
-
-        verificaRG(rg,
-            function(data) {
-                if (data.indexOf('failed') > -1) {
-                    var piece = data.split("#");
-                    var mensagem = piece[1];
-
-                    if (mensagem !== "") {
-                        smartAlert("Atenção", mensagem, "error");
-                    } else {
-                        smartAlert("Atenção", "Rg ja cadastrado no sistema", "error");
-                        $("#rg").val('')
-                    }
-                }
-            });
-    }
 
     function validarEmail() {
         if (document.forms[0].email.value == (" ") ||

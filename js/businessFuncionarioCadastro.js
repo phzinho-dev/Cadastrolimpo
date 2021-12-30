@@ -60,48 +60,48 @@ function excluirFuncionarioCadastro(id, callback) {
     });
 }
 
-function verificaCPF(cpf, callback) {
+function verificaCPF(id, cpf, callback) {
     $.ajax({
         url: 'js/sqlscope_FuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'verificaCPF', cpf: cpf }, //valores enviados ao script    
+        data: { funcao: 'verificaCPF', id: id, cpf: cpf }, //valores enviados ao script    
         success: function(data) {
             callback(data);
         }
     });
 }
 
-function verificaRG(rg, callback) {
+function verificaRG(id, rg, callback) {
     $.ajax({
         url: 'js/sqlscope_FuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'verificaRG', rg: rg }, //valores enviados ao script    
+        data: { funcao: 'verificaRG', id: id, rg: rg }, //valores enviados ao script    
         success: function(data) {
             callback(data);
         }
     });
 }
 
-function verificaPisPasep(pisPasep, callback) {
+function verificaPisPasep(id, pisPasep, callback) {
     $.ajax({
         url: 'js/sqlscope_FuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'verificaPisPasep', pisPasep: pisPasep }, //valores enviados ao script    
+        data: { funcao: 'verificaPisPasep', id: id, pisPasep: pisPasep }, //valores enviados ao script    
         success: function(data) {
             callback(data);
         }
     });
 }
 
-function verificaCPFDependente(cpfDependente, callback) {
+function verificaCPFDependente(id, cpfDependente, callback) {
     $.ajax({
         url: 'js/sqlscope_FuncionarioCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
         type: 'post', //metodo de envio
-        data: { funcao: 'verificaCPFDependente', cpfDependente: cpfDependente }, //valores enviados ao script    
+        data: { funcao: 'verificaCPFDependente', id: id, cpfDependente: cpfDependente }, //valores enviados ao script    
         success: function(data) {
             callback(data);
         }
