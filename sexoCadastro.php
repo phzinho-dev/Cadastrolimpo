@@ -277,7 +277,7 @@ include("inc/scripts.php");
                             // Atributos de vale transporte unitário que serão recuperados: 
                             var codigo = piece[0];
                             var ativo = piece[1];
-                            var descricaoSexo = piece[2];
+                            var descricao = piece[2];
 
                             //Associa as varíaveis recuperadas pelo javascript com seus respectivos campos html.
                             $("#codigo").val(codigo);
@@ -356,7 +356,7 @@ include("inc/scripts.php");
                         smartAlert("Atenção", mensagem, "error");
                     } else {
                         smartAlert("Atenção", "Tipo de Sexo ja cadastrado no sistema", "error");
-                        $("#sexo").val('')
+                        $("#descricao").val('')
                     }
                 }else{
                     gravar();

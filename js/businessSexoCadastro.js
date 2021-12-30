@@ -36,7 +36,7 @@ function verificaDescricao(descricao, callback) {
     });
 }
 
-function excluirSexoCadastro(id, callback) {
+function excluirDescricaoCadastro(id, callback) {
     $.ajax({
         url: 'js/sqlscope_SexoCadastro.php', //caminho do arquivo a ser executado
         dataType: 'html', //tipo do retorno
