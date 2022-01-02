@@ -454,9 +454,6 @@ include("inc/nav.php");
                                                         </fieldset>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-
                                         <footer>
                                             <button type="button" id="btnExcluir" class="btn btn-danger" aria-hidden="true" title="Excluir" style="display:<?php echo $esconderBtnExcluir ?>">
                                                 <span class="fa fa-trash"></span>
