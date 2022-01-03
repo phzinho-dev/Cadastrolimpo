@@ -686,6 +686,7 @@ include("inc/scripts.php");
         });
 
         $("#primeiroEmprego").on("change", function() {
+            var id = $("#codigo").val();
             var primeiroEmprego = +$('#primeiroEmprego').val();
             if (primeiroEmprego == 1) {
                 $("#pisPasep").addClass('readonly', true);
@@ -694,7 +695,7 @@ include("inc/scripts.php");
                 $("#pisPasep").removeAttr('disabled', true);
                 $("#pisPasep").removeClass('readonly', true);
                 $("#pisPasep").addClass('required', true);
-            }
+            }            
         });
 
         $("#cep").on("change", function() {
