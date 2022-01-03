@@ -105,19 +105,19 @@ include("inc/nav.php");
                                                             <section class="col col-3 col-auto">
                                                                 <label class="label" for="nomeCompleto">Nome</label>
                                                                 <label class="input">
-                                                                    <input id="nomeCompleto" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="Nome">
+                                                                    <input id="nomeCompleto" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="rg">RG</label>
                                                                 <label class="input">
-                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="RG">
+                                                                    <input id="rg" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="cpf">CPF</label>
                                                                 <label class="input">
-                                                                    <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off" placeholder="CPF">
+                                                                    <input id="cpf" type="text" class="required" maxlength="200" required autocomplete="off">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -126,7 +126,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 ">
                                                                 <label class="label">Estado Civil</label>
                                                                 <label class="select">
-                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off" placeholder="Estado Civil">
+                                                                    <select id="estadoCivil" name="estadoCivil" class="required" type="text" required autocomplete="off">
                                                                         <option hidden selected></option>
                                                                         <option value="1">Solteiro</option>
                                                                         <option value="2">Casado</option>
@@ -158,7 +158,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label" for="dataNascimento">Data De Nascimento</label>
                                                                 <label class="input">
-                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
+                                                                    <input id="dataNascimento" name="dataNascimento" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker required" style="text-align: center" value="" data-mask="99/99/9999" autocomplete="off">
                                                                 </label>
                                                             </section>
 
@@ -172,7 +172,7 @@ include("inc/nav.php");
                                                             <section class="col col-2 col-auto">
                                                                 <label class="label">Primeiro Emprego</label>
                                                                 <label class="select">
-                                                                    <select id="primeiroEmprego" name="primeiroEmprego" class="required" placeholder="Primeiro Emprego">
+                                                                    <select id="primeiroEmprego" name="primeiroEmprego" class="required">
                                                                         <option hidden selected></option>
                                                                         <option value="1">Sim</option>
                                                                         <option value="0">Não</option>
@@ -212,7 +212,7 @@ include("inc/nav.php");
                                                                 <section class="col col-5">
                                                                     <label class="label" for="telefone">Telefone</label>
                                                                     <label class="input">
-                                                                        <input type="text" id="telefone" name="telefone" class="required" data-mask="(99) 99999-9999" data-mask-selectonmfocus="true" placeholder="Telefone" />
+                                                                        <input type="text" id="telefone" name="telefone" class="required" data-mask="(99) 99999-9999" data-mask-selectonmfocus="true" />
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -264,7 +264,7 @@ include("inc/nav.php");
                                                                 <section class="col col-6">
                                                                     <label class="label">Email</label>
                                                                     <label class="input">
-                                                                        <input type="text" id="email" name="email" class="" placeholder="Email" />
+                                                                        <input type="text" id="email" name="email" class="" />
                                                                     </label>
                                                                 </section>
                                                                 <section class="col col-md-2">
@@ -322,31 +322,31 @@ include("inc/nav.php");
                                                             <section class="col col-2">
                                                                 <label class="label" for="cep">CEP</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cep" name="cep" class="required" placeholder="CEP" data-mask="99999-999">
+                                                                    <input type="text" id="cep" name="cep" class="required" data-mask="99999-999">
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="logradouro">Logradouro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="logradouro" name="logradouro" placeholder="Logradouro" />
+                                                                    <input type="text" id="logradouro" name="logradouro" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
                                                                 <label class="label" for="numero">Numero</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="numero" name="numero" class="required" placeholder="Numero" />
+                                                                    <input type="text" id="numero" name="numero" class="required" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="complemento">Complemento</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="complemento" name="complemento" class="" placeholder="Complemento" />
+                                                                    <input type="text" id="complemento" name="complemento" class="" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-1">
                                                                 <label class="label" for="uf">UF</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="uf" name="uf" placeholder="UF" />
+                                                                    <input type="text" id="uf" name="uf" />
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -354,13 +354,13 @@ include("inc/nav.php");
                                                             <section class="col col-2-auto">
                                                                 <label class="label" for="bairro">Bairro</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="bairro" name="bairro" placeholder="Bairro" />
+                                                                    <input type="text" id="bairro" name="bairro" />
                                                                 </label>
                                                             </section>
                                                             <section class="col col-2">
                                                                 <label class="label" for="cidade">Cidade</label>
                                                                 <label class="input">
-                                                                    <input type="text" id="cidade" name="cidade" placeholder="Cidade">
+                                                                    <input type="text" id="cidade" name="cidade">
                                                                 </label>
                                                             </section>
                                                         </div>
@@ -368,91 +368,90 @@ include("inc/nav.php");
                                                 </div>
                                             </div>
 
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseDependente" class="" id="accordionDependente">
-                                                            <i class="fa fa-lg fa-angle-down pull-right"></i>
-                                                            <i class="fa fa-lg fa-angle-up pull-right"></i>
-                                                            Dependente
-                                                        </a>
-                                                    </h4>
-                                                </div>
-                                                <div id="collapseDependente" class="panel-collapse collapse">
-                                                    <div class="panel-body no-padding">
-                                                        <fieldset>
-                                                            <input id="jsonDependente" name="jsonDependente" type="hidden" value="[]">
-                                                            <div id="formDependente" class="col-sm-12">
-                                                                <input id="sequencialDependente" name="sequencialDependente" type="hidden" value="">
-                                                                <input id="descricaoDependente" name="descricaoDependente" type="hidden" value="">
-                                                                <div class="row">
-                                                                    <section class="col col-3 col-auto">
-                                                                        <label class="label" for="nomeDependente">Nome</label>
-                                                                        <label class="input">
-                                                                            <input id="nomeDependente" name="nomeDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="Nome">
-                                                                        </label>
-                                                                    </section>
-                                                                    <section class="col col-2">
-                                                                        <label class="label" for="cpfDependente">CPF</label>
-                                                                        <label class="input">
-                                                                            <input id="cpfDependente" name="cpfDependente" type="text" class="" maxlength="200" required autocomplete="off" placeholder="CPF">
-                                                                        </label>
-                                                                    </section>
-                                                                    <section class="col col-2 col-auto">
-                                                                        <label class="label" for="dataNascimentoDependente">Data De Nascimento</label>
-                                                                        <label class="input">
-                                                                            <input id="dataNascimentoDependente" name="dataNascimentoDependente" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" placeholder="Data De Nascimento" autocomplete="off">
-                                                                        </label>
-                                                                    </section>
-                                                                    <section class="col col-3 col-auto">
-                                                                        <label class="label">Tipo de Dependente</label>
-                                                                        <label class="select">
-                                                                            <select id="tipoDependente" name="tipoDependente" class="">
-                                                                                <option hidden selected></option>
-                                                                                <?php
-                                                                                $reposit = new reposit();
-                                                                                $sql = "SELECT codigo, descricao 
+
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDependente" class="" id="accordionDependente">
+                                                        <i class="fa fa-lg fa-angle-down pull-right"></i>
+                                                        <i class="fa fa-lg fa-angle-up pull-right"></i>
+                                                        Dependente
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseDependente" class="panel-collapse collapse">
+                                                <div class="panel-body no-padding">
+                                                    <fieldset>
+                                                        <input id="jsonDependente" name="jsonDependente" type="hidden" value="[]">
+                                                        <div id="formDependente" class="col-sm-12">
+                                                            <input id="sequencialDependente" name="sequencialDependente" type="hidden" value="">
+                                                            <input id="descricaoDependente" name="descricaoDependente" type="hidden" value="">
+                                                            <div class="row">
+                                                                <section class="col col-3 col-auto">
+                                                                    <label class="label" for="nomeDependente">Nome</label>
+                                                                    <label class="input">
+                                                                        <input id="nomeDependente" name="nomeDependente" type="text" class="" maxlength="200" required autocomplete="off">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-2">
+                                                                    <label class="label" for="cpfDependente">CPF</label>
+                                                                    <label class="input">
+                                                                        <input id="cpfDependente" name="cpfDependente" type="text" class="" maxlength="200" required autocomplete="off">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-2 col-auto">
+                                                                    <label class="label" for="dataNascimentoDependente">Data De Nascimento</label>
+                                                                    <label class="input">
+                                                                        <input id="dataNascimentoDependente" name="dataNascimentoDependente" autocomplete="off" type="text" data-dateformat="dd/mm/yy" class="datepicker" style="text-align: center" value="" data-mask="99/99/9999" autocomplete="off">
+                                                                    </label>
+                                                                </section>
+                                                                <section class="col col-3 col-auto">
+                                                                    <label class="label">Tipo de Dependente</label>
+                                                                    <label class="select">
+                                                                        <select id="tipoDependente" name="tipoDependente" class="">
+                                                                            <option hidden selected></option>
+                                                                            <?php
+                                                                            $reposit = new reposit();
+                                                                            $sql = "SELECT codigo, descricao 
                                                                                 FROM dbo.tipoDependente
                                                                                 WHERE ativo = 1 ";
-                                                                                $result = $reposit->RunQuery($sql);
-                                                                                foreach ($result as $row) {
-                                                                                    $id = $row['codigo'];
-                                                                                    $descricao = $row['descricao'];
-                                                                                    echo '<option value=' . $id . '>' . $descricao . '</option>';
-                                                                                }
-                                                                                ?>
-                                                                            </select><i></i>
-                                                                        </label>
-                                                                    </section>
-                                                                    <Section class="col col-md-2">
-                                                                        <label class="label">&nbsp;</label>
-                                                                        <button id="btnAddDependente" type="button" class="btn btn-primary">
-                                                                            <i class="fa fa-plus"></i>
-                                                                        </button>
-                                                                        <button id="btnExclDependente" type="button" class="btn btn-danger">
-                                                                            <i class="fa fa-minus"></i>
-                                                                        </button>
-                                                                    </section>
+                                                                            $result = $reposit->RunQuery($sql);
+                                                                            foreach ($result as $row) {
+                                                                                $id = $row['codigo'];
+                                                                                $descricao = $row['descricao'];
+                                                                                echo '<option value=' . $id . '>' . $descricao . '</option>';
+                                                                            }
+                                                                            ?>
+                                                                        </select><i></i>
+                                                                    </label>
+                                                                </section>
+                                                                <Section class="col col-md-2">
+                                                                    <label class="label">&nbsp;</label>
+                                                                    <button id="btnAddDependente" type="button" class="btn btn-primary">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                    <button id="btnExclDependente" type="button" class="btn btn-danger">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </section>
 
-                                                                </div>
-                                                                <div class="table-responsive" style="min-height: 115px; width: 95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
-                                                                    <table id="tableDependente" class="table table-bordered table-striped table-condensed table-hover dataTable">
-                                                                        <thead>
-                                                                            <tr role="row">
-                                                                                <th style="width: 3%"></th>
-                                                                                <th class="text-center" style="width: 20%">Nome</th>
-                                                                                <th class="text-center" style="width: 20%">CPF</th>
-                                                                                <th class="text-center" style="width: 20%">Data de Nascimento</th>
-                                                                                <th class="text-center" style="width: 20%">Tipo de Dependente</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
                                                             </div>
-                                                        </fieldset>
-                                                    </div>
+                                                            <div class="table-responsive" style="min-height: 115px; width: 95%; border: 1px solid #ddd; margin-bottom: 13px; overflow-x: auto;">
+                                                                <table id="tableDependente" class="table table-bordered table-striped table-condensed table-hover dataTable">
+                                                                    <thead>
+                                                                        <tr role="row">
+                                                                            <th style="width: 3%"></th>
+                                                                            <th class="text-center" style="width: 20%">Nome</th>
+                                                                            <th class="text-center" style="width: 20%">CPF</th>
+                                                                            <th class="text-center" style="width: 20%">Data de Nascimento</th>
+                                                                            <th class="text-center" style="width: 20%">Tipo de Dependente</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
                                                 </div>
                                             </div>
                                         </div>
@@ -484,6 +483,7 @@ include("inc/nav.php");
                                                 <span class="fa fa-backward "></span>
                                             </button>
                                         </footer>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -634,7 +634,7 @@ include("inc/scripts.php");
 
         });
 
-        $("#nomeCompleto").on("change", function() {      
+        $("#nomeCompleto").on("change", function() {
             var nomeCompleto = $('#nomeCompleto').val().trim();
             $("#nomeCompleto").val(nomeCompleto);
             validaNome()
@@ -693,7 +693,6 @@ include("inc/scripts.php");
             if (primeiroEmprego == 1) {
                 $("#pisPasep").addClass('readonly', true);
                 $("#pisPasep").attr('disabled', true);
-                $("#pisPasep").val('');
             } else {
                 $("#pisPasep").removeAttr('disabled', true);
                 $("#pisPasep").removeClass('readonly', true);
@@ -976,8 +975,8 @@ include("inc/scripts.php");
                 document.getElementById("nomeCompleto").placeholder = "";
                 document.getElementById("nomeCompleto").style.borderColor = "#999999";
                 document.getElementById("nomeCompleto").style.outline = null;
-            } 
-            smartAlert("Atenção","Nome Invalido !","error");
+            }
+            smartAlert("Atenção", "Nome Invalido !", "error");
             return $("#nomeCompleto").val('');
         }
         return true;
@@ -995,7 +994,7 @@ include("inc/scripts.php");
                 document.getElementById("nomeDependente").style.borderColor = "#999999";
                 document.getElementById("nomeDependente").style.outline = null;
             }
-            smartAlert("Atenção","Nome Invalido !","error");
+            smartAlert("Atenção", "Nome Invalido !", "error");
             return $("#nomeDependente").val('');
         }
         return true;
@@ -1160,7 +1159,7 @@ include("inc/scripts.php");
         var id = $("#codigo").val();
         var cpf = $("#cpf").val();
 
-        verificaCPF(id,cpf,
+        verificaCPF(id, cpf,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -1175,11 +1174,12 @@ include("inc/scripts.php");
                 }
             });
     }
+
     function verificarRG() {
         var id = $("#codigo").val();
         var rg = $("#rg").val();
 
-        verificaRG(id,rg,
+        verificaRG(id, rg,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -1199,7 +1199,7 @@ include("inc/scripts.php");
         var id = $("#codigo").val();
         var pisPasep = $("#pisPasep").val();
 
-        verificaPisPasep(id,pisPasep,
+        verificaPisPasep(id, pisPasep,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
@@ -1261,7 +1261,7 @@ include("inc/scripts.php");
         var id = $("#codigo").val();
         var cpfDependente = $("#cpfDependente").val();
 
-        verificaCPFDependente(id,cpfDependente,
+        verificaCPFDependente(id, cpfDependente,
             function(data) {
                 if (data.indexOf('failed') > -1) {
                     var piece = data.split("#");
