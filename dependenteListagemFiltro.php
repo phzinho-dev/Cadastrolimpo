@@ -7,7 +7,7 @@ include "js/repositorio.php";
             <thead>
                 <tr role="row">
                     <th class="text-left" style="min-width:30px;">Dependente</th>
-                    <th class="text-left" style="min-width:35px;">ATIVOo</th>
+                    <th class="text-left" style="min-width:35px;">Ativo</th>
                 </tr>
             </thead>
             <tbody>
